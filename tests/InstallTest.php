@@ -2,7 +2,7 @@
 
 class InstallTest extends TestCase
 {
-    public function testInstalledDirectories()
+    public function test_installed_directories()
     {
         $this->assertFileExists(admin_path());
 

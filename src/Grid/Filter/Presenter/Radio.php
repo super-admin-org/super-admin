@@ -22,7 +22,7 @@ class Radio extends Presenter
     /**
      * Radio constructor.
      *
-     * @param array $options
+     * @param  array  $options
      */
     public function __construct($options = [])
     {
@@ -49,20 +49,17 @@ class Radio extends Presenter
 
     protected function prepare()
     {
-        //$script = "$('.{$this->filter->getId()}').iCheck({radioClass:'iradio_minimal-blue'});";
-        //Admin::script($script);
+        // $script = "$('.{$this->filter->getId()}').iCheck({radioClass:'iradio_minimal-blue'});";
+        // Admin::script($script);
     }
 
-    /**
-     * @return array
-     */
     public function variables(): array
     {
         $this->prepare();
 
         return [
             'options' => $this->options,
-            'inline'  => $this->inline,
+            'inline' => $this->inline,
         ];
     }
 }

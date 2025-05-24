@@ -9,7 +9,9 @@ class BelongsToMany extends MultipleSelect
     use BelongsToRelation;
 
     protected $relation_prefix = 'belongstomany-';
+
     protected $relation_type = 'many';
+
     protected $multiple = true;
 
     protected function getOptions()

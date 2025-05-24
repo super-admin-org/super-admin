@@ -11,7 +11,7 @@ class IndexTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function testIndex()
+    public function test_index()
     {
         $this->visit('admin/')
             ->see('Dashboard')
@@ -32,7 +32,7 @@ class IndexTest extends TestCase
             ->see('laravel/framework');
     }
 
-    public function testClickMenu()
+    public function test_click_menu()
     {
         $this->visit('admin/')
             ->click('Users')

@@ -20,8 +20,7 @@ class Radio extends Field
     /**
      * Set options.
      *
-     * @param array|callable|string $options
-     *
+     * @param  array|callable|string  $options
      * @return $this
      */
     public function options($options = [])
@@ -38,8 +37,7 @@ class Radio extends Field
     /**
      * Set checked.
      *
-     * @param array|callable|string $checked
-     *
+     * @param  array|callable|string  $checked
      * @return $this
      */
     public function checked($checked = [])
@@ -81,8 +79,7 @@ class Radio extends Field
     /**
      * Set options.
      *
-     * @param array|callable|string $values
-     *
+     * @param  array|callable|string  $values
      * @return $this
      */
     public function values($values)
@@ -95,7 +92,7 @@ class Radio extends Field
      */
     public function render()
     {
-        //$this->script = "$('{$this->getElementClassSelector()}').iCheck({radioClass:'iradio_minimal-blue'});";
+        // $this->script = "$('{$this->getElementClassSelector()}').iCheck({radioClass:'iradio_minimal-blue'});";
 
         $this->addCascadeScript();
 

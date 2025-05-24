@@ -20,8 +20,6 @@ class ColumnSelector extends AbstractTool
 
     /**
      * Create a new Export button instance.
-     *
-     * @param Grid $grid
      */
     public function __construct(Grid $grid)
     {
@@ -43,7 +41,7 @@ class ColumnSelector extends AbstractTool
     /**
      * Ignore a column to display in column selector.
      *
-     * @param string|array $name
+     * @param  string|array  $name
      */
     public static function ignore($name)
     {
@@ -57,13 +55,13 @@ class ColumnSelector extends AbstractTool
      */
     public function render()
     {
-        if (!$this->grid->showColumnSelector()) {
+        if (! $this->grid->showColumnSelector()) {
             return '';
         }
 
         return Admin::component('admin::components.column-selector', [
-            'columns'  => $this->getGridColumns(),
-            'visible'  => $this->grid->visibleColumnNames(),
+            'columns' => $this->getGridColumns(),
+            'visible' => $this->grid->visibleColumnNames(),
             'defaults' => $this->grid->getDefaultVisibleColumnNames(),
         ]);
     }

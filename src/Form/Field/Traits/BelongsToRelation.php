@@ -20,8 +20,8 @@ trait BelongsToRelation
     /**
      * BelongsToRelation constructor.
      *
-     * @param string $column
-     * @param array  $arguments
+     * @param  string  $column
+     * @param  array  $arguments
      */
     public function __construct($column, $arguments = [])
     {
@@ -31,11 +31,11 @@ trait BelongsToRelation
     }
 
     /**
-     * @param string $selectable
+     * @param  string  $selectable
      */
     protected function setSelectable($selectable)
     {
-        if (!class_exists($selectable) || !is_subclass_of($selectable, Selectable::class)) {
+        if (! class_exists($selectable) || ! is_subclass_of($selectable, Selectable::class)) {
             throw new \InvalidArgumentException(
                 "[Class [{$selectable}] must be a sub class of SuperAdmin\Admin\Grid\Selectable"
             );
@@ -53,14 +53,13 @@ trait BelongsToRelation
     }
 
     /**
-     * @param int $multiple
-     *
+     * @param  int  $multiple
      * @return string
      */
     protected function getLoadUrl()
     {
         $selectable = str_replace('\\', '_', $this->selectable);
-        $multiple = !empty($this->multiple) ? 1 : 0;
+        $multiple = ! empty($this->multiple) ? 1 : 0;
         $args = [$multiple];
 
         return route('admin.handle-selectable', compact('selectable', 'args'));
@@ -269,7 +268,7 @@ JS;
     protected function makeGrid()
     {
         /** @var Selectable $selectable */
-        $selectable = new $this->selectable();
+        $selectable = new $this->selectable;
 
         return $selectable->renderFormGrid($this->value());
     }
@@ -284,7 +283,7 @@ JS;
         $this->addScript()->addHtml()->addStyle();
 
         $this->addVariables([
-            'grid'    => $this->makeGrid(),
+            'grid' => $this->makeGrid(),
             'options' => $this->getOptions(),
         ]);
 
