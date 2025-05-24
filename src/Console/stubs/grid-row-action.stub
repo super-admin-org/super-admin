@@ -1,0 +1,21 @@
+<?php
+
+namespace DummyNamespace;
+
+use SuperAdmin\Admin\Actions\RowAction;
+use Illuminate\Database\Eloquent\Model;
+
+class DummyClass extends RowAction
+{
+    public $name = 'DummyName';
+
+    public $icon = 'icon-DummyName';
+
+    public function handle(Model $model)
+    {
+        // $model ...
+
+        return $this->response()->success('Success message.')->refresh();
+    }
+DummyInteractor
+}
