@@ -17,15 +17,13 @@ use SuperAdmin\Admin\Traits\DefaultDatetimeFormat;
 class Administrator extends Model implements AuthenticatableContract
 {
     use Authenticatable;
-    use HasPermissions;
     use DefaultDatetimeFormat;
+    use HasPermissions;
 
     protected $fillable = ['username', 'password', 'name', 'avatar'];
 
     /**
      * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
@@ -41,8 +39,7 @@ class Administrator extends Model implements AuthenticatableContract
     /**
      * Get avatar attribute.
      *
-     * @param string $avatar
-     *
+     * @param  string  $avatar
      * @return string
      */
     public function getAvatarAttribute($avatar)
@@ -64,8 +61,6 @@ class Administrator extends Model implements AuthenticatableContract
 
     /**
      * A user has and belongs to many roles.
-     *
-     * @return BelongsToMany
      */
     public function roles(): BelongsToMany
     {
@@ -78,8 +73,6 @@ class Administrator extends Model implements AuthenticatableContract
 
     /**
      * A User has and belongs to many permissions.
-     *
-     * @return BelongsToMany
      */
     public function permissions(): BelongsToMany
     {

@@ -1,8 +1,9 @@
 <?php
+
 namespace Database\Factories;
 
-use Tests\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Tests\Models\Tag;
 
 class TagFactory extends Factory
 {

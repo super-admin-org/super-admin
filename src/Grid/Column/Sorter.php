@@ -33,9 +33,9 @@ class Sorter implements Renderable
     /**
      * Sorter constructor.
      *
-     * @param string $sortName
-     * @param string $columnName
-     * @param string $cast
+     * @param  string  $sortName
+     * @param  string  $columnName
+     * @param  string  $cast
      */
     public function __construct($sortName, $columnName, $cast)
     {

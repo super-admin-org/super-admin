@@ -73,9 +73,6 @@ class Admin
     }
 
     /**
-     * @param $model
-     * @param Closure $callable
-     *
      * @return \SuperAdmin\Admin\Grid
      *
      * @deprecated since v1.6.1
@@ -86,9 +83,6 @@ class Admin
     }
 
     /**
-     * @param $model
-     * @param Closure $callable
-     *
      * @return \SuperAdmin\Admin\Form
      *
      *  @deprecated since v1.6.1
@@ -101,12 +95,10 @@ class Admin
     /**
      * Build a tree.
      *
-     * @param $model
-     * @param Closure|null $callable
      *
      * @return \SuperAdmin\Admin\Tree
      */
-    public function tree($model, Closure $callable = null)
+    public function tree($model, ?Closure $callable = null)
     {
         return new Tree($this->getModel($model), $callable);
     }
@@ -114,9 +106,7 @@ class Admin
     /**
      * Build show page.
      *
-     * @param $model
-     * @param mixed $callable
-     *
+     * @param  mixed  $callable
      * @return Show
      */
     public function show($model, $callable = null)
@@ -125,18 +115,14 @@ class Admin
     }
 
     /**
-     * @param Closure $callable
-     *
      * @return \SuperAdmin\Admin\Layout\Content
      */
-    public function content(Closure $callable = null)
+    public function content(?Closure $callable = null)
     {
         return new Content($callable);
     }
 
     /**
-     * @param $model
-     *
      * @return mixed
      */
     public function getModel($model)
@@ -146,7 +132,7 @@ class Admin
         }
 
         if (is_string($model) && class_exists($model)) {
-            return $this->getModel(new $model());
+            return $this->getModel(new $model);
         }
 
         throw new InvalidArgumentException("$model is not a valid model");
@@ -159,21 +145,20 @@ class Admin
      */
     public function menu()
     {
-        if (!empty($this->menu)) {
+        if (! empty($this->menu)) {
             return $this->menu;
         }
 
         $menuClass = config('admin.database.menu_model');
 
         /** @var Menu $menuModel */
-        $menuModel = new $menuClass();
+        $menuModel = new $menuClass;
 
         return $this->menu = $menuModel->toTree();
     }
 
     /**
-     * @param array $menu
-     *
+     * @param  array  $menu
      * @return array
      */
     public function menuLinks($menu = [])
@@ -185,7 +170,7 @@ class Admin
         $links = [];
 
         foreach ($menu as $item) {
-            if (!empty($item['children'])) {
+            if (! empty($item['children'])) {
                 $links = array_merge($links, $this->menuLinks($item['children']));
             } else {
                 $links[] = Arr::only($item, ['title', 'uri', 'icon']);
@@ -198,8 +183,7 @@ class Admin
     /**
      * Set admin title.
      *
-     * @param string $title
-     *
+     * @param  string  $title
      * @return void
      */
     public static function setTitle($title)
@@ -218,8 +202,7 @@ class Admin
     }
 
     /**
-     * @param null|string $favicon
-     *
+     * @param  null|string  $favicon
      * @return string|void
      */
     public function favicon($favicon = null)
@@ -264,11 +247,10 @@ class Admin
     /**
      * Set navbar.
      *
-     * @param Closure|null $builder
      *
      * @return Navbar
      */
-    public function navbar(Closure $builder = null)
+    public function navbar(?Closure $builder = null)
     {
         if (is_null($builder)) {
             return $this->getNavbar();
@@ -285,7 +267,7 @@ class Admin
     public function getNavbar()
     {
         if (is_null($this->navbar)) {
-            $this->navbar = new Navbar();
+            $this->navbar = new Navbar;
         }
 
         return $this->navbar;
@@ -311,7 +293,7 @@ class Admin
     public function routes()
     {
         $attributes = [
-            'prefix'     => config('admin.route.prefix'),
+            'prefix' => config('admin.route.prefix'),
             'middleware' => config('admin.route.middleware'),
         ];
 
@@ -345,9 +327,8 @@ class Admin
     /**
      * Extend a extension.
      *
-     * @param string $name
-     * @param string $class
-     *
+     * @param  string  $name
+     * @param  string  $class
      * @return void
      */
     public static function extend($name, $class)
@@ -355,17 +336,11 @@ class Admin
         static::$extensions[$name] = $class;
     }
 
-    /**
-     * @param callable $callback
-     */
     public static function booting(callable $callback)
     {
         static::$bootingCallbacks[] = $callback;
     }
 
-    /**
-     * @param callable $callback
-     */
     public static function booted(callable $callback)
     {
         static::$bootedCallbacks[] = $callback;

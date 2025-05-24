@@ -14,8 +14,6 @@ class Role extends Model
 
     /**
      * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
@@ -30,8 +28,6 @@ class Role extends Model
 
     /**
      * A role belongs to many users.
-     *
-     * @return BelongsToMany
      */
     public function administrators(): BelongsToMany
     {
@@ -44,8 +40,6 @@ class Role extends Model
 
     /**
      * A role belongs to many permissions.
-     *
-     * @return BelongsToMany
      */
     public function permissions(): BelongsToMany
     {
@@ -58,8 +52,6 @@ class Role extends Model
 
     /**
      * A role belongs to many menus.
-     *
-     * @return BelongsToMany
      */
     public function menus(): BelongsToMany
     {
@@ -72,10 +64,6 @@ class Role extends Model
 
     /**
      * Check user has permission.
-     *
-     * @param $permission
-     *
-     * @return bool
      */
     public function can(string $permission): bool
     {
@@ -84,14 +72,10 @@ class Role extends Model
 
     /**
      * Check user has no permission.
-     *
-     * @param $permission
-     *
-     * @return bool
      */
     public function cannot(string $permission): bool
     {
-        return !$this->can($permission);
+        return ! $this->can($permission);
     }
 
     /**

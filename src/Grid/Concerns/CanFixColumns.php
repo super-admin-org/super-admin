@@ -12,10 +12,6 @@ trait CanFixColumns
      */
     protected $fixColumns;
 
-    /**
-     * @param int $head
-     * @param int $tail
-     */
     public function fixColumns(int $head, int $tail = -1)
     {
         $this->fixColumns = new FixColumns($this, $head, $tail);

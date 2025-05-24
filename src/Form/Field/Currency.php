@@ -22,17 +22,16 @@ class Currency extends Text
      * @var array
      */
     protected $options = [
-        'alias'              => 'currency',
-        'radixPoint'         => '.',
-        'prefix'             => '',
+        'alias' => 'currency',
+        'radixPoint' => '.',
+        'prefix' => '',
         'removeMaskOnSubmit' => true,
     ];
 
     /**
      * Set symbol for currency field.
      *
-     * @param string $symbol
-     *
+     * @param  string  $symbol
      * @return $this
      */
     public function symbol($symbol)
@@ -45,8 +44,7 @@ class Currency extends Text
     /**
      * Set digits for input number.
      *
-     * @param int $digits
-     *
+     * @param  int  $digits
      * @return $this
      */
     public function digits($digits)

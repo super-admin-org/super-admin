@@ -11,7 +11,7 @@ class SwitchGroup extends SwitchDisplay
     {
         $this->overrideStates($states);
 
-        if (!Arr::isAssoc($columns)) {
+        if (! Arr::isAssoc($columns)) {
             $columns = collect($columns)->map(function ($column) {
                 return [$column => ucfirst($column)];
             })->collapse();
@@ -29,13 +29,13 @@ class SwitchGroup extends SwitchDisplay
     protected function buildSwitch($name, $label = '')
     {
         return Admin::component('admin::grid.inline-edit.switch-group', [
-            'class'    => 'grid-switch-'.str_replace('.', '-', $name),
-            'key'      => $this->getKey(),
+            'class' => 'grid-switch-'.str_replace('.', '-', $name),
+            'key' => $this->getKey(),
             'resource' => $this->getResource(),
-            'name'     => $this->getPayloadName($name),
-            'states'   => $this->states,
-            'checked'  => $this->states['on']['value'] == $this->getAttribute($name) ? 'checked' : '',
-            'label'    => $label,
+            'name' => $this->getPayloadName($name),
+            'states' => $this->states,
+            'checked' => $this->states['on']['value'] == $this->getAttribute($name) ? 'checked' : '',
+            'label' => $label,
         ]);
     }
 }

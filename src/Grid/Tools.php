@@ -31,14 +31,12 @@ class Tools implements Renderable
 
     /**
      * Create a new Tools instance.
-     *
-     * @param Grid $grid
      */
     public function __construct(Grid $grid)
     {
         $this->grid = $grid;
 
-        $this->tools = new Collection();
+        $this->tools = new Collection;
 
         $this->appendDefaultTools();
     }
@@ -48,15 +46,14 @@ class Tools implements Renderable
      */
     protected function appendDefaultTools()
     {
-        $this->append(new BatchActions())
-            ->append(new FilterButton());
+        $this->append(new BatchActions)
+            ->append(new FilterButton);
     }
 
     /**
      * Append tools.
      *
-     * @param AbstractTool|string $tool
-     *
+     * @param  AbstractTool|string  $tool
      * @return $this
      */
     public function append($tool)
@@ -79,8 +76,7 @@ class Tools implements Renderable
     /**
      * Prepend a tool.
      *
-     * @param AbstractTool|string $tool
-     *
+     * @param  AbstractTool|string  $tool
      * @return $this
      */
     public function prepend($tool)
@@ -134,9 +130,6 @@ class Tools implements Renderable
         });
     }
 
-    /**
-     * @param \Closure $closure
-     */
     public function batch(\Closure $closure)
     {
         call_user_func($closure, $this->tools->first(function ($tool) {
@@ -153,7 +146,7 @@ class Tools implements Renderable
     {
         return $this->tools->map(function ($tool) {
             if ($tool instanceof AbstractTool) {
-                if (!$tool->allowed()) {
+                if (! $tool->allowed()) {
                     return '';
                 }
 

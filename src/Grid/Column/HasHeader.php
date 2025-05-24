@@ -22,8 +22,7 @@ trait HasHeader
     /**
      * Add contents to column header.
      *
-     * @param string|Renderable|Htmlable $header
-     *
+     * @param  string|Renderable|Htmlable  $header
      * @return $this
      */
     public function addHeader($header)
@@ -41,8 +40,7 @@ trait HasHeader
     /**
      * Add a column sortable to column header.
      *
-     * @param string $cast
-     *
+     * @param  string  $cast
      * @return Column|string
      */
     protected function addSorter($cast = null)
@@ -57,8 +55,7 @@ trait HasHeader
     /**
      * Add a help tooltip to column header.
      *
-     * @param string $message
-     *
+     * @param  string  $message
      * @return $this
      */
     protected function addHelp($message)
@@ -98,8 +95,6 @@ trait HasHeader
 
     /**
      * Add a binding based on filter to the model query.
-     *
-     * @param Model $model
      */
     public function bindFilterQuery(Model $model)
     {

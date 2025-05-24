@@ -31,8 +31,6 @@ class Menu extends Model
 
     /**
      * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
@@ -47,8 +45,6 @@ class Menu extends Model
 
     /**
      * A Menu belongs to many roles.
-     *
-     * @return BelongsToMany
      */
     public function roles(): BelongsToMany
     {
@@ -59,9 +55,6 @@ class Menu extends Model
         return $this->belongsToMany($relatedModel, $pivotTable, 'menu_id', 'role_id');
     }
 
-    /**
-     * @return array
-     */
     public function allNodes(): array
     {
         $connection = config('admin.database.connection') ?: config('database.default');

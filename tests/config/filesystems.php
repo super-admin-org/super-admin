@@ -45,49 +45,49 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root'   => storage_path('app'),
+            'root' => storage_path('app'),
         ],
 
         'public' => [
-            'driver'     => 'local',
-            'root'       => storage_path('app/public'),
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
             'visibility' => 'public',
         ],
 
         's3' => [
             'driver' => 's3',
-            'key'    => 'your-key',
+            'key' => 'your-key',
             'secret' => 'your-secret',
             'region' => 'your-region',
             'bucket' => 'your-bucket',
         ],
 
         'admin' => [
-            'driver'     => 'local',
-            'root'       => public_path('uploads'),
+            'driver' => 'local',
+            'root' => public_path('uploads'),
             'visibility' => 'public',
-            'url'        => 'http://localhost:8000/uploads/',
+            'url' => 'http://localhost:8000/uploads/',
         ],
 
         'qiniu' => [
-            'driver'  => 'qiniu',
+            'driver' => 'qiniu',
             'domains' => [
                 'default' => '',
-                'https'   => 'dn-yourdomain.qbox.me',
-                'custom'  => 'static.abc.com',
+                'https' => 'dn-yourdomain.qbox.me',
+                'custom' => 'static.abc.com',
             ],
-            'access_key' => '',  //AccessKey
-            'secret_key' => '',  //SecretKey
-            'bucket'     => 'laravel',
+            'access_key' => '',  // AccessKey
+            'secret_key' => '',  // SecretKey
+            'bucket' => 'laravel',
             'notify_url' => '',
         ],
 
         'aliyun' => [
-            'driver'     => 'oss',
-            'access_id'  => '',
+            'driver' => 'oss',
+            'access_id' => '',
             'access_key' => '',
-            'bucket'     => 'super-admin',
-            'endpoint'   => '',
+            'bucket' => 'super-admin',
+            'endpoint' => '',
         ],
 
     ],

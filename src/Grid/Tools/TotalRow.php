@@ -27,8 +27,7 @@ class TotalRow extends AbstractTool
     /**
      * TotalRow constructor.
      *
-     * @param Builder $query
-     * @param array   $columns
+     * @param  Builder  $query
      */
     public function __construct($query, array $columns)
     {
@@ -40,14 +39,13 @@ class TotalRow extends AbstractTool
     /**
      * Get total value of current column.
      *
-     * @param string $column
-     * @param mixed  $display
-     *
+     * @param  string  $column
+     * @param  mixed  $display
      * @return mixed
      */
     protected function total($column, $display = null)
     {
-        if (!is_callable($display) && !is_null($display)) {
+        if (! is_callable($display) && ! is_null($display)) {
             return $display;
         }
 
@@ -61,7 +59,7 @@ class TotalRow extends AbstractTool
     }
 
     /**
-     * @param Collection $columns
+     * @param  Collection  $columns
      */
     public function setVisibleColumns($columns)
     {

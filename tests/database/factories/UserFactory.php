@@ -1,8 +1,9 @@
 <?php
+
 namespace Database\Factories;
 
-use Tests\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Tests\Models\User;
 
 class UserFactory extends Factory
 {
@@ -12,11 +13,10 @@ class UserFactory extends Factory
     {
         return [
             'username' => $this->faker->userName,
-            'email'    => $this->faker->unique()->safeEmail,
-            'mobile'   => $this->faker->phoneNumber,
-            'avatar'   => $this->faker->imageUrl(),
+            'email' => $this->faker->unique()->safeEmail,
+            'mobile' => $this->faker->phoneNumber,
+            'avatar' => $this->faker->imageUrl(),
             'password' => bcrypt('123456'),
         ];
     }
 }
-

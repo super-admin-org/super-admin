@@ -165,7 +165,6 @@ class InstallCommand extends Command
     /**
      * Get stub contents.
      *
-     * @param $name
      *
      * @return string
      */
@@ -177,7 +176,7 @@ class InstallCommand extends Command
     /**
      * Make new directory.
      *
-     * @param string $path
+     * @param  string  $path
      */
     protected function makeDir($path = '')
     {
