@@ -14,8 +14,6 @@ trait HasQuickCreate
     protected $quickCreate;
 
     /**
-     * @param \Closure $closure
-     *
      * @return $this
      */
     public function quickCreate(\Closure $closure)
@@ -34,7 +32,7 @@ trait HasQuickCreate
      */
     public function hasQuickCreate()
     {
-        return !is_null($this->quickCreate);
+        return ! is_null($this->quickCreate);
     }
 
     /**

@@ -20,7 +20,7 @@ class DateTime extends Presenter
     /**
      * DateTime constructor.
      *
-     * @param array $options
+     * @param  array  $options
      */
     public function __construct($options = [])
     {
@@ -28,8 +28,6 @@ class DateTime extends Presenter
     }
 
     /**
-     * @param array $options
-     *
      * @return mixed
      */
     protected function getOptions(array $options): array

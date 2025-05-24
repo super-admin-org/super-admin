@@ -15,13 +15,12 @@ trait HasHeader
     /**
      * Set grid header.
      *
-     * @param Closure|null $closure
      *
      * @return $this|Closure
      */
-    public function header(Closure $closure = null)
+    public function header(?Closure $closure = null)
     {
-        if (!$closure) {
+        if (! $closure) {
             return $this->header;
         }
 
@@ -35,7 +34,7 @@ trait HasHeader
      */
     public function renderHeader()
     {
-        if (!$this->header) {
+        if (! $this->header) {
             return '';
         }
 

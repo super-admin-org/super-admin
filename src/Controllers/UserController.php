@@ -26,7 +26,7 @@ class UserController extends AdminController
     {
         $userModel = config('admin.database.users_model');
 
-        $grid = new Grid(new $userModel());
+        $grid = new Grid(new $userModel);
 
         $grid->column('id', 'ID')->sortable();
         $grid->column('username', trans('admin.username'));
@@ -53,8 +53,7 @@ class UserController extends AdminController
     /**
      * Make a show builder.
      *
-     * @param mixed $id
-     *
+     * @param  mixed  $id
      * @return Show
      */
     protected function detail($id)
@@ -89,7 +88,7 @@ class UserController extends AdminController
         $permissionModel = config('admin.database.permissions_model');
         $roleModel = config('admin.database.roles_model');
 
-        $form = new Form(new $userModel());
+        $form = new Form(new $userModel);
 
         $userTable = config('admin.database.users_table');
         $connection = config('admin.database.connection');

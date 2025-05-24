@@ -27,7 +27,7 @@ class UninstallCommand extends Command
      */
     public function handle()
     {
-        if (!$this->confirm('Are you sure to uninstall super-admin?')) {
+        if (! $this->confirm('Are you sure to uninstall super-admin?')) {
             return;
         }
 

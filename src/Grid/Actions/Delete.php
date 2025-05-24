@@ -23,7 +23,7 @@ class Delete extends RowAction
     {
         $this->attributes = [
             'onclick' => 'admin.resource.delete(event,this)',
-            'data-url'=> "{$this->getResource()}/{$this->getKey()}",
+            'data-url' => "{$this->getResource()}/{$this->getKey()}",
         ];
     }
 
@@ -44,14 +44,12 @@ class Delete extends RowAction
     */
 
     /**
-     * @param Model $model
-     *
      * @return Response
      */
     public function handle(Model $model)
     {
         $trans = [
-            'failed'    => trans('admin.delete_failed'),
+            'failed' => trans('admin.delete_failed'),
             'succeeded' => trans('admin.delete_succeeded'),
         ];
 

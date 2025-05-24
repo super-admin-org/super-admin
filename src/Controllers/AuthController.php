@@ -37,7 +37,6 @@ class AuthController extends Controller
     /**
      * Handle a login request.
      *
-     * @param Request $request
      *
      * @return mixed
      */
@@ -48,7 +47,7 @@ class AuthController extends Controller
         $this->loginValidator($request->all())->validate();
 
         $credentials = $request->only([$this->username(), 'password']);
-        $remember    = $request->get('remember', false);
+        $remember = $request->get('remember', false);
 
         if ($this->guard()->attempt($credentials, $remember)) {
             RateLimiter::clear($rate_limit_key);
@@ -69,7 +68,6 @@ class AuthController extends Controller
     /**
      * Get a validator for an incoming login request.
      *
-     * @param array $data
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */
@@ -77,7 +75,7 @@ class AuthController extends Controller
     {
         return Validator::make($data, [
             $this->username() => 'required',
-            'password'        => 'required',
+            'password' => 'required',
         ]);
     }
 
@@ -98,7 +96,6 @@ class AuthController extends Controller
     /**
      * User setting page.
      *
-     * @param Content $content
      *
      * @return Content
      */
@@ -137,7 +134,7 @@ class AuthController extends Controller
     {
         $class = config('admin.database.users_model');
 
-        $form = new Form(new $class());
+        $form = new Form(new $class);
 
         $form->display('username', trans('admin.username'));
         $form->text('name', trans('admin.name'))->rules('required');
@@ -194,7 +191,6 @@ class AuthController extends Controller
     /**
      * Send the response after the user was authenticated.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */

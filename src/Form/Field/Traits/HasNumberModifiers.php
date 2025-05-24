@@ -7,8 +7,7 @@ trait HasNumberModifiers
     /**
      * Set min value of number field.
      *
-     * @param int $value
-     *
+     * @param  int  $value
      * @return $this
      */
     public function min($value)
@@ -21,8 +20,7 @@ trait HasNumberModifiers
     /**
      * Set max value of number field.
      *
-     * @param int $value
-     *
+     * @param  int  $value
      * @return $this
      */
     public function max($value)
@@ -35,8 +33,7 @@ trait HasNumberModifiers
     /**
      * Set max value of number field.
      *
-     * @param int $value
-     *
+     * @param  int  $value
      * @return $this
      */
     public function step($value)

@@ -66,16 +66,16 @@ class TestCase extends BaseTestCase
 
         require __DIR__.'/seeds/factory.php';
 
-//        \SuperAdmin\Admin\Admin::$css = [];
-//        \SuperAdmin\Admin\Admin::$js = [];
-//        \SuperAdmin\Admin\Admin::$script = [];
+        //        \SuperAdmin\Admin\Admin::$css = [];
+        //        \SuperAdmin\Admin\Admin::$js = [];
+        //        \SuperAdmin\Admin\Admin::$script = [];
     }
 
     protected function tearDown(): void
     {
-        (new CreateAdminTables())->down();
+        (new CreateAdminTables)->down();
 
-        (new CreateTestTables())->down();
+        (new CreateTestTables)->down();
 
         DB::select("delete from `migrations` where `migration` = '2016_01_04_173148_create_admin_tables'");
 
@@ -89,10 +89,10 @@ class TestCase extends BaseTestCase
      */
     public function migrateTestTables()
     {
-        $fileSystem = new Filesystem();
+        $fileSystem = new Filesystem;
 
         $fileSystem->requireOnce(__DIR__.'/migrations/2016_11_22_093148_create_test_tables.php');
 
-        (new CreateTestTables())->up();
+        (new CreateTestTables)->up();
     }
 }

@@ -18,11 +18,11 @@ trait CanExportGrid
     /**
      * Handle export request.
      *
-     * @param bool $forceExport
+     * @param  bool  $forceExport
      */
     protected function handleExportRequest($forceExport = false)
     {
-        if (!$scope = request(Exporter::$queryName)) {
+        if (! $scope = request(Exporter::$queryName)) {
             return;
         }
 
@@ -39,8 +39,7 @@ trait CanExportGrid
     }
 
     /**
-     * @param string $scope
-     *
+     * @param  string  $scope
      * @return AbstractExporter
      */
     protected function getExporter($scope)
@@ -51,7 +50,6 @@ trait CanExportGrid
     /**
      * Set exporter driver for Grid to export.
      *
-     * @param $exporter
      *
      * @return $this
      */
@@ -65,9 +63,8 @@ trait CanExportGrid
     /**
      * Get the export url.
      *
-     * @param int  $scope
-     * @param null $args
-     *
+     * @param  int  $scope
+     * @param  null  $args
      * @return string
      */
     public function getExportUrl($scope = 1, $args = null)
@@ -98,7 +95,7 @@ trait CanExportGrid
      */
     public function disableExport(bool $disable = true)
     {
-        return $this->option('show_exporter', !$disable);
+        return $this->option('show_exporter', ! $disable);
     }
 
     /**
@@ -111,12 +108,9 @@ trait CanExportGrid
         return (new Grid\Tools\ExportButton($this))->render();
     }
 
-    /**
-     * @param \Closure $callback
-     */
     public function export(\Closure $callback)
     {
-        if (!$scope = request(Exporter::$queryName)) {
+        if (! $scope = request(Exporter::$queryName)) {
             return;
         }
 

@@ -24,7 +24,7 @@ class Editable extends AbstractDisplayer
      * @var array
      */
     protected $options = [
-        'emptytext'  => '<i class="icon-pencil"></i>',
+        'emptytext' => '<i class="icon-pencil"></i>',
     ];
 
     /**
@@ -35,7 +35,7 @@ class Editable extends AbstractDisplayer
     /**
      * Add options for editable.
      *
-     * @param array $options
+     * @param  array  $options
      */
     public function addOptions($options = [])
     {
@@ -45,16 +45,13 @@ class Editable extends AbstractDisplayer
     /**
      * Add attributes for editable.
      *
-     * @param array $attributes
+     * @param  array  $attributes
      */
     public function addAttributes($attributes = [])
     {
         $this->attributes = array_merge($this->attributes, $attributes);
     }
 
-    /**
-     * @param array $arguments
-     */
     protected function buildEditableOptions(array $arguments = [])
     {
         $this->type = Arr::get($arguments, 0, 'text');

@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Tests\Models\User;
 use Tests\Models\Profile;
 use Tests\Models\Tag;
+use Tests\Models\User;
 
 class UserTableSeeder extends Seeder
 {

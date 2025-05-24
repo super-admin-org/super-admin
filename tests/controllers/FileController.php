@@ -18,7 +18,7 @@ class FileController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new File());
+        $grid = new Grid(new File);
 
         $grid->id('ID')->sortable();
 
@@ -35,7 +35,7 @@ class FileController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new File());
+        $form = new Form(new File);
 
         $form->display('id', 'ID');
 

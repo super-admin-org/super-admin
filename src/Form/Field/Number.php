@@ -2,7 +2,7 @@
 
 namespace SuperAdmin\Admin\Form\Field;
 
-use  SuperAdmin\Admin\Form\Field\Traits\HasNumberModifiers;
+use SuperAdmin\Admin\Form\Field\Traits\HasNumberModifiers;
 
 class Number extends Text
 {
