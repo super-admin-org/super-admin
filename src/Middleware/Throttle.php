@@ -14,9 +14,7 @@ class Throttle
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -25,10 +23,10 @@ class Throttle
         if (Admin::guard()->guest() && config('admin.auth.throttle_logins')) {
             $throttle_attempts = config('admin.auth.throttle_attempts', 5);
             if (RateLimiter::tooManyAttempts('login-tries-'.Admin::guardName(), $throttle_attempts)) {
-                $errors = new \Illuminate\Support\MessageBag();
+                $errors = new \Illuminate\Support\MessageBag;
                 $errors->add('attempts', $this->getToManyAttemptsMessage());
 
-                return response()->view($this->loginView, ['errors'=>$errors], 429);
+                return response()->view($this->loginView, ['errors' => $errors], 429);
             }
         }
 

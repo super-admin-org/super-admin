@@ -24,8 +24,6 @@ class QuickCreate implements Renderable
 
     /**
      * QuickCreate constructor.
-     *
-     * @param Grid $grid
      */
     public function __construct(Grid $grid)
     {
@@ -35,8 +33,6 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param Field $field
-     *
      * @return Field
      */
     protected function addField(Field $field)
@@ -87,8 +83,7 @@ JS;
     }
 
     /**
-     * @param int $columnCount
-     *
+     * @param  int  $columnCount
      * @return array|string
      */
     public function render($columnCount = 0)
@@ -101,8 +96,8 @@ JS;
 
         $vars = [
             'columnCount' => $columnCount,
-            'fields'      => $this->fields,
-            'url'         => $this->parent->resource(),
+            'fields' => $this->fields,
+            'url' => $this->parent->resource(),
         ];
 
         return view('admin::grid.quick-create-form', $vars)->render();
@@ -111,9 +106,8 @@ JS;
     /**
      * Add nested-form fields dynamically.
      *
-     * @param string $method
-     * @param array  $arguments
-     *
+     * @param  string  $method
+     * @param  array  $arguments
      * @return mixed
      */
     public function __call($method, $arguments)

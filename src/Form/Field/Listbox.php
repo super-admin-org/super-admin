@@ -31,8 +31,7 @@ class Listbox extends MultipleSelect
     /**
      * Set listbox height.
      *
-     * @param int $height
-     *
+     * @param  int  $height
      * @return Listbox
      */
     public function height($height = 200)
@@ -47,9 +46,9 @@ class Listbox extends MultipleSelect
         $this->style('width', '100%');
 
         $settings = array_merge([
-            'availableTitle'        => trans('admin.listbox.title_available'),
-            'selectedTitle'         => trans('admin.listbox.title_selected'),
-            'minHeight'             => 200,
+            'availableTitle' => trans('admin.listbox.title_available'),
+            'selectedTitle' => trans('admin.listbox.title_selected'),
+            'minHeight' => 200,
         ], $this->settings);
 
         $settings = json_encode($settings);
@@ -60,7 +59,7 @@ class Listbox extends MultipleSelect
 
 SCRIPT;
 
-        //$this->attribute('data-value', implode(',', (array) $this->value()));
+        // $this->attribute('data-value', implode(',', (array) $this->value()));
 
         return parent::render();
     }

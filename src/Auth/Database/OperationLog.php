@@ -13,9 +13,9 @@ class OperationLog extends Model
     protected $fillable = ['user_id', 'path', 'method', 'ip', 'input'];
 
     public static $methodColors = [
-        'GET'    => 'success',
-        'POST'   => 'primary',
-        'PUT'    => 'info',
+        'GET' => 'success',
+        'POST' => 'primary',
+        'PUT' => 'info',
         'DELETE' => 'danger',
     ];
 
@@ -26,8 +26,6 @@ class OperationLog extends Model
 
     /**
      * Create a new Eloquent model instance.
-     *
-     * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
@@ -42,8 +40,6 @@ class OperationLog extends Model
 
     /**
      * Log belongs to users.
-     *
-     * @return BelongsTo
      */
     public function user(): BelongsTo
     {

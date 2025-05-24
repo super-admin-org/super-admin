@@ -15,6 +15,7 @@ class DevLinksCommand extends Command
     protected $signature = 'admin:dev-links
                 {--relative : Create the symbolic link using relative paths}
                 {--force : Recreate existing symbolic links}';
+
     /**
      * The console command description.
      *
@@ -32,8 +33,9 @@ class DevLinksCommand extends Command
         $relative = $this->option('relative');
 
         foreach ($this->links() as $link => $target) {
-            if (file_exists($link) && !$this->isRemovableSymlink($link, $this->option('force'))) {
+            if (file_exists($link) && ! $this->isRemovableSymlink($link, $this->option('force'))) {
                 $this->error("The [$link] link already exists.");
+
                 continue;
             }
 
@@ -68,11 +70,6 @@ class DevLinksCommand extends Command
 
     /**
      * Determine if the provided path is a symlink that can be removed.
-     *
-     * @param string $link
-     * @param bool   $force
-     *
-     * @return bool
      */
     protected function isRemovableSymlink(string $link, bool $force): bool
     {

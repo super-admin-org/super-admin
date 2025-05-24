@@ -8,7 +8,7 @@ class Url extends Text
 {
     protected $rules = 'nullable|url';
 
-    public function setForm(Form $form = null)
+    public function setForm(?Form $form = null)
     {
         $this->form = $form;
         // field type url has a default browser validation

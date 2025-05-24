@@ -18,7 +18,7 @@ class MultipleImageController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new MultipleImage());
+        $grid = new Grid(new MultipleImage);
 
         $grid->id('ID')->sortable();
 
@@ -37,7 +37,7 @@ class MultipleImageController extends AdminController
      */
     protected function form()
     {
-        $form = new Form(new MultipleImage());
+        $form = new Form(new MultipleImage);
 
         $form->display('id', 'ID');
 

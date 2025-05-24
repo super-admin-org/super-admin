@@ -9,11 +9,11 @@ class TimeRange extends Field
     protected $format = 'HH:mm:ss';
 
     protected $defaults = [
-        'time_24hr'     => true,
+        'time_24hr' => true,
         'enableSeconds' => true,
-        'enableTime'    => true,
-        'allowInput'    => true,
-        'noCalendar'    => true,
+        'enableTime' => true,
+        'allowInput' => true,
+        'noCalendar' => true,
     ];
 
     /**

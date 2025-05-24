@@ -25,21 +25,20 @@ class Expand extends AbstractDisplayer
         }
 
         return Admin::component('admin::components.column-expand', [
-            'key'           => $this->getKey(),
-            'url'           => $this->getLoadUrl(),
-            'name'          => str_replace('.', '-', $this->getName()).'-'.$this->getKey(),
-            'html'          => $html,
-            'value'         => $this->value,
-            'async'         => $async,
-            'expand'        => $isExpand,
-            'loadGrid'      => $loadGrid,
-            'elementClass'  => "grid-expand-{$this->grid->getGridRowName()}",
+            'key' => $this->getKey(),
+            'url' => $this->getLoadUrl(),
+            'name' => str_replace('.', '-', $this->getName()).'-'.$this->getKey(),
+            'html' => $html,
+            'value' => $this->value,
+            'async' => $async,
+            'expand' => $isExpand,
+            'loadGrid' => $loadGrid,
+            'elementClass' => "grid-expand-{$this->grid->getGridRowName()}",
         ]);
     }
 
     /**
-     * @param int $multiple
-     *
+     * @param  int  $multiple
      * @return string
      */
     protected function getLoadUrl()

@@ -17,9 +17,8 @@ trait HasValuePicker
     protected $picker;
 
     /**
-     * @param string $picker
-     * @param string $column
-     *
+     * @param  string  $picker
+     * @param  string  $column
      * @return $this
      */
     public function pick($picker, $column = '')
@@ -30,9 +29,9 @@ trait HasValuePicker
     }
 
     /**
-     * @param string $picker
-     * @param string $column
-     * @param string $separator
+     * @param  string  $picker
+     * @param  string  $column
+     * @param  string  $separator
      */
     public function pickMany($picker, $column = '', $separator = ',')
     {
@@ -42,11 +41,9 @@ trait HasValuePicker
     }
 
     /**
-     * @param \Closure|null $callback
-     *
      * @return $this
      */
-    protected function mountPicker(\Closure $callback = null)
+    protected function mountPicker(?\Closure $callback = null)
     {
         $this->picker && $this->picker->mount($this, $callback);
 
@@ -59,7 +56,7 @@ trait HasValuePicker
     public function getRules()
     {
         $rules = parent::getRules();
-        if (!empty($rules)) {
+        if (! empty($rules)) {
             array_delete($rules, 'image');
         }
 

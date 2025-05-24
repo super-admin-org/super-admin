@@ -10,7 +10,6 @@ class Permission
     /**
      * Check permission.
      *
-     * @param $permission
      *
      * @return true
      */
@@ -36,7 +35,6 @@ class Permission
     /**
      * Roles allowed to access.
      *
-     * @param $roles
      *
      * @return true
      */
@@ -46,7 +44,7 @@ class Permission
             return true;
         }
 
-        if (!Admin::user()->inRoles($roles)) {
+        if (! Admin::user()->inRoles($roles)) {
             static::error();
         }
     }
@@ -64,7 +62,6 @@ class Permission
     /**
      * Roles denied to access.
      *
-     * @param $roles
      *
      * @return true
      */
@@ -86,7 +83,7 @@ class Permission
     {
         $response = response(Admin::content()->withError(trans('admin.deny')));
 
-        if (!request()->pjax() && request()->ajax()) {
+        if (! request()->pjax() && request()->ajax()) {
             abort(403, trans('admin.deny'));
         }
 
