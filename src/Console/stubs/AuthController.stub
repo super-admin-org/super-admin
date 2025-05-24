@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+
+use SuperAdmin\Admin\Controllers\AuthController as BaseAuthController;
+
+class AuthController extends BaseAuthController
+{
+
+}
