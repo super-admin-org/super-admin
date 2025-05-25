@@ -177,7 +177,7 @@ return [
     */
     'database' => [
 
-        // Database connection for following tables.
+        // Database connection for the following tables.
         'connection' => '',
 
         // User tables and model.
@@ -196,7 +196,7 @@ return [
         'menu_table' => 'admin_menu',
         'menu_model' => SuperAdmin\Admin\Auth\Database\Menu::class,
 
-        // Pivot table for table above.
+        // Pivot table for the table above.
         'operation_log_table' => 'admin_operation_log',
         'user_permissions_table' => 'admin_user_permissions',
         'role_users_table' => 'admin_role_users',
@@ -209,7 +209,7 @@ return [
     | User operation log setting
     |--------------------------------------------------------------------------
     |
-    | By setting this option to open or close operation log in super-admin.
+    | By setting this option to open or close the operation log in super-admin.
     |
     */
     'operation_log' => [
@@ -222,10 +222,10 @@ return [
         'allowed_methods' => ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE', 'PATCH'],
 
         /*
-         * Routes that will not log to database.
+         * Routes that will not log to a database.
          *
-         * All method to path like: admin/auth/logs
-         * or specific method to path like: get:admin/auth/logs.
+         * All methods to a path like: admin/auth/logs
+         * or specific method to a path like: get:admin/auth/logs.
          */
         'except' => [
             env('ADMIN_ROUTE_PREFIX', 'admin').'/auth/logs*',
