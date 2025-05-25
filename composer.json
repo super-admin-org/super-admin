@@ -1,8 +1,8 @@
 {
     "name": "super-admin-org/super-admin",
-    "description": "super-admin. Open-source Laravel Admin panel. No pro or paid package, free & open. Based on laravel-admin, with special thanks to z-song",
+    "description": "super-admin. Open-source Laravel Admin panel. No pro or paid package, free & open. Based on laravel-admin, with special thanks to z-song and open admin",
     "type": "library",
-    "keywords": ["laravel", "admin", "grid", "form", "super-admin","super","free"],
+    "keywords": ["laravel", "admin", "grid", "form", "super-admin","open-admin","super","free","open"],
     "homepage": "https://github.com/super-admin-org/super-admin",
     "license": "MIT",
     "authors": [
