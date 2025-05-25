@@ -117,7 +117,7 @@ class AdminServiceProvider extends ServiceProvider
     }
 
     /**
-     * Remove default feature of double encoding enable in laravel 5.6 or later.
+     * Remove the default feature of double encoding enable in laravel 5.6 or later.
      *
      * @return void
      */
