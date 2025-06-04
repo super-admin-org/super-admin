@@ -12,14 +12,14 @@
         }
     ],
     "require": {
-        "php": "~7.3|~8.0",
+        "php": "^8.3",
         "symfony/dom-crawler": "~3.1|~4.0|~5.0|~6.0|~7.0",
         "laravel/framework": ">=7.0",
         "doctrine/dbal": "2.*|3.*|4.*|5.*"
     },
     "require-dev": {
         "laravel/laravel": ">=8.0|^10.0|^11.0|^12.0",
-        "fzaninotto/faker": "~1.4",
+        "fakerphp/faker": "^1.24",
         "intervention/image": "~2.3",
         "laravel/browser-kit-testing": "^7.0",
         "spatie/phpunit-watcher": "^1.22.0",
