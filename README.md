@@ -3,7 +3,6 @@
 <img src="https://super-admin.org/gfx/logo.png" alt="super-admin" style="height:200px;background:transparent;">
 </a>
 </p>
-
 <p align="center"><code>super-admin</code> is administrative interface builder for laravel which can help you build CRUD backends just with few lines of code.</p>
 
 <p align="center">
@@ -43,13 +42,24 @@
     This project is forked from <a href="https://github.com/open-admin-org/open-admin">open-admin</a>, itself a fork of <a href="https://github.com/z-song/laravel-admin">Laravel-admin</a>. Because both projects are no longer updated and remain incompatible with Laravel 11 and 12, this repository continues the work to support these newer versions.
 </p>
 
+Background
+----------
 
+Super-admin is a community continuation of the
+[open-admin](https://github.com/open-admin-org/open-admin) package, which was originally forked from [laravel-admin](https://github.com/z-song/laravel-admin). Development on those projects has slowed, leaving them incompatible with Laravel 11 and Laravel 12. This repository keeps the codebase up to date and brings the admin panel in line with modern Laravel and Bootstrap 5 practices.
+Key Features
+------------
+- Code-driven interface for building CRUD backends quickly
+- Modern Bootstrap 5 based UI
+- Built-in role and permission system
+- Rich collection of form fields
+- Extensible via a growing list of extensions
+- Works with MySQL, PostgreSQL and SQLite
 Requirements
 ------------
  - PHP >= 8.3.0
  - Laravel >= 12.0.0
  - Fileinfo PHP Extension
-
 Installation
 ------------
 
