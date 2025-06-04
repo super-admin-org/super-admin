@@ -597,7 +597,7 @@ class Model
     public function resetOrderBy()
     {
         $this->queries = $this->queries->reject(function ($query) {
-            return $query['method'] == 'orderBy' || $query['method'] == 'orderByDesc';
+            return in_array($query['method'], ['orderBy', 'orderByDesc', 'orderByRaw']);
         });
     }
 
