@@ -21,8 +21,9 @@
         "laravel/laravel": ">=8.0|^10.0|^11.0|^12.0",
         "fzaninotto/faker": "~1.4",
         "intervention/image": "~2.3",
-        "laravel/browser-kit-testing": "^6.0",
-        "spatie/phpunit-watcher": "^1.22.0"
+        "laravel/browser-kit-testing": "^7.0",
+        "spatie/phpunit-watcher": "^1.22.0",
+        "pestphp/pest": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -60,6 +61,9 @@
         }
     },
     "config": {
-        "process-timeout": 0
+        "process-timeout": 0,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
