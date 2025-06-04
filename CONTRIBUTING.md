@@ -10,7 +10,7 @@ We welcome any type of contribution, not only code. You can help with
 - **Community**: presenting the project at meetups, organizing a dedicated meetup for the local community, ...
 - **Code**: take a look at the [open issues](issues). Even if you can't write code, commenting on them, showing that you care about a given issue matters. It helps us triage them.
 - **Translations**: Feel free to create translation files and create pull request for them
-- **Financial**: As we believe in & benifit from open-source code we also find that maintaing and further develing a platforms costs a lot of time en effort. Please concider making a donation to keep this project going.
+- **Financial**: As we believe in & benefit from open-source code, we also find that maintaining and further developing a platform costs a lot of time and effort. Please consider making a donation to keep this project going.
 
 
 ## Your First Contribution
