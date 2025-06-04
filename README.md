@@ -82,6 +82,16 @@ Configurations
 ------------
 The file `config/admin.php` contains an array of configurations, you can find the default configurations in there.
 
+Running Tests
+------------
+To execute the test suite locally, copy the SQLite environment file:
+
+```bash
+cp .env.test.sqlite .env
+```
+
+Then run `vendor/bin/pest`.
+
 ## Extensions
 <a href="https://super-admin.org/docs/en/extension-development">Extension development</a>
 
