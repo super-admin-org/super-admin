@@ -56,6 +56,9 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
+      - name: Prepare environment
+        run: cp .env.test.sqlite .env
+
       - name: List Installed Dependencies
         run: composer show -D
 
