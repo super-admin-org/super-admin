@@ -32,7 +32,7 @@ class FileUploadTest extends TestCase
     protected function uploadFiles()
     {
         return $this->visit('admin/files/create')
-            ->attach(__DIR__.'/AuthTest.php', 'file1')
+            ->attach(__DIR__.'/BasicAuthTest.php', 'file1')
             ->attach(__DIR__.'/InstallTest.php', 'file2')
             ->attach(__DIR__.'/IndexTest.php', 'file3')
             ->attach(__DIR__.'/LaravelTest.php', 'file4')
@@ -51,7 +51,7 @@ class FileUploadTest extends TestCase
         $this->assertEquals(FileModel::count(), 1);
 
         $where = [
-            'file1' => 'files/AuthTest.php',
+            'file1' => 'files/BasicAuthTest.php',
             'file2' => 'files/InstallTest.php',
             'file3' => 'files/IndexTest.php',
             'file4' => 'files/LaravelTest.php',
