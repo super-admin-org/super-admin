@@ -1,6 +1,6 @@
 <?php
 
-class AuthTest extends TestCase
+class BasicAuthTest extends TestCase
 {
     public function test_login_page()
     {
