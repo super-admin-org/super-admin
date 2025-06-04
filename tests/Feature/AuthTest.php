@@ -1,7 +1,5 @@
 <?php
 
-use SuperAdmin\Admin\Auth\Database\Administrator;
-
 class AuthTest extends TestCase
 {
     public function test_login_page_displays_form()
