@@ -165,7 +165,7 @@ class Box extends Widget implements Renderable
     }
 
     /**
-     * Set styles as attibute.
+     * Set styles as attribute.
      */
     public function setStyles()
     {
