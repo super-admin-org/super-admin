@@ -40,7 +40,13 @@
 </p>
 
 <p align="center">
-    This project is forked from <a href="https://github.com/open-admin-org/open-admin">open-admin</a>, itself a fork of <a href="https://github.com/z-song/laravel-admin">Laravel-admin</a>. Because both projects are no longer updated and remain incompatible with Laravel 11 and 12, this repository continues the work to support these newer versions.
+    This project is forked from
+    <a href="https://github.com/open-admin-org/open-admin">open-admin</a>,
+    itself a fork of
+    <a href="https://github.com/z-song/laravel-admin">Laravel-admin</a>.
+    Because both projects are no longer updated and remain incompatible with
+    Laravel 11 and 12, this repository continues the work to support these
+    newer versions.
 </p>
 
 
