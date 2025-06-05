@@ -100,7 +100,7 @@ To execute the test suite locally, copy the SQLite environment file:
 cp .env.test.sqlite .env
 ```
 
-Then run `vendor/bin/pest`.
+Then run `composer test` (or `vendor/bin/pest`).
 
 ## Extensions
 <a href="https://super-admin.org/docs/en/extension-development">Extension development</a>
