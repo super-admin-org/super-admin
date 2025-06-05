@@ -94,13 +94,30 @@ The file `config/admin.php` contains an array of configurations, you can find th
 
 Running Tests
 ------------
-To execute the test suite locally, copy the SQLite environment file:
+Install the project dependencies first:
+
+```bash
+composer install
+```
+
+Copy the SQLite environment file:
 
 ```bash
 cp .env.test.sqlite .env
 ```
 
-Then run `vendor/bin/pest`.
+Then execute the suite with:
+
+```bash
+vendor/bin/pest
+```
+
+If you don't have PHP installed locally, you can run these commands through `docker-compose`:
+
+```bash
+docker-compose run --rm app composer install
+docker-compose run --rm app vendor/bin/pest
+```
 
 ## Extensions
 <a href="https://super-admin.org/docs/en/extension-development">Extension development</a>
