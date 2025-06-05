@@ -94,13 +94,37 @@ The file `config/admin.php` contains an array of configurations, you can find th
 
 Running Tests
 ------------
-To execute the test suite locally, copy the SQLite environment file:
+Follow these steps to run the test suite locally:
 
-```bash
-cp .env.test.sqlite .env
-```
+1. Install the PHP dependencies using Composer:
 
-Then run `vendor/bin/pest`.
+   ```bash
+   composer install
+   ```
+
+2. Copy the provided SQLite environment file to `.env` **and** to the test
+   application shipped in `vendor/laravel/laravel`:
+
+   ```bash
+   cp .env.test.sqlite .env
+   cp .env.test.sqlite vendor/laravel/laravel/.env
+   ```
+
+   If you prefer, adjust the test bootstrap so that it loads the file directly
+   from the repository root instead of copying it.
+
+3. Optionally generate a fresh application key (not required when using the
+   provided `.env.test.sqlite`):
+
+   ```bash
+   php vendor/laravel/laravel/artisan key:generate
+   ```
+
+4. Run the tests with Pest:
+
+   ```bash
+   vendor/bin/pest
+   ```
 
 ## Extensions
 <a href="https://super-admin.org/docs/en/extension-development">Extension development</a>
