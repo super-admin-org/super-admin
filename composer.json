@@ -44,7 +44,7 @@
     },
     "scripts": {
         "sass": "sass --watch resources/assets/super-admin/scss/styles.scss:resources/assets/super-admin/css/styles.css resources/assets/super-admin/scss/pages:resources/assets/super-admin/css/pages --style compressed",
-        "test": "./vendor/bin/phpunit"
+        "test": "./vendor/bin/pest"
     },
     "suggest": {
         "intervention/image": "Required to handling and manipulation upload images (~2.3).",
