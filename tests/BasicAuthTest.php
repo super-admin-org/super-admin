@@ -1,5 +1,7 @@
 <?php
 
+use SuperAdmin\Admin\Auth\Database\Administrator;
+
 class BasicAuthTest extends TestCase
 {
     public function test_login_page()
@@ -50,6 +52,15 @@ class BasicAuthTest extends TestCase
             ->see('<span>Permission</span>')
             ->see('<span>Operation log</span>')
             ->see('<span>Menu</span>');
+    }
+
+    public function test_login_page_when_authenticated_redirects_to_dashboard()
+    {
+        $this->be(Administrator::first(), 'admin');
+
+        $this->visit('admin/auth/login')
+            ->seePageIs('admin')
+            ->seeIsAuthenticated('admin');
     }
 
     public function test_logout()
