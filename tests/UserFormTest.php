@@ -101,11 +101,12 @@ class UserFormTest extends TestCase
 
     protected function seedsTable($count = 100)
     {
-        factory(\Tests\Models\User::class, $count)
+        UserModel::factory()
+            ->count($count)
             ->create()
             ->each(function ($u) {
-                $u->profile()->save(factory(\Tests\Models\Profile::class)->make());
-                $u->tags()->saveMany(factory(\Tests\Models\Tag::class, 5)->make());
+                $u->profile()->save(ProfileModel::factory()->make());
+                $u->tags()->saveMany(Tests\Models\Tag::factory()->count(5)->make());
             });
     }
 
