@@ -64,7 +64,6 @@ class TestCase extends BaseTestCase
 
         require __DIR__.'/routes.php';
 
-
         //        \SuperAdmin\Admin\Admin::$css = [];
         //        \SuperAdmin\Admin\Admin::$js = [];
         //        \SuperAdmin\Admin\Admin::$script = [];
