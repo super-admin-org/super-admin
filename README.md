@@ -52,14 +52,14 @@
 
 Requirements
 ------------
- - PHP >= 8.3.0
+ - PHP >= 8.2.0
  - Laravel >= 12.0.0
  - Fileinfo PHP Extension
 
 Installation
 ------------
 
-> This package requires PHP 8.3+ and Laravel 12.0 or up
+> This package requires PHP 8.2+ and Laravel 12.0 or up
 
 First, install laravel (12.0 or up), and make sure that the database connection settings are correct.
 
