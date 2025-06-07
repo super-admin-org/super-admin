@@ -93,8 +93,6 @@ Configurations
 The file `config/admin.php` contains an array of configurations, you can find the default configurations in there.
 
 Running Tests
-------------
-Follow these steps to run the test suite locally:
 
 1. Install the PHP dependencies using Composer:
 
@@ -122,9 +120,6 @@ Follow these steps to run the test suite locally:
 
 4. Run the tests with Pest:
 
-   ```bash
-   vendor/bin/pest
-   ```
 
 ## Extensions
 <a href="https://super-admin.org/docs/en/extension-development">Extension development</a>
