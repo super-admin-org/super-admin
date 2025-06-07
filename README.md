@@ -120,6 +120,10 @@ Running Tests
 
 4. Run the tests with Pest:
 
+   ```bash
+   vendor/bin/pest
+   ```
+
 
 ## Extensions
 <a href="https://super-admin.org/docs/en/extension-development">Extension development</a>
