@@ -93,31 +93,33 @@ Configurations
 The file `config/admin.php` contains an array of configurations, you can find the default configurations in there.
 
 Running Tests
-------------
-Install the project dependencies first:
 
-```bash
-composer install
-```
+1. Install the PHP dependencies using Composer:
 
-Copy the SQLite environment file:
+   ```bash
+   composer install
+   ```
 
-```bash
-cp .env.test.sqlite .env
-```
+2. Copy the provided SQLite environment file to `.env` **and** to the test
+   application shipped in `vendor/laravel/laravel`:
 
-Then execute the suite with:
+   ```bash
+   cp .env.test.sqlite .env
+   cp .env.test.sqlite vendor/laravel/laravel/.env
+   ```
 
-```bash
-vendor/bin/pest
-```
+   If you prefer, adjust the test bootstrap so that it loads the file directly
+   from the repository root instead of copying it.
 
-If you don't have PHP installed locally, you can run these commands through `docker-compose`:
+3. Optionally generate a fresh application key (not required when using the
+   provided `.env.test.sqlite`):
 
-```bash
-docker-compose run --rm app composer install
-docker-compose run --rm app vendor/bin/pest
-```
+   ```bash
+   php vendor/laravel/laravel/artisan key:generate
+   ```
+
+4. Run the tests with Pest:
+
 
 ## Extensions
 <a href="https://super-admin.org/docs/en/extension-development">Extension development</a>
