@@ -67,15 +67,15 @@ class Response
      */
     public function swal()
     {
-        if (! $this->plugin instanceof SweatAlert2) {
-            $this->plugin = new SweatAlert2;
+        if (! $this->plugin instanceof SweetAlert2) {
+            $this->plugin = new SweetAlert2;
         }
 
         return $this;
     }
 
     /**
-     * @return SweatAlert2
+     * @return SweetAlert2
      */
     public function getPlugin()
     {

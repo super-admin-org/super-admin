@@ -2,7 +2,7 @@
 
 namespace SuperAdmin\Admin\Actions;
 
-class SweatAlert2
+class SweetAlert2
 {
     /**
      * @var string
