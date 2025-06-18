@@ -52,14 +52,14 @@
 
 Requirements
 ------------
- - PHP >= 8.3.0
+ - PHP >= 8.2.0
  - Laravel >= 12.0.0
  - Fileinfo PHP Extension
 
 Installation
 ------------
 
-> This package requires PHP 8.3+ and Laravel 12.0 or up
+> This package requires PHP 8.2+ and Laravel 12.0 or up
 
 First, install laravel (12.0 or up), and make sure that the database connection settings are correct.
 
@@ -93,14 +93,37 @@ Configurations
 The file `config/admin.php` contains an array of configurations, you can find the default configurations in there.
 
 Running Tests
-------------
-To execute the test suite locally, copy the SQLite environment file:
 
-```bash
-cp .env.test.sqlite .env
-```
+1. Install the PHP dependencies using Composer:
 
-Then run `vendor/bin/pest`.
+   ```bash
+   composer install
+   ```
+
+2. Copy the provided SQLite environment file to `.env` **and** to the test
+   application shipped in `vendor/laravel/laravel`:
+
+   ```bash
+   cp .env.test.sqlite .env
+   cp .env.test.sqlite vendor/laravel/laravel/.env
+   ```
+
+   If you prefer, adjust the test bootstrap so that it loads the file directly
+   from the repository root instead of copying it.
+
+3. Optionally generate a fresh application key (not required when using the
+   provided `.env.test.sqlite`):
+
+   ```bash
+   php vendor/laravel/laravel/artisan key:generate
+   ```
+
+4. Run the tests with Pest:
+
+   ```bash
+   vendor/bin/pest
+   ```
+
 
 ## Extensions
 <a href="https://super-admin.org/docs/en/extension-development">Extension development</a>
