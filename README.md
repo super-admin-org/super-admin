@@ -5,7 +5,6 @@
 </p>
 
 <p align="center"><code>super-admin</code> is administrative interface builder for laravel which can help you build CRUD backends just with few lines of code.</p>
-
 <p align="center">
 <a href="https://super-admin.org">Homepage</a> |
 <a href="https://super-admin.org/docs">Documentation</a> |
