@@ -10,3 +10,7 @@ composer.lock
 resources/assets/minify-manifest.json
 resources/assets/super-admin.min.css
 resources/assets/super-admin.min.js
+/tests
+.phpunit.result.cache
+docker-compose.yml
+Dockerfile

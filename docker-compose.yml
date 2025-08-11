@@ -22,7 +22,7 @@ services:
     image: mysql:8
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: open_admin_test
+      MYSQL_DATABASE: super_admin_test
     ports:
       - "3307:3306"
     volumes:
@@ -33,7 +33,7 @@ services:
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-      POSTGRES_DB: open_admin_test
+      POSTGRES_DB: super_admin_test
     ports:
       - "5433:5432"
     volumes:
