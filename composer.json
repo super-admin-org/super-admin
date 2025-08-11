@@ -23,7 +23,9 @@
         "intervention/image": "~2.3 || ~3.0",
         "laravel/browser-kit-testing": "^7.0",
         "spatie/phpunit-watcher": "^1.22.0",
-        "pestphp/pest": "^2.0 || ^3.0"
+        "pestphp/pest": "^2.0 || ^3.0",
+        "larastan/larastan": "3.0",
+        "orchestra/testbench": "^9.14"
     },
     "autoload": {
         "psr-4": {
@@ -43,8 +45,7 @@
         ]
     },
     "scripts": {
-        "sass": "sass --watch resources/assets/super-admin/scss/styles.scss:resources/assets/super-admin/css/styles.css resources/assets/super-admin/scss/pages:resources/assets/super-admin/css/pages --style compressed",
-        "test": "./vendor/bin/pest"
+        "test": "./vendor/bin/phpunit"
     },
     "suggest": {
         "intervention/image": "Required to handling and manipulation upload images (~2.3).",

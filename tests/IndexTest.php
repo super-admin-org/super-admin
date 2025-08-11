@@ -11,7 +11,7 @@ class IndexTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function test_index()
+    public function testIndex()
     {
         $this->visit('admin/')
             ->see('Dashboard')
@@ -22,9 +22,9 @@ class IndexTest extends TestCase
             ->see('Laravel version')
 
             ->see('Available extensions')
-            ->seeLink('super-admin-ext/helpers', 'https://github.com/super-admin-extensions/helpers')
-            ->seeLink('super-admin-ext/backup', 'https://github.com/super-admin-extensions/backup')
-            ->seeLink('super-admin-ext/media-manager', 'https://github.com/super-admin-extensions/media-manager')
+            ->seeLink('laravel-admin-ext/helpers', 'https://github.com/laravel-admin-extensions/helpers')
+            ->seeLink('laravel-admin-ext/backup', 'https://github.com/laravel-admin-extensions/backup')
+            ->seeLink('laravel-admin-ext/media-manager', 'https://github.com/laravel-admin-extensions/media-manager')
 
             ->see('Dependencies')
             ->see('php')
@@ -32,7 +32,7 @@ class IndexTest extends TestCase
             ->see('laravel/framework');
     }
 
-    public function test_click_menu()
+    public function testClickMenu()
     {
         $this->visit('admin/')
             ->click('Users')

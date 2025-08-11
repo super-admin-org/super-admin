@@ -2,7 +2,7 @@
 
 class InstallTest extends TestCase
 {
-    public function test_installed_directories()
+    public function testInstalledDirectories()
     {
         $this->assertFileExists(admin_path());
 
@@ -20,6 +20,6 @@ class InstallTest extends TestCase
 
         $this->assertFileExists(config_path('admin.php'));
 
-        $this->assertFileExists(public_path('vendor/super-admin'));
+        $this->assertFileExists(public_path('vendor/laravel-admin'));
     }
 }

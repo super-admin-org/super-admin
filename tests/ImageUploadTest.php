@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\File;
 use SuperAdmin\Admin\Auth\Database\Administrator;
+use Illuminate\Support\Facades\File;
 use Tests\Models\Image;
 use Tests\Models\MultipleImage;
 
@@ -14,13 +14,13 @@ class ImageUploadTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function test_disable_filter()
+    public function testDisableFilter()
     {
         $this->visit('admin/images')
             ->dontSeeElement('input[name=id]');
     }
 
-    public function test_image_upload_page()
+    public function testImageUploadPage()
     {
         $this->visit('admin/images/create')
             ->see('Images')
@@ -47,7 +47,7 @@ class ImageUploadTest extends TestCase
             ->press('Submit');
     }
 
-    public function test_upload_image()
+    public function testUploadImage()
     {
         File::cleanDirectory(public_path('uploads/images'));
 
@@ -69,7 +69,7 @@ class ImageUploadTest extends TestCase
         File::cleanDirectory(public_path('uploads/images'));
     }
 
-    public function test_remove_image()
+    public function testRemoveImage()
     {
         File::cleanDirectory(public_path('uploads/images'));
 
@@ -78,7 +78,7 @@ class ImageUploadTest extends TestCase
         $this->assertEquals($this->fileCountInImageDir(), 6);
     }
 
-    public function test_update_image()
+    public function testUpdateImage()
     {
         File::cleanDirectory(public_path('uploads/images'));
 
@@ -118,7 +118,7 @@ class ImageUploadTest extends TestCase
         File::cleanDirectory(public_path('uploads/images'));
     }
 
-    public function test_delete_images()
+    public function testDeleteImages()
     {
         File::cleanDirectory(public_path('uploads/images'));
 
@@ -140,7 +140,7 @@ class ImageUploadTest extends TestCase
             ->seeInElement('td', 'svg');
     }
 
-    public function test_batch_delete()
+    public function testBatchDelete()
     {
         File::cleanDirectory(public_path('uploads/images'));
 
@@ -167,7 +167,7 @@ class ImageUploadTest extends TestCase
         $this->assertEquals($this->fileCountInImageDir(), 0);
     }
 
-    public function test_upload_multiple_image()
+    public function testUploadMultipleImage()
     {
         File::cleanDirectory(public_path('uploads/images'));
 
@@ -203,7 +203,7 @@ class ImageUploadTest extends TestCase
         }
     }
 
-    public function test_remove_multiple_files()
+    public function testRemoveMultipleFiles()
     {
         File::cleanDirectory(public_path('uploads/images'));
 

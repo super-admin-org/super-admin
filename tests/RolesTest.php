@@ -12,14 +12,14 @@ class RolesTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function test_roles_index()
+    public function testRolesIndex()
     {
         $this->visit('admin/auth/roles')
             ->see('Roles')
             ->see('administrator');
     }
 
-    public function test_add_role()
+    public function testAddRole()
     {
         $this->visit('admin/auth/roles/create')
             ->see('Roles')
@@ -29,12 +29,12 @@ class RolesTest extends TestCase
             ->assertEquals(2, Role::count());
     }
 
-    public function test_add_role_to_user()
+    public function testAddRoleToUser()
     {
         $user = [
-            'username' => 'Test',
-            'name' => 'Name',
-            'password' => '123456',
+            'username'              => 'Test',
+            'name'                  => 'Name',
+            'password'              => '123456',
             'password_confirmation' => '123456',
 
         ];
@@ -68,7 +68,7 @@ class RolesTest extends TestCase
         $this->assertTrue(Administrator::find(2)->inRoles(['developer', 'operator', 'editor']));
     }
 
-    public function test_delete_role()
+    public function testDeleteRole()
     {
         $this->assertEquals(1, Role::count());
 
@@ -86,7 +86,7 @@ class RolesTest extends TestCase
             ->assertEquals(0, Role::count());
     }
 
-    public function test_edit_role()
+    public function testEditRole()
     {
         $this->visit('admin/auth/roles/create')
             ->see('Roles')

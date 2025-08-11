@@ -10,3 +10,12 @@ composer.lock
 resources/assets/minify-manifest.json
 resources/assets/super-admin.min.css
 resources/assets/super-admin.min.js
+.env
+.env.test.mysql
+.env.test.pgsql
+.env.test.sqlite
+.phpunit.result.cache
+.styleci.yml
+.travis.yml
+docker-compose.yml
+Dockerfile

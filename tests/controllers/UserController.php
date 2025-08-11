@@ -19,7 +19,7 @@ class UserController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new User);
+        $grid = new Grid(new User());
 
         $grid->id('ID')->sortable();
 
@@ -84,7 +84,7 @@ class UserController extends AdminController
         Form::extend('map', Form\Field\Map::class);
         Form::extend('editor', Form\Field\Editor::class);
 
-        $form = new Form(new User);
+        $form = new Form(new User());
 
         $form->display('id', 'ID');
         $form->text('username');
@@ -106,7 +106,7 @@ class UserController extends AdminController
         $form->datetime('profile.start_at');
         $form->datetime('profile.end_at');
 
-        $form->multipleSelect('tags', 'Tags')->options(Tag::all()->pluck('name', 'id')); // ->rules('max:10|min:3');
+        $form->multipleSelect('tags', 'Tags')->options(Tag::all()->pluck('name', 'id')); //->rules('max:10|min:3');
 
         $form->display('created_at', 'Created At');
         $form->display('updated_at', 'Updated At');

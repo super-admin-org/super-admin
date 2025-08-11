@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\File;
 use SuperAdmin\Admin\Auth\Database\Administrator;
+use Illuminate\Support\Facades\File;
 use Tests\Models\File as FileModel;
 
 class FileUploadTest extends TestCase
@@ -13,7 +13,7 @@ class FileUploadTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function test_file_upload_page()
+    public function testFileUploadPage()
     {
         $this->visit('admin/files/create')
             ->see('Files')
@@ -32,7 +32,7 @@ class FileUploadTest extends TestCase
     protected function uploadFiles()
     {
         return $this->visit('admin/files/create')
-            ->attach(__DIR__.'/BasicAuthTest.php', 'file1')
+            ->attach(__DIR__.'/AuthTest.php', 'file1')
             ->attach(__DIR__.'/InstallTest.php', 'file2')
             ->attach(__DIR__.'/IndexTest.php', 'file3')
             ->attach(__DIR__.'/LaravelTest.php', 'file4')
@@ -41,7 +41,7 @@ class FileUploadTest extends TestCase
             ->press('Submit');
     }
 
-    public function test_upload_file()
+    public function testUploadFile()
     {
         File::cleanDirectory(public_path('uploads/files'));
 
@@ -51,7 +51,7 @@ class FileUploadTest extends TestCase
         $this->assertEquals(FileModel::count(), 1);
 
         $where = [
-            'file1' => 'files/BasicAuthTest.php',
+            'file1' => 'files/AuthTest.php',
             'file2' => 'files/InstallTest.php',
             'file3' => 'files/IndexTest.php',
             'file4' => 'files/LaravelTest.php',
@@ -70,7 +70,7 @@ class FileUploadTest extends TestCase
         File::cleanDirectory(public_path('uploads/files'));
     }
 
-    public function test_update_file()
+    public function testUpdateFile()
     {
         File::cleanDirectory(public_path('uploads/files'));
 
@@ -111,7 +111,7 @@ class FileUploadTest extends TestCase
         File::cleanDirectory(public_path('uploads/files'));
     }
 
-    public function test_delete_files()
+    public function testDeleteFiles()
     {
         File::cleanDirectory(public_path('uploads/files'));
 
@@ -133,7 +133,7 @@ class FileUploadTest extends TestCase
             ->seeInElement('td', 'svg');
     }
 
-    public function test_batch_delete()
+    public function testBatchDelete()
     {
         File::cleanDirectory(public_path('uploads/files'));
 

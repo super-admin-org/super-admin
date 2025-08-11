@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\File;
 use SuperAdmin\Admin\Auth\Database\Administrator;
+use Illuminate\Support\Facades\File;
 
 class UserSettingTest extends TestCase
 {
@@ -12,7 +12,7 @@ class UserSettingTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function test_visit_setting_page()
+    public function testVisitSettingPage()
     {
         $this->visit('admin/auth/setting')
             ->see('User setting')
@@ -26,7 +26,7 @@ class UserSettingTest extends TestCase
             ->seeInElement('.box-body', 'administrator');
     }
 
-    public function test_update_name()
+    public function testUpdateName()
     {
         $data = [
             'name' => 'tester',
@@ -39,7 +39,7 @@ class UserSettingTest extends TestCase
         $this->seeInDatabase('admin_users', ['name' => $data['name']]);
     }
 
-    public function test_update_avatar()
+    public function testUpdateAvatar()
     {
         File::cleanDirectory(public_path('uploads/images'));
 
@@ -53,10 +53,10 @@ class UserSettingTest extends TestCase
         $this->assertEquals('http://localhost:8000/uploads/images/test.jpg', $avatar);
     }
 
-    public function test_update_password_confirmation()
+    public function testUpdatePasswordConfirmation()
     {
         $data = [
-            'password' => '123456',
+            'password'              => '123456',
             'password_confirmation' => '123',
         ];
 
@@ -66,10 +66,10 @@ class UserSettingTest extends TestCase
             ->see('The Password confirmation does not match.');
     }
 
-    public function test_update_password()
+    public function testUpdatePassword()
     {
         $data = [
-            'password' => '123456',
+            'password'              => '123456',
             'password_confirmation' => '123456',
         ];
 

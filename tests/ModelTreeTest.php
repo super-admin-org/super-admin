@@ -9,7 +9,7 @@ class ModelTreeTest extends TestCase
         parent::setUp();
     }
 
-    public function test_select_options()
+    public function testSelectOptions()
     {
         $rootText = 'Root Text';
 
