@@ -15,18 +15,18 @@ class UsersTest extends TestCase
         $this->be($this->user, 'admin');
     }
 
-    public function test_users_index_page()
+    public function testUsersIndexPage()
     {
         $this->visit('admin/auth/users')
             ->see('Administrator');
     }
 
-    public function test_create_user()
+    public function testCreateUser()
     {
         $user = [
-            'username' => 'Test',
-            'name' => 'Name',
-            'password' => '123456',
+            'username'              => 'Test',
+            'name'                  => 'Name',
+            'password'              => '123456',
             'password_confirmation' => '123456',
         ];
 
@@ -61,7 +61,7 @@ class UsersTest extends TestCase
             ->see('<span>Menu</span>');
     }
 
-    public function test_update_user()
+    public function testUpdateUser()
     {
         $this->visit('admin/auth/users/'.$this->user->id.'/edit')
             ->see('Create')
@@ -70,14 +70,14 @@ class UsersTest extends TestCase
             ->seeInDatabase(config('admin.database.users_table'), ['name' => 'test']);
     }
 
-    public function test_reset_password()
+    public function testResetPassword()
     {
         $password = 'odjwyufkglte';
 
         $data = [
-            'password' => $password,
+            'password'              => $password,
             'password_confirmation' => $password,
-            'roles' => [1],
+            'roles'                 => [1],
         ];
 
         $this->visit('admin/auth/users/'.$this->user->id.'/edit')

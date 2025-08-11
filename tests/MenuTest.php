@@ -12,7 +12,7 @@ class MenuTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function test_menu_index()
+    public function testMenuIndex()
     {
         $this->visit('admin/auth/menu')
             ->see('Menu')
@@ -24,7 +24,7 @@ class MenuTest extends TestCase
             ->see('Menu');
     }
 
-    public function test_add_menu()
+    public function testAddMenu()
     {
         $item = ['parent_id' => '0', 'title' => 'Test', 'uri' => 'test'];
 
@@ -36,20 +36,20 @@ class MenuTest extends TestCase
             ->seeInDatabase(config('admin.database.menu_table'), $item)
             ->assertEquals(8, Menu::count());
 
-        //        $this->expectException(\Laravel\BrowserKitTesting\HttpException::class);
-        //
-        //        $this->visit('admin')
-        //            ->see('Test')
-        //            ->click('Test');
+//        $this->expectException(\Laravel\BrowserKitTesting\HttpException::class);
+//
+//        $this->visit('admin')
+//            ->see('Test')
+//            ->click('Test');
     }
 
-    public function test_delete_menu()
+    public function testDeleteMenu()
     {
         $this->delete('admin/auth/menu/8')
             ->assertEquals(7, Menu::count());
     }
 
-    public function test_edit_menu()
+    public function testEditMenu()
     {
         $this->visit('admin/auth/menu/1/edit')
             ->see('Menu')
@@ -59,13 +59,13 @@ class MenuTest extends TestCase
             ->assertEquals(7, Menu::count());
     }
 
-    public function test_show_page()
+    public function testShowPage()
     {
         $this->visit('admin/auth/menu/1/edit')
             ->seePageIs('admin/auth/menu/1/edit');
     }
 
-    public function test_edit_menu_parent()
+    public function testEditMenuParent()
     {
         $this->expectException(\Laravel\BrowserKitTesting\HttpException::class);
 

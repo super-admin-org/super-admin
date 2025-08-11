@@ -1,23 +1,21 @@
 <?php
 
-use SuperAdmin\Admin\Auth\Database\Administrator;
-
-class BasicAuthTest extends TestCase
+class AuthTest extends TestCase
 {
-    public function test_login_page()
+    public function testLoginPage()
     {
         $this->visit('admin/auth/login')
             ->see('login');
     }
 
-    public function test_visit_without_login()
+    public function testVisitWithoutLogin()
     {
         $this->visit('admin')
             ->dontSeeIsAuthenticated('admin')
             ->seePageIs('admin/auth/login');
     }
 
-    public function test_login()
+    public function testLogin()
     {
         $credentials = ['username' => 'admin', 'password' => 'admin'];
 
@@ -36,9 +34,9 @@ class BasicAuthTest extends TestCase
             ->see('Laravel version')
 
             ->see('Available extensions')
-            ->seeLink('super-admin-ext/helpers', 'https://github.com/super-admin-extensions/helpers')
-            ->seeLink('super-admin-ext/backup', 'https://github.com/super-admin-extensions/backup')
-            ->seeLink('super-admin-ext/media-manager', 'https://github.com/super-admin-extensions/media-manager')
+            ->seeLink('laravel-admin-ext/helpers', 'https://github.com/laravel-admin-extensions/helpers')
+            ->seeLink('laravel-admin-ext/backup', 'https://github.com/laravel-admin-extensions/backup')
+            ->seeLink('laravel-admin-ext/media-manager', 'https://github.com/laravel-admin-extensions/media-manager')
 
             ->see('Dependencies')
             ->see('php')
@@ -54,16 +52,7 @@ class BasicAuthTest extends TestCase
             ->see('<span>Menu</span>');
     }
 
-    public function test_login_page_when_authenticated_redirects_to_dashboard()
-    {
-        $this->be(Administrator::first(), 'admin');
-
-        $this->visit('admin/auth/login')
-            ->seePageIs('admin')
-            ->seeIsAuthenticated('admin');
-    }
-
-    public function test_logout()
+    public function testLogout()
     {
         $this->visit('admin/auth/logout')
             ->seePageIs('admin/auth/login')

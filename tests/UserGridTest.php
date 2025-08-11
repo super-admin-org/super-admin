@@ -13,7 +13,7 @@ class UserGridTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function test_index_page()
+    public function testIndexPage()
     {
         $this->visit('admin/users')
             ->see('Users')
@@ -51,18 +51,17 @@ class UserGridTest extends TestCase
 
     protected function seedsTable($count = 100)
     {
-        UserModel::factory()
-            ->count($count)
+        factory(\Tests\Models\User::class, $count)
             ->create()
             ->each(function ($u) {
-                $u->profile()->save(ProfileModel::factory()->make());
-                $u->tags()->saveMany(Tests\Models\Tag::factory()->count(5)->make());
+                $u->profile()->save(factory(\Tests\Models\Profile::class)->make());
+                $u->tags()->saveMany(factory(\Tests\Models\Tag::class, 5)->make());
                 $u->data = ['json' => ['field' => random_int(0, 50)]];
                 $u->save();
             });
     }
 
-    public function test_grid_with_data()
+    public function testGridWithData()
     {
         $this->seedsTable();
 
@@ -73,7 +72,7 @@ class UserGridTest extends TestCase
         $this->assertCount(100, ProfileModel::all());
     }
 
-    public function test_grid_pagination()
+    public function testGridPagination()
     {
         $this->seedsTable(65);
 
@@ -93,7 +92,7 @@ class UserGridTest extends TestCase
         $this->assertCount(20, $this->crawler()->filter('td a i[class*=fa-edit]'));
     }
 
-    public function test_order_by_json()
+    public function testOrderByJson()
     {
         $this->seedsTable(10);
         $this->assertCount(10, UserModel::all());
@@ -110,7 +109,7 @@ class UserGridTest extends TestCase
         }
     }
 
-    public function test_equal_filter()
+    public function testEqualFilter()
     {
         $this->seedsTable(50);
 
@@ -138,7 +137,7 @@ class UserGridTest extends TestCase
             ->seeInElement('td', $user->end_at);
     }
 
-    public function test_like_filter()
+    public function testLikeFilter()
     {
         $this->seedsTable(50);
 
@@ -159,7 +158,7 @@ class UserGridTest extends TestCase
         }
     }
 
-    public function test_filter_relation()
+    public function testFilterRelation()
     {
         $this->seedsTable(50);
 
@@ -179,7 +178,7 @@ class UserGridTest extends TestCase
             ->seeInElement('td', $user->end_at);
     }
 
-    public function test_display_callback()
+    public function testDisplayCallback()
     {
         $this->seedsTable(1);
 
@@ -192,14 +191,13 @@ class UserGridTest extends TestCase
             ->seeInElement('td', "{$user->email}#{$user->profile->color}");
     }
 
-    public function test_has_many_relation()
+    public function testHasManyRelation()
     {
-        UserModel::factory()
-            ->count(10)
+        factory(\Tests\Models\User::class, 10)
             ->create()
             ->each(function ($u) {
-                $u->profile()->save(ProfileModel::factory()->make());
-                $u->tags()->saveMany(Tests\Models\Tag::factory()->count(5)->make());
+                $u->profile()->save(factory(\Tests\Models\Profile::class)->make());
+                $u->tags()->saveMany(factory(\Tests\Models\Tag::class, 5)->make());
             });
 
         $this->visit('admin/users')
@@ -208,7 +206,7 @@ class UserGridTest extends TestCase
         $this->assertCount(50, $this->crawler()->filter('td code'));
     }
 
-    public function test_grid_actions()
+    public function testGridActions()
     {
         $this->seedsTable(15);
 
@@ -218,7 +216,7 @@ class UserGridTest extends TestCase
         $this->assertCount(15, $this->crawler()->filter('td a i[class*=fa-trash]'));
     }
 
-    public function test_grid_rows()
+    public function testGridRows()
     {
         $this->seedsTable(10);
 
@@ -228,7 +226,7 @@ class UserGridTest extends TestCase
         $this->assertCount(5, $this->crawler()->filter('td a[class*=btn]'));
     }
 
-    public function test_grid_per_page()
+    public function testGridPerPage()
     {
         $this->seedsTable(98);
 

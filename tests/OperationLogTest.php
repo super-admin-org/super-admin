@@ -12,7 +12,7 @@ class OperationLogTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function test_operation_log_index()
+    public function testOperationLogIndex()
     {
         $this->visit('admin/auth/logs')
             ->see('Operation log')
@@ -21,7 +21,7 @@ class OperationLogTest extends TestCase
             ->see('admin/auth/logs');
     }
 
-    public function test_generate_logs()
+    public function testGenerateLogs()
     {
         $table = config('admin.database.operation_log_table');
 
@@ -43,7 +43,7 @@ class OperationLogTest extends TestCase
         $this->assertEquals(4, OperationLog::count());
     }
 
-    public function test_delete_logs()
+    public function testDeleteLogs()
     {
         $table = config('admin.database.operation_log_table');
 
@@ -59,7 +59,7 @@ class OperationLogTest extends TestCase
             ->assertEquals(0, OperationLog::count());
     }
 
-    public function test_delete_multiple_logs()
+    public function testDeleteMultipleLogs()
     {
         $table = config('admin.database.operation_log_table');
 

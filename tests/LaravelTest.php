@@ -2,7 +2,7 @@
 
 class LaravelTest extends TestCase
 {
-    public function test_laravel()
+    public function testLaravel()
     {
         $this->visit('/')
             ->assertResponseStatus(200)

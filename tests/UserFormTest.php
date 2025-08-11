@@ -12,7 +12,7 @@ class UserFormTest extends TestCase
         $this->be(Administrator::first(), 'admin');
     }
 
-    public function test_create_page()
+    public function testCreatePage()
     {
         $this->visit('admin/users/create')
             ->seeElement('input[type=text][name=username]')
@@ -37,25 +37,25 @@ class UserFormTest extends TestCase
             ->seeInElement('a[html-field]', 'html...');
     }
 
-    public function test_submit_form()
+    public function testSubmitForm()
     {
         $data = [
-            'username' => 'John Doe',
-            'email' => 'hello@world.com',
-            'mobile' => '13421234123',
-            'password' => '123456',
+            'username'              => 'John Doe',
+            'email'                 => 'hello@world.com',
+            'mobile'                => '13421234123',
+            'password'              => '123456',
             'password_confirmation' => '123456',
-            // "avatar"   => "test.jpg",
+            //"avatar"   => "test.jpg",
             'profile' => [
                 'first_name' => 'John',
-                'last_name' => 'Doe',
-                'postcode' => '123456',
-                'address' => 'Jinshajiang RD',
-                'latitude' => '131.2123123456',
-                'longitude' => '21.342123456',
-                'color' => '#ffffff',
-                'start_at' => date('Y-m-d H:i:s', time()),
-                'end_at' => date('Y-m-d H:i:s', time()),
+                'last_name'  => 'Doe',
+                'postcode'   => '123456',
+                'address'    => 'Jinshajiang RD',
+                'latitude'   => '131.2123123456',
+                'longitude'  => '21.342123456',
+                'color'      => '#ffffff',
+                'start_at'   => date('Y-m-d H:i:s', time()),
+                'end_at'     => date('Y-m-d H:i:s', time()),
             ],
         ];
 
@@ -101,16 +101,15 @@ class UserFormTest extends TestCase
 
     protected function seedsTable($count = 100)
     {
-        UserModel::factory()
-            ->count($count)
+        factory(\Tests\Models\User::class, $count)
             ->create()
             ->each(function ($u) {
-                $u->profile()->save(ProfileModel::factory()->make());
-                $u->tags()->saveMany(Tests\Models\Tag::factory()->count(5)->make());
+                $u->profile()->save(factory(\Tests\Models\Profile::class)->make());
+                $u->tags()->saveMany(factory(\Tests\Models\Tag::class, 5)->make());
             });
     }
 
-    public function test_edit_form()
+    public function testEditForm()
     {
         $this->seedsTable(10);
 
@@ -138,7 +137,7 @@ class UserFormTest extends TestCase
         $this->assertCount(5, $this->crawler()->filter("select[name='tags[]'] option[selected]"));
     }
 
-    public function test_update_form()
+    public function testUpdateForm()
     {
         $this->seedsTable(10);
 
@@ -157,7 +156,7 @@ class UserFormTest extends TestCase
         $this->assertEquals($user->username, 'hello world');
     }
 
-    public function test_update_form_with_rule()
+    public function testUpdateFormWithRule()
     {
         $this->seedsTable(10);
 
@@ -189,7 +188,7 @@ class UserFormTest extends TestCase
             ->seeInDatabase('test_users', ['email' => 'xx@xx.xx']);
     }
 
-    public function test_form_header()
+    public function testFormHeader()
     {
         $this->seedsTable(1);
 
@@ -199,7 +198,7 @@ class UserFormTest extends TestCase
             ->seeInElement('a[class*=btn-primary]', 'View');
     }
 
-    public function test_form_footer()
+    public function testFormFooter()
     {
         $this->seedsTable(1);
 

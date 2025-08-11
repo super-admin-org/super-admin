@@ -3,9 +3,9 @@
 return [
 
     /*
-     * super-admin name.
+     * Laravel-admin name.
      */
-    'name' => 'super-admin',
+    'name' => 'Laravel-admin',
 
     /*
      * Logo in admin panel header.
@@ -30,12 +30,12 @@ return [
     ],
 
     /*
-     * super-admin install directory.
+     * Laravel-admin install directory.
      */
     'directory' => app_path('Admin'),
 
     /*
-     * super-admin html title.
+     * Laravel-admin html title.
      */
     'title' => 'Admin',
 
@@ -45,12 +45,12 @@ return [
     'secure' => false,
 
     /*
-     * super-admin auth setting.
+     * Laravel-admin auth setting.
      */
     'auth' => [
         'guards' => [
             'admin' => [
-                'driver' => 'session',
+                'driver'   => 'session',
                 'provider' => 'admin',
             ],
         ],
@@ -58,13 +58,13 @@ return [
         'providers' => [
             'admin' => [
                 'driver' => 'eloquent',
-                'model' => SuperAdmin\Admin\Auth\Database\Administrator::class,
+                'model'  => SuperAdmin\Admin\Auth\Database\Administrator::class,
             ],
         ],
     ],
 
     /*
-     * super-admin upload setting.
+     * Laravel-admin upload setting.
      */
     'upload' => [
 
@@ -72,12 +72,12 @@ return [
 
         'directory' => [
             'image' => 'images',
-            'file' => 'files',
+            'file'  => 'files',
         ],
     ],
 
     /*
-     * super-admin database setting.
+     * Laravel-admin database setting.
      */
     'database' => [
 
@@ -101,15 +101,15 @@ return [
         'menu_model' => SuperAdmin\Admin\Auth\Database\Menu::class,
 
         // Pivot table for table above.
-        'operation_log_table' => 'admin_operation_log',
+        'operation_log_table'    => 'admin_operation_log',
         'user_permissions_table' => 'admin_user_permissions',
-        'role_users_table' => 'admin_role_users',
+        'role_users_table'       => 'admin_role_users',
         'role_permissions_table' => 'admin_role_permissions',
-        'role_menu_table' => 'admin_role_menu',
+        'role_menu_table'        => 'admin_role_menu',
     ],
 
     /*
-     * By setting this option to open or close operation log in super-admin.
+     * By setting this option to open or close operation log in laravel-admin.
      */
     'operation_log' => [
 
