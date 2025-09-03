@@ -37,12 +37,6 @@ class InstallCommand extends Command
         $this->initDatabase();
 
         $this->initAdminDirectory();
-
-        //        \Illuminate\Support\Facades\Artisan::call('vendor:publish', [
-        //            '--provider' => 'SuperAdmin\Admin\AdminServiceProvider',
-        //            '--force' => true,
-        //        ]);
-        //
         \Illuminate\Support\Facades\Artisan::call('vendor:publish', [
             '--tag' => 'super-admin-assets',
             '--force' => true,
