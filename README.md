@@ -29,10 +29,9 @@
     <a href="#backers" alt="sponsors on Open Collective">
         <img src="https://opencollective.com/super-admin/backers/badge.svg?style=flat-square" />
     </a>
-    <a href="https://www.paypal.me/wishbone-prductions" alt="Paypal donate">
+    <a href="https://www.paypal.me/talemul" alt="Paypal donate">
         <img src="https://img.shields.io/badge/Donate-Paypal-green.svg?style=flat-square" />
     </a>-->
-</div>
 
 <p align="center">
     Forked from <a href="https://github.com/z-song/laravel-admin">Laravel-admin</a> Much thanks to Z-song for all the effort & great setup!
