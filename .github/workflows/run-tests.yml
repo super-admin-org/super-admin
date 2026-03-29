@@ -16,24 +16,38 @@ concurrency:
 
 jobs:
   test:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest]
-        php: [8.4, 8.3, 8.2]
-        laravel: [13.*, 12.*, 11.*]
-        stability: [prefer-stable]
         include:
-          - laravel: 13.*
-            testbench: 10.*
-          - laravel: 12.*
-            testbench: 10.*
-          - laravel: 11.*
-            testbench: 9.*
+          # Laravel 13 requires PHP 8.3+
+          - php: '8.4'
+            laravel: '13.*'
+          - php: '8.3'
+            laravel: '13.*'
+          # Laravel 12
+          - php: '8.4'
+            laravel: '12.*'
+          - php: '8.3'
+            laravel: '12.*'
+          - php: '8.2'
+            laravel: '12.*'
+          # Laravel 11
+          - php: '8.4'
+            laravel: '11.*'
+          - php: '8.3'
+            laravel: '11.*'
+          - php: '8.2'
+            laravel: '11.*'
+          # Laravel 10
+          - php: '8.3'
+            laravel: '10.*'
+          - php: '8.2'
+            laravel: '10.*'
 
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
+    name: PHP ${{ matrix.php }} - Laravel ${{ matrix.laravel }}
 
     steps:
       - name: Checkout code
@@ -43,13 +57,15 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, fileinfo
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, intl, gd, fileinfo
           coverage: none
 
       - name: Install dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
-          composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-dev
+          composer update --prefer-stable --prefer-dist --no-interaction --no-dev
 
-      - name: Verify package installs
-        run: composer show super-admin-org/super-admin 2>/dev/null || echo "Package verified via dependency resolution"
+      - name: Verify installation
+        run: |
+          php -v
+          composer show laravel/framework --format=json | python3 -c "import json,sys; print('Laravel', json.loads(sys.stdin.read())['versions'][0])"
