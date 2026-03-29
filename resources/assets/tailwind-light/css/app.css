@@ -49,16 +49,20 @@
 
   /* --- Glass Header --- */
   .glass-header {
-    @apply bg-white/75 backdrop-blur-[12px] border-b border-white/20 shadow-sm;
+    @apply bg-white/80 backdrop-blur-[16px] border-b shadow-sm;
+    border-color: rgba(255,255,255,0.5);
+    box-shadow: 0 1px 0 rgba(99, 102, 241, 0.08), 0 2px 8px rgba(0,0,0,0.04);
   }
 
   /* --- Glass Card --- */
   .glass-card {
-    @apply bg-white/70 backdrop-blur-[16px] border border-white/30 rounded-glass shadow-glass transition-shadow duration-300;
+    @apply bg-white/80 backdrop-blur-[20px] rounded-glass transition-shadow duration-300;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow: 0 8px 32px rgba(99, 102, 241, 0.10), 0 2px 8px rgba(0,0,0,0.06);
   }
 
   .glass-card:hover {
-    @apply shadow-glass-lg;
+    box-shadow: 0 16px 48px rgba(99, 102, 241, 0.14), 0 4px 16px rgba(0,0,0,0.08);
   }
 
   /* --- Glass Inputs --- */
@@ -329,7 +333,8 @@
 
   /* --- Background gradient --- */
   .glass-bg {
-    @apply bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100 min-h-screen;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 40%, #ede9fe 70%, #fae8ff 100%);
   }
 
   /* --- Scrollbar styling --- */
