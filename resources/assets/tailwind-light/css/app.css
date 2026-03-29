@@ -163,12 +163,52 @@
     @apply border-b border-gray-100/50 transition-colors duration-150;
   }
 
+  .glass-table tbody tr:nth-child(odd) {
+    background: rgba(248, 250, 252, 0.6);
+  }
+
+  .glass-table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.35);
+  }
+
   .glass-table tbody tr:hover {
-    @apply bg-primary-50/30;
+    background: rgba(239, 246, 255, 0.7) !important;
   }
 
   .glass-table tbody td {
     @apply px-4 py-3;
+  }
+
+  /* --- Grid Action Links (Edit / Show / Delete) --- */
+  .__actions__div {
+    @apply flex items-center gap-1 flex-nowrap;
+  }
+
+  .__actions__div a {
+    @apply inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md font-medium
+           transition-all duration-150 no-underline whitespace-nowrap;
+  }
+
+  .__actions__div a:has(.icon-pen),
+  .__actions__div a:has(.icon-edit) {
+    @apply text-primary-600 bg-primary-50/60 hover:bg-primary-100/80 hover:text-primary-700;
+  }
+
+  .__actions__div a:has(.icon-eye) {
+    @apply text-emerald-600 bg-emerald-50/60 hover:bg-emerald-100/80 hover:text-emerald-700;
+  }
+
+  .__actions__div a:has(.icon-trash),
+  .__actions__div a:has(.icon-times) {
+    @apply text-red-600 bg-red-50/60 hover:bg-red-100/80 hover:text-red-700;
+  }
+
+  .__actions__div a:not(:has(i)) {
+    @apply text-gray-600 bg-gray-50/60 hover:bg-gray-100/80;
+  }
+
+  .__actions__div .label {
+    @apply hidden sm:inline;
   }
 
   /* --- Glass Badge --- */

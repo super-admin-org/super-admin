@@ -18,26 +18,28 @@ const SuperAdminUI = {
   },
 
   /**
-   * Dropdown - Click to toggle a dropdown menu
+   * Dropdown - Click to toggle a dropdown menu.
+   * Supports data-sa-target="#id" or falls back to nextElementSibling.
    */
   initDropdowns() {
     document.addEventListener('click', (e) => {
       const trigger = e.target.closest('[data-sa-toggle="dropdown"]');
 
-      // Close all open dropdowns first
-      document.querySelectorAll('[data-sa-dropdown].active').forEach((dd) => {
-        if (!trigger || dd !== trigger.nextElementSibling) {
-          dd.classList.remove('active');
+      // Close all open dropdowns that aren't the current one
+      document.querySelectorAll('.sa-dropdown-open').forEach((dd) => {
+        if (!trigger || !trigger.parentElement.contains(dd)) {
+          dd.classList.remove('sa-dropdown-open');
           dd.classList.add('hidden');
         }
       });
 
       if (trigger) {
         e.preventDefault();
-        const menu = trigger.nextElementSibling;
-        if (menu && menu.hasAttribute('data-sa-dropdown')) {
+        const targetId = trigger.getAttribute('data-sa-target');
+        const menu = targetId ? document.querySelector(targetId) : trigger.nextElementSibling;
+        if (menu) {
           menu.classList.toggle('hidden');
-          menu.classList.toggle('active');
+          menu.classList.toggle('sa-dropdown-open');
         }
       }
     });
