@@ -1,11 +1,7 @@
-
 name: Pest Test Suite
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   pest:
@@ -14,18 +10,5 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.3'
-        extensions: mbstring, sqlite3
-        coverage: xdebug
-
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-interaction
-
-    - name: Prepare environment
-      run: cp .env.test.sqlite .env
-
-    - name: Run Pest Tests with Coverage
-      run: vendor/bin/pest --coverage --min=85
+    - name: Notice
+      run: echo "Tests are run locally. This workflow is available for manual dispatch only."

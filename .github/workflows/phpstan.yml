@@ -2,6 +2,8 @@ name: PHPStan
 
 on:
   push:
+    branches:
+      - main
     paths:
       - '**.php'
       - 'phpstan.neon.dist'
@@ -22,6 +24,4 @@ jobs:
           coverage: none
 
       - name: Install composer dependencies
-        uses: ramsey/composer-install@v3
-
-
+        run: composer install --prefer-dist --no-interaction --no-dev
