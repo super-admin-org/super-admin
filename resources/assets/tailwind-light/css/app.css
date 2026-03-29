@@ -160,23 +160,36 @@
   }
 
   .glass-table tbody tr {
-    @apply border-b border-gray-100/50 transition-colors duration-150;
+    @apply border-b border-gray-200/60 transition-colors duration-150 cursor-pointer;
   }
 
   .glass-table tbody tr:nth-child(odd) {
-    background: rgba(248, 250, 252, 0.6);
+    background: rgba(241, 245, 249, 0.65);
   }
 
   .glass-table tbody tr:nth-child(even) {
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.45);
   }
 
   .glass-table tbody tr:hover {
-    background: rgba(239, 246, 255, 0.7) !important;
+    background: rgba(219, 234, 254, 0.75) !important;
   }
 
   .glass-table tbody td {
     @apply px-4 py-3;
+  }
+
+  /* Sort icons in sortable column headers */
+  .glass-table thead th a.icon-sort,
+  .glass-table thead th a.icon-sort-amount-up,
+  .glass-table thead th a.icon-sort-amount-down {
+    @apply ml-1 text-gray-400 hover:text-primary-500 transition-colors duration-150;
+    font-size: 0.75rem;
+  }
+
+  .glass-table thead th a.icon-sort-amount-up,
+  .glass-table thead th a.icon-sort-amount-down {
+    @apply text-primary-500;
   }
 
   /* --- Grid Action Links (Edit / Show / Delete) --- */
@@ -447,11 +460,11 @@
   }
 
   .btn-sm {
-    @apply px-3 py-1.5 text-xs;
+    @apply px-3 py-2 text-sm;
   }
 
   .btn-xs {
-    @apply px-2 py-1 text-xs;
+    @apply px-2 py-1.5 text-xs;
   }
 
   .btn-flat {

@@ -1,7 +1,7 @@
 @include("admin::grid.table-header")
 
         <div class="overflow-x-auto" autocomplete="off">
-            <table class="glass-table" id="{{ $grid->tableID }}">
+            <table class="glass-table select-table" id="{{ $grid->tableID }}">
 
                 <thead>
                     <tr>
