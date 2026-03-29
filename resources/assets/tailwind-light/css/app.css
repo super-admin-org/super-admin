@@ -243,6 +243,66 @@
     @apply bg-primary-500 text-white hover:bg-primary-600 hover:text-white shadow-sm;
   }
 
+  .glass-page-item {
+    @apply inline-flex items-center justify-center min-w-8 h-8 px-2 text-sm rounded-lg text-gray-600
+           hover:bg-white/60 hover:text-gray-800 transition-all duration-200 cursor-pointer;
+  }
+
+  .glass-page-item.active {
+    @apply bg-primary-500 text-white hover:bg-primary-600 hover:text-white shadow-sm;
+  }
+
+  .glass-page-item.disabled {
+    @apply opacity-40 cursor-not-allowed pointer-events-none;
+  }
+
+  /* --- Glass Modal --- */
+  .glass-modal-backdrop {
+    @apply fixed inset-0 bg-black/40 backdrop-blur-sm z-40;
+  }
+
+  .glass-modal {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+  }
+
+  .glass-modal-dialog {
+    @apply w-full max-w-lg;
+  }
+
+  .glass-modal-lg {
+    @apply max-w-3xl;
+  }
+
+  .glass-modal-content {
+    @apply bg-white/90 backdrop-blur-[20px] border border-white/40 rounded-2xl shadow-glass-lg overflow-hidden;
+  }
+
+  /* --- Tab active state (data-driven) --- */
+  .glass-tab.active {
+    @apply text-primary-600 bg-white/60 border border-gray-200/50 border-b-white;
+  }
+
+  /* --- Alert variants --- */
+  .glass-alert {
+    @apply px-4 py-3 rounded-xl border text-sm;
+  }
+
+  .glass-alert-danger {
+    @apply bg-red-50/70 border-red-200 text-red-700;
+  }
+
+  .glass-alert-success {
+    @apply bg-green-50/70 border-green-200 text-green-700;
+  }
+
+  .glass-alert-warning {
+    @apply bg-yellow-50/70 border-yellow-200 text-yellow-700;
+  }
+
+  .glass-alert-info {
+    @apply bg-blue-50/70 border-blue-200 text-blue-700;
+  }
+
   /* --- Info Box --- */
   .glass-info-box {
     @apply glass-card p-5 flex items-center gap-4;
