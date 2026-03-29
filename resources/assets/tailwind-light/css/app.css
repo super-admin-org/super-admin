@@ -538,4 +538,69 @@
   .box-footer {
     @apply px-5 py-3 border-t border-gray-200/30 bg-gray-50/30;
   }
+
+  /* --- Dual Listbox (dual-listbox-custom.js Bootstrap class names) --- */
+  .dual-listbox {
+    @apply w-full;
+  }
+
+  .dual-list {
+    @apply flex items-stretch gap-3 w-full;
+  }
+
+  .dual-list .list-group {
+    @apply flex-1 flex flex-col min-h-0 border border-gray-200/60 rounded-xl overflow-hidden bg-white/60;
+  }
+
+  .dual-list .list-group-form-label {
+    @apply px-3 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide
+           bg-gray-50/60 border-b border-gray-200/50;
+  }
+
+  .dual-list .form-control {
+    @apply glass-input rounded-none border-0 border-b border-gray-200/50 text-sm;
+  }
+
+  .dual-list .list-group-item {
+    @apply block px-3 py-2 text-sm text-gray-700 cursor-pointer
+           border-b border-gray-100/60 last:border-0
+           hover:bg-primary-50/50 transition-colors duration-150 select-none;
+  }
+
+  .dual-list .list-group-item.active {
+    @apply bg-primary-100/70 text-primary-700 font-medium;
+  }
+
+  .dual-list-items {
+    @apply overflow-y-auto flex-1;
+    min-height: 180px;
+    max-height: 260px;
+  }
+
+  .btn-group-vertical {
+    @apply flex flex-col justify-center gap-2 px-1;
+  }
+
+  .btn-group-vertical .btn {
+    @apply glass-btn-secondary text-xs px-2 py-1.5;
+  }
+
+  /* --- Dropdown items (Bootstrap .dropdown-item) --- */
+  .dropdown-item {
+    @apply block px-4 py-2 text-sm text-gray-700 hover:bg-primary-50/60 transition-colors;
+  }
+
+  .dropdown-divider {
+    @apply border-gray-200/50 my-1;
+  }
+
+  /* --- Table helpers --- */
+  .d-none { display: none; }
+  .me-1   { margin-right: 0.25rem; }
+  .me-2   { margin-right: 0.5rem; }
+  .ms-1   { margin-left: 0.25rem; }
+  .ms-2   { margin-left: 0.5rem; }
+  .text-muted { @apply text-gray-400; }
+  .float-end  { float: right; }
+  .text-end   { text-align: right; }
 }

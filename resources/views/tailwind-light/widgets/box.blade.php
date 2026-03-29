@@ -9,7 +9,7 @@
             </div>
         </div>
     @endif
-    <div id="{{$id}}-body" class="p-4 collapse show">
+    <div id="{{$id}}-body" class="p-4">
         {!! $content !!}
     </div>
     @if($footer)

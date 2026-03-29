@@ -1,4 +1,4 @@
-<div class="collapse {{ $expand?'show':'' }} filter-box border-b border-gray-200/30" id="{{ $filterID }}">
+<div class="{{ $expand ? '' : 'hidden' }} filter-box border-b border-gray-200/30" id="{{ $filterID }}">
     <form action="{!! $action !!}" class="pt-0" pjax-container method="get" autocomplete="off">
 
         <div class="flex flex-wrap">
