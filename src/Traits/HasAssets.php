@@ -78,6 +78,20 @@ trait HasAssets
     ];
 
     /**
+     * Base CSS for the tailwind-light template (no Bootstrap, no legacy styles).
+     *
+     * @var array
+     */
+    public static $tailwindBaseCss = [
+        'vendor/super-admin/nprogress/nprogress.css',
+        'vendor/super-admin/sweetalert2/sweetalert2.min.css',
+        'vendor/super-admin/toastify-js/toastify.css',
+        'vendor/super-admin/flatpickr/flatpicker-custom.css',
+        'vendor/super-admin/choicesjs/styles/choices.min.css',
+        'vendor/super-admin/sortablejs/nestable.css',
+    ];
+
+    /**
      * @var array
      */
     public static $baseJs = [
@@ -102,6 +116,33 @@ trait HasAssets
         'vendor/super-admin/super-admin/js/super-admin-tree.js',
         'vendor/super-admin/super-admin/js/super-admin-selectable.js',
 
+    ];
+
+    /**
+     * Base JS for the tailwind-light template (no Bootstrap JS).
+     *
+     * @var array
+     */
+    public static $tailwindBaseJs = [
+        'vendor/super-admin/nprogress/nprogress.js',
+        'vendor/super-admin/axios/axios.min.js',
+        'vendor/super-admin/sweetalert2/sweetalert2.min.js',
+        'vendor/super-admin/toastify-js/toastify.js',
+        'vendor/super-admin/flatpickr/flatpickr.min.js',
+        'vendor/super-admin/choicesjs/scripts/choices.min.js',
+        'vendor/super-admin/sortablejs/Sortable.min.js',
+
+        'vendor/super-admin/super-admin/js/polyfills.js',
+        'vendor/super-admin/super-admin/js/helpers.js',
+        'vendor/super-admin/super-admin/js/super-admin.js',
+        'vendor/super-admin/super-admin/js/super-admin-actions.js',
+        'vendor/super-admin/super-admin/js/super-admin-grid.js',
+        'vendor/super-admin/super-admin/js/super-admin-grid-inline-edit.js',
+        'vendor/super-admin/super-admin/js/super-admin-form.js',
+        'vendor/super-admin/super-admin/js/super-admin-toastr.js',
+        'vendor/super-admin/super-admin/js/super-admin-resource.js',
+        'vendor/super-admin/super-admin/js/super-admin-tree.js',
+        'vendor/super-admin/super-admin/js/super-admin-selectable.js',
     ];
 
     /**
@@ -147,6 +188,10 @@ trait HasAssets
 
         if (! is_null($css)) {
             return static::$baseCss = $css;
+        }
+
+        if (config('admin.template', 'tailwind-light') === 'tailwind-light') {
+            return static::$tailwindBaseCss;
         }
 
         $skin = config('admin.skin', 'skin-blue-light');
@@ -206,6 +251,10 @@ trait HasAssets
 
         if (! is_null($js)) {
             return static::$baseJs = $js;
+        }
+
+        if (config('admin.template', 'tailwind-light') === 'tailwind-light') {
+            return static::$tailwindBaseJs;
         }
 
         return static::$baseJs;

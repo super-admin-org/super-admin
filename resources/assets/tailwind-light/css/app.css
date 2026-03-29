@@ -350,3 +350,187 @@
   }
 }
 
+/* ============================================================
+   Bootstrap Compatibility Layer
+   Maps Bootstrap class names emitted by PHP source files
+   to the glassmorphism design system.
+   ============================================================ */
+
+@layer components {
+  /* --- Buttons --- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 font-medium rounded-lg
+           transition-all duration-200 cursor-pointer
+           focus:outline-none focus:ring-2 focus:ring-offset-1;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-500 to-primary-600 text-white px-4 py-2 text-sm
+           hover:from-primary-600 hover:to-primary-700
+           focus:ring-primary-500 shadow-md hover:shadow-lg;
+  }
+
+  .btn-success {
+    @apply bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-4 py-2 text-sm
+           hover:from-emerald-600 hover:to-emerald-700
+           focus:ring-emerald-500 shadow-md hover:shadow-lg;
+  }
+
+  .btn-danger {
+    @apply bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 text-sm
+           hover:from-red-600 hover:to-red-700
+           focus:ring-red-500 shadow-md hover:shadow-lg;
+  }
+
+  .btn-warning {
+    @apply bg-gradient-to-r from-amber-400 to-amber-500 text-white px-4 py-2 text-sm
+           hover:from-amber-500 hover:to-amber-600
+           focus:ring-amber-400 shadow-md hover:shadow-lg;
+  }
+
+  .btn-info {
+    @apply bg-gradient-to-r from-sky-500 to-sky-600 text-white px-4 py-2 text-sm
+           hover:from-sky-600 hover:to-sky-700
+           focus:ring-sky-500 shadow-md hover:shadow-lg;
+  }
+
+  .btn-light,
+  .btn-default {
+    @apply bg-white/60 border border-gray-200/60 text-gray-700 px-4 py-2 text-sm
+           hover:bg-white/80 hover:border-gray-300
+           focus:ring-gray-400;
+  }
+
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+
+  .btn-xs {
+    @apply px-2 py-1 text-xs;
+  }
+
+  .btn-flat {
+    @apply shadow-none rounded;
+  }
+
+  .btn-box-tool {
+    @apply p-1.5 bg-transparent border-0 text-gray-400 hover:text-gray-600 rounded;
+  }
+
+  /* --- Form Controls --- */
+  .form-control {
+    @apply glass-input;
+  }
+
+  .input-sm {
+    @apply text-xs py-1 px-2;
+  }
+
+  .form-group {
+    @apply mb-4;
+  }
+
+  .input-group {
+    @apply flex;
+  }
+
+  .input-group .form-control {
+    @apply flex-1 rounded-r-none;
+  }
+
+  .input-group-btn,
+  .input-group-append {
+    @apply flex;
+  }
+
+  .input-group-btn .btn,
+  .input-group-append .btn {
+    @apply rounded-l-none;
+  }
+
+  /* --- Badges --- */
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .bg-primary { @apply bg-primary-100/80 text-primary-700; }
+  .bg-success  { @apply bg-emerald-100/80 text-emerald-700; }
+  .bg-danger   { @apply bg-red-100/80 text-red-700; }
+  .bg-warning  { @apply bg-amber-100/80 text-amber-700; }
+  .bg-info     { @apply bg-sky-100/80 text-sky-700; }
+  .bg-secondary{ @apply bg-gray-100/80 text-gray-700; }
+
+  /* --- Alerts --- */
+  .alert {
+    @apply px-4 py-3 rounded-xl border text-sm flex items-start gap-2;
+  }
+
+  .alert-success   { @apply bg-emerald-50/80 border-emerald-200 text-emerald-800; }
+  .alert-danger    { @apply bg-red-50/80 border-red-200 text-red-800; }
+  .alert-warning   { @apply bg-amber-50/80 border-amber-200 text-amber-800; }
+  .alert-info      { @apply bg-sky-50/80 border-sky-200 text-sky-800; }
+
+  .alert-dismissable .close,
+  .alert .close {
+    @apply ml-auto text-lg leading-none opacity-60 hover:opacity-100 cursor-pointer;
+  }
+
+  /* --- Progress Bar --- */
+  .progress {
+    @apply w-full bg-gray-200/60 rounded-full overflow-hidden h-2;
+  }
+
+  .progress-bar {
+    @apply h-full rounded-full transition-all duration-300;
+
+    &.bg-primary,
+    &.progress-bar-primary { @apply bg-primary-500; }
+    &.bg-success,
+    &.progress-bar-success { @apply bg-emerald-500; }
+    &.bg-danger,
+    &.progress-bar-danger  { @apply bg-red-500; }
+    &.bg-warning,
+    &.progress-bar-warning { @apply bg-amber-400; }
+    &.bg-info,
+    &.progress-bar-info    { @apply bg-sky-500; }
+  }
+
+  /* --- Layout helpers --- */
+  .pull-left  { @apply float-left; }
+  .pull-right { @apply float-right; }
+  .hidden-xs  { @apply hidden sm:inline-flex; }
+
+  /* --- Info Box (Widgets\InfoBox) --- */
+  .info-box {
+    @apply glass-card p-4 flex items-center gap-4;
+  }
+
+  .info-box-icon {
+    @apply w-14 h-14 rounded-xl flex items-center justify-center text-2xl text-white shadow-md shrink-0;
+  }
+
+  .info-box-content {
+    @apply flex-1 min-w-0;
+  }
+
+  /* --- Box (Widgets\Box) --- */
+  .box {
+    @apply glass-card overflow-hidden;
+  }
+
+  .box-header {
+    @apply flex items-center justify-between px-5 py-3 border-b border-gray-200/30;
+  }
+
+  .box-title {
+    @apply text-sm font-semibold text-gray-700;
+  }
+
+  .box-body {
+    @apply p-5;
+  }
+
+  .box-footer {
+    @apply px-5 py-3 border-t border-gray-200/30 bg-gray-50/30;
+  }
+}
