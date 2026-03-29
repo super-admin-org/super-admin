@@ -103,7 +103,36 @@ const SuperAdminUI = {
 
   /**
    * Modal - Show/hide modal dialogs
+   * Both .glass-modal-backdrop and .glass-modal are shown/hidden together.
+   * A trigger may target either the modal id or the backdrop id.
    */
+  _modalOpen(targetId) {
+    // Normalise: remove -backdrop suffix to get the modal id
+    const modalId = targetId.replace(/-backdrop$/, '');
+    const backdropId = modalId + '-backdrop';
+    const modal = document.querySelector(modalId);
+    const backdrop = document.querySelector(backdropId);
+    if (modal) modal.classList.remove('hidden');
+    if (backdrop) backdrop.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+  },
+
+  _modalClose(el) {
+    // el can be inside .glass-modal or .glass-modal-backdrop
+    const container = el.closest('.glass-modal') || el.closest('.glass-modal-backdrop');
+    if (!container) return;
+    const baseId = container.id ? '#' + container.id.replace(/-backdrop$/, '') : null;
+    if (baseId) {
+      const modal = document.querySelector(baseId);
+      const backdrop = document.querySelector(baseId + '-backdrop');
+      if (modal) modal.classList.add('hidden');
+      if (backdrop) backdrop.classList.add('hidden');
+    } else {
+      container.classList.add('hidden');
+    }
+    document.body.classList.remove('overflow-hidden');
+  },
+
   initModals() {
     // Open modal
     document.addEventListener('click', (e) => {
@@ -111,38 +140,29 @@ const SuperAdminUI = {
       if (trigger) {
         e.preventDefault();
         const targetId = trigger.getAttribute('data-sa-target');
-        const modal = document.querySelector(targetId);
-        if (modal) {
-          modal.classList.remove('hidden');
-          document.body.classList.add('overflow-hidden');
-        }
+        if (targetId) this._modalOpen(targetId);
       }
     });
 
-    // Close modal (click backdrop or close button)
+    // Close: click the .glass-modal flex background (outside dialog)
     document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('glass-modal-backdrop')) {
-        e.target.classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-      }
-
-      const closeBtn = e.target.closest('[data-sa-dismiss="modal"]');
-      if (closeBtn) {
-        const modal = closeBtn.closest('.glass-modal-backdrop');
-        if (modal) {
-          modal.classList.add('hidden');
-          document.body.classList.remove('overflow-hidden');
-        }
+      if (e.target.classList.contains('glass-modal')) {
+        this._modalClose(e.target);
       }
     });
 
-    // Close modal on Escape
+    // Close: click a dismiss button
+    document.addEventListener('click', (e) => {
+      const closeBtn = e.target.closest('[data-sa-dismiss="modal"]');
+      if (closeBtn) this._modalClose(closeBtn);
+    });
+
+    // Close on Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        document.querySelectorAll('.glass-modal-backdrop:not(.hidden)').forEach((m) => {
-          m.classList.add('hidden');
+        document.querySelectorAll('.glass-modal:not(.hidden)').forEach((m) => {
+          this._modalClose(m);
         });
-        document.body.classList.remove('overflow-hidden');
       }
     });
   },

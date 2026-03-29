@@ -43,7 +43,8 @@
       "Bash(npm run:*)",
       "Bash(sort echo:*)",
       "Bash(./vendor/bin/pint.bat --dirty)",
-      "Bash(php vendor/bin/pint --dirty)"
+      "Bash(php vendor/bin/pint --dirty)",
+      "Bash(xargs grep:*)"
     ]
   }
 }
