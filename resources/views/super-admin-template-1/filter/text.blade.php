@@ -1,0 +1,22 @@
+<div class="input-group">
+
+    @if($group)
+    <div class="input-group-btn">
+        <input type="hidden" name="{{ $id }}_group" class="{{ $group_name }}-operation" value="0"/>
+        <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" style="min-width: 32px;">
+            <span class="{{ $group_name }}-label">{{ $default['label'] }}</span>
+
+        </button>
+        <ul class="dropdown-menu {{ $group_name }}">
+            @foreach($group as $index => $item)
+            <li><a class="dropdown-item" href="#" data-index="{{ $index }}"> {{ $item['label'] }} </a></li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+        <div class="input-group-text with-icon">
+            <i class="icon-{{ $icon }}"></i>
+        </div>
+
+    <input type="{{ $type }}" class="form-control {{ $id }}" placeholder="{{$placeholder}}" name="{{$name}}" value="{{ request($name, $value) }}">
+</div>

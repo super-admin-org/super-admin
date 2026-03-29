@@ -1,6 +1,7 @@
 .DS_Store
 phpunit.phar
 /vendor
+/node_modules
 composer.phar
 composer.lock
 *.project

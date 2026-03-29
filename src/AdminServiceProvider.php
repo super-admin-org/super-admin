@@ -74,7 +74,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
+        $this->loadTemplateViews();
 
         $this->ensureHttps();
 
@@ -85,6 +85,49 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerPublishing();
         $this->compatibleBlade();
         $this->bladeDirectives();
+    }
+
+    /**
+     * Load views from the active template directory.
+     *
+     * The template is determined by the 'admin.template' config value.
+     * Falls back to the root views directory for backward compatibility.
+     *
+     * @return void
+     */
+    protected function loadTemplateViews()
+    {
+        $template = config('admin.template', 'tailwind-light');
+        $templatePath = __DIR__.'/../resources/views/'.$template;
+
+        if (is_dir($templatePath)) {
+            // Load template-specific views first (higher priority)
+            $this->loadViewsFrom($templatePath, 'admin');
+        }
+
+        // Always load root views as fallback (for any views not overridden by the template)
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
+    }
+
+    /**
+     * Get the list of available templates.
+     *
+     * @return array
+     */
+    public static function availableTemplates()
+    {
+        $viewsPath = __DIR__.'/../resources/views';
+        $templates = [];
+
+        foreach (glob($viewsPath.'/*', GLOB_ONLYDIR) as $dir) {
+            $name = basename($dir);
+            // Only include directories that have an index.blade.php (valid templates)
+            if (file_exists($dir.'/index.blade.php')) {
+                $templates[] = $name;
+            }
+        }
+
+        return $templates;
     }
 
     /**

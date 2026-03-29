@@ -45,6 +45,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | super-admin template
+    |--------------------------------------------------------------------------
+    |
+    | The UI template to use for the admin panel. Available templates:
+    |
+    |   - 'tailwind-light'            Modern glassmorphism UI with Tailwind CSS (default)
+    |   - 'super-admin-template-1'    Classic Bootstrap 5 UI
+    |
+    */
+    'template' => 'tailwind-light',
+
+    /*
+    |--------------------------------------------------------------------------
     | super-admin bootstrap setting
     |--------------------------------------------------------------------------
     |

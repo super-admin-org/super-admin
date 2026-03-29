@@ -1,0 +1,294 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Glassmorphism Design System - Super Admin
+   ============================================================ */
+
+@layer base {
+  :root {
+    --sa-primary: #3b82f6;
+    --sa-sidebar-bg: rgba(15, 23, 42, 0.88);
+    --sa-surface-bg: rgba(255, 255, 255, 0.65);
+    --sa-blur: 16px;
+    --sa-radius: 1rem;
+    --sa-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    --sa-menu-width: 260px;
+    --sa-menu-closed-width: 64px;
+  }
+
+  html {
+    height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+    height: 100%;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer components {
+  /* --- Glass Panels --- */
+  .glass-panel {
+    @apply bg-white/65 backdrop-blur-[16px] border border-white/30 rounded-glass shadow-glass;
+  }
+
+  .glass-panel-solid {
+    @apply bg-white/85 backdrop-blur-[16px] border border-white/40 rounded-glass shadow-glass;
+  }
+
+  /* --- Glass Sidebar --- */
+  .glass-sidebar {
+    @apply backdrop-blur-[20px] border-r border-white/[0.08];
+    background: var(--sa-sidebar-bg);
+  }
+
+  /* --- Glass Header --- */
+  .glass-header {
+    @apply bg-white/75 backdrop-blur-[12px] border-b border-white/20 shadow-sm;
+  }
+
+  /* --- Glass Card --- */
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-[16px] border border-white/30 rounded-glass shadow-glass transition-shadow duration-300;
+  }
+
+  .glass-card:hover {
+    @apply shadow-glass-lg;
+  }
+
+  /* --- Glass Inputs --- */
+  .glass-input {
+    @apply w-full px-3 py-2 bg-white/60 border border-gray-200/60 rounded-lg
+           text-gray-800 placeholder-gray-400
+           focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-400
+           transition-all duration-200;
+  }
+
+  .glass-select {
+    @apply glass-input appearance-none bg-no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z'/%3E%3C/svg%3E");
+    background-position: right 0.5rem center;
+    background-size: 1.25rem;
+    padding-right: 2.5rem;
+  }
+
+  .glass-textarea {
+    @apply glass-input resize-y;
+  }
+
+  /* --- Glass Buttons --- */
+  .glass-btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium
+           rounded-lg transition-all duration-200 cursor-pointer
+           focus:outline-none focus:ring-2 focus:ring-offset-1;
+  }
+
+  .glass-btn-primary {
+    @apply glass-btn bg-gradient-to-r from-primary-500 to-primary-600 text-white
+           hover:from-primary-600 hover:to-primary-700
+           focus:ring-primary-500 shadow-md hover:shadow-lg;
+  }
+
+  .glass-btn-secondary {
+    @apply glass-btn bg-white/60 border border-gray-200/60 text-gray-700
+           hover:bg-white/80 hover:border-gray-300
+           focus:ring-gray-400;
+  }
+
+  .glass-btn-danger {
+    @apply glass-btn bg-gradient-to-r from-red-500 to-red-600 text-white
+           hover:from-red-600 hover:to-red-700
+           focus:ring-red-500 shadow-md hover:shadow-lg;
+  }
+
+  .glass-btn-success {
+    @apply glass-btn bg-gradient-to-r from-emerald-500 to-emerald-600 text-white
+           hover:from-emerald-600 hover:to-emerald-700
+           focus:ring-emerald-500 shadow-md hover:shadow-lg;
+  }
+
+  .glass-btn-warning {
+    @apply glass-btn bg-gradient-to-r from-amber-400 to-amber-500 text-white
+           hover:from-amber-500 hover:to-amber-600
+           focus:ring-amber-400 shadow-md hover:shadow-lg;
+  }
+
+  .glass-btn-sm {
+    @apply px-3 py-1.5 text-xs;
+  }
+
+  .glass-btn-xs {
+    @apply px-2 py-1 text-xs;
+  }
+
+  .glass-btn-icon {
+    @apply glass-btn p-2 bg-white/40 border border-white/30 text-gray-600
+           hover:bg-white/60 hover:text-gray-800
+           focus:ring-gray-400;
+  }
+
+  /* --- Glass Modal --- */
+  .glass-modal-backdrop {
+    @apply fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center;
+  }
+
+  .glass-modal {
+    @apply bg-white/90 backdrop-blur-[20px] border border-white/40 rounded-glass-lg shadow-glass-lg
+           w-full max-w-lg mx-4 animate-fade-in;
+  }
+
+  /* --- Glass Table --- */
+  .glass-table {
+    @apply w-full text-sm text-left text-gray-700;
+  }
+
+  .glass-table thead {
+    @apply text-xs text-gray-500 uppercase tracking-wider border-b border-gray-200/50;
+  }
+
+  .glass-table thead th {
+    @apply px-4 py-3 font-semibold bg-white/30;
+  }
+
+  .glass-table tbody tr {
+    @apply border-b border-gray-100/50 transition-colors duration-150;
+  }
+
+  .glass-table tbody tr:hover {
+    @apply bg-primary-50/30;
+  }
+
+  .glass-table tbody td {
+    @apply px-4 py-3;
+  }
+
+  /* --- Glass Badge --- */
+  .glass-badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .glass-badge-primary {
+    @apply glass-badge bg-primary-100/80 text-primary-700;
+  }
+
+  .glass-badge-success {
+    @apply glass-badge bg-emerald-100/80 text-emerald-700;
+  }
+
+  .glass-badge-danger {
+    @apply glass-badge bg-red-100/80 text-red-700;
+  }
+
+  .glass-badge-warning {
+    @apply glass-badge bg-amber-100/80 text-amber-700;
+  }
+
+  .glass-badge-info {
+    @apply glass-badge bg-sky-100/80 text-sky-700;
+  }
+
+  /* --- Glass Alert --- */
+  .glass-alert {
+    @apply p-4 rounded-glass border backdrop-blur-[8px] flex items-start gap-3;
+  }
+
+  .glass-alert-success {
+    @apply glass-alert bg-emerald-50/80 border-emerald-200/50 text-emerald-800;
+  }
+
+  .glass-alert-danger {
+    @apply glass-alert bg-red-50/80 border-red-200/50 text-red-800;
+  }
+
+  .glass-alert-warning {
+    @apply glass-alert bg-amber-50/80 border-amber-200/50 text-amber-800;
+  }
+
+  .glass-alert-info {
+    @apply glass-alert bg-sky-50/80 border-sky-200/50 text-sky-800;
+  }
+
+  /* --- Glass Tabs --- */
+  .glass-tabs {
+    @apply flex border-b border-gray-200/50 gap-1;
+  }
+
+  .glass-tab {
+    @apply px-4 py-2 text-sm font-medium text-gray-500 rounded-t-lg
+           hover:text-gray-700 hover:bg-white/40
+           transition-all duration-200 cursor-pointer -mb-px;
+  }
+
+  .glass-tab-active {
+    @apply text-primary-600 bg-white/60 border border-gray-200/50 border-b-transparent;
+  }
+
+  /* --- Glass Pagination --- */
+  .glass-pagination {
+    @apply flex items-center gap-1;
+  }
+
+  .glass-page-link {
+    @apply px-3 py-1.5 text-sm rounded-lg text-gray-600
+           hover:bg-white/60 hover:text-gray-800
+           transition-all duration-200;
+  }
+
+  .glass-page-link-active {
+    @apply bg-primary-500 text-white hover:bg-primary-600 hover:text-white shadow-sm;
+  }
+
+  /* --- Info Box --- */
+  .glass-info-box {
+    @apply glass-card p-5 flex items-center gap-4;
+  }
+
+  .glass-info-box-icon {
+    @apply w-14 h-14 rounded-xl flex items-center justify-center text-2xl text-white shadow-md;
+  }
+
+  /* --- Sidebar Menu --- */
+  .glass-menu-item {
+    @apply flex items-center gap-3 px-4 py-2.5 text-gray-300 rounded-lg mx-2
+           hover:bg-white/10 hover:text-white
+           transition-all duration-200 text-sm;
+  }
+
+  .glass-menu-item-active {
+    @apply bg-white/15 text-white font-medium;
+  }
+
+  .glass-menu-header {
+    @apply px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mt-4;
+  }
+
+  /* --- Background gradient --- */
+  .glass-bg {
+    @apply bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100 min-h-screen;
+  }
+
+  /* --- Scrollbar styling --- */
+  .glass-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .glass-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .glass-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-300/50 rounded-full;
+  }
+
+  .glass-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400/60;
+  }
+}
+
+/* ============================================================
+   Font Import
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
