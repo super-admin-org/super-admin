@@ -14,9 +14,22 @@ php artisan vendor:publish --tag=super-admin-assets --force
 
 ## Version Compatibility
 
-| Super Admin | Laravel | PHP |
-|-------------|---------|-----|
-| 1.0.x | 10.x / 11.x / 12.x / 13.x | >= 8.2 |
+| Super Admin | Laravel | PHP | Pest |
+|-------------|---------|-----|------|
+| 1.2.x | 10.x / 11.x / 12.x / 13.x | >= 8.2 | 2.x / 3.x / 4.x |
+
+### Dev Dependency Matrix
+
+Due to transitive dependency constraints, the test runner version depends on your Laravel version:
+
+| Laravel | Pest | PHPUnit | nunomaduro/collision |
+|---------|------|---------|---------------------|
+| 10.x | 2.x | 10.x | ^7.0 |
+| 11.x | 3.x | 11.x | ^8.0 |
+| 12.x | 3.x / 4.x | 11.x / 12.x | ^8.0 |
+| 13.x | 4.x | 12.x | ^8.9 |
+
+Composer resolves the correct versions automatically.
 
 ## Upgrading from Open-Admin or Laravel-Admin
 
