@@ -2,6 +2,7 @@
 
 namespace SuperAdmin\Admin;
 
+use Illuminate\Config\Repository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
@@ -214,7 +215,7 @@ abstract class Extension
      *
      * @param  string  $key
      * @param  null  $default
-     * @return \Illuminate\Config\Repository|mixed
+     * @return Repository|mixed
      */
     public static function config($key = null, $default = null)
     {

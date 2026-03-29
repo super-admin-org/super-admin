@@ -2,6 +2,8 @@
 
 namespace SuperAdmin\Admin\Grid\Displayers\Actions;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Actions\RowAction;
 use SuperAdmin\Admin\Admin;
 use SuperAdmin\Admin\Grid\Actions\Delete;
@@ -222,7 +224,7 @@ class Actions extends AbstractDisplayer
 
     /**
      * @param  null|\Closure  $callback
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @return Factory|View|string
      */
     public function display($callback = null)
     {

@@ -3,9 +3,11 @@
 namespace SuperAdmin\Admin\Grid\Tools;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class Selector implements Renderable
 {
@@ -150,7 +152,7 @@ class Selector implements Renderable
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function render()
     {

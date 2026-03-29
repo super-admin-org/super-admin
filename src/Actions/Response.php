@@ -2,6 +2,7 @@
 
 namespace SuperAdmin\Admin\Actions;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -219,7 +220,7 @@ class Response
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function send()
     {

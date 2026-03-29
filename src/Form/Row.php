@@ -3,6 +3,8 @@
 namespace SuperAdmin\Admin\Form;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Form;
 
 class Row implements Renderable
@@ -73,7 +75,7 @@ class Row implements Renderable
     /**
      * Render the row.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function render()
     {

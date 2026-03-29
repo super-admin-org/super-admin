@@ -115,7 +115,7 @@ abstract class Selectable
         }
 
         $this->tools(function (Tools $tools) {
-            $tools->append(new Grid\Selectable\BrowserBtn);
+            $tools->append(new Selectable\BrowserBtn);
         });
 
         return $this->grid;

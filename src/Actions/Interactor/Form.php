@@ -236,7 +236,7 @@ class Form extends Interactor
     /**
      * Merge validation messages from input validators.
      *
-     * @param  \Illuminate\Validation\Validator[]  $validators
+     * @param  Validator[]  $validators
      * @return MessageBag
      */
     protected function mergeValidationMessages($validators)

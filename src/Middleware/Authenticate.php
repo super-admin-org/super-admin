@@ -3,6 +3,7 @@
 namespace SuperAdmin\Admin\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
 use SuperAdmin\Admin\Facades\Admin;
 
 class Authenticate
@@ -10,7 +11,7 @@ class Authenticate
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -29,7 +30,7 @@ class Authenticate
     /**
      * Determine if the request has a URI that should pass through verification.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return bool
      */
     protected function shouldPassThrough($request)

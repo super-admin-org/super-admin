@@ -2,6 +2,9 @@
 
 namespace SuperAdmin\Admin\Widgets;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
+
 class StepForm extends Form
 {
     /**
@@ -26,7 +29,7 @@ class StepForm extends Form
 
     /**
      * @param  array  $data
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     protected function next($data = [])
     {
@@ -49,7 +52,7 @@ class StepForm extends Form
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     protected function redirectToNextStep()
     {

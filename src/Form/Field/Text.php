@@ -2,6 +2,8 @@
 
 namespace SuperAdmin\Admin\Form\Field;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Form\Field;
 use SuperAdmin\Admin\Form\Field\Traits\HasValuePicker;
 use SuperAdmin\Admin\Form\Field\Traits\PlainInput;
@@ -37,7 +39,7 @@ class Text extends Field
     /**
      * Render this filed.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function render()
     {

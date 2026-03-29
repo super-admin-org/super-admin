@@ -2,7 +2,11 @@
 
 namespace SuperAdmin\Admin\Form\Field\Traits;
 
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait ImageField
@@ -38,7 +42,7 @@ trait ImageField
      */
     protected function interventionImageAvailable()
     {
-        return class_exists(\Intervention\Image\ImageManager::class);
+        return class_exists(ImageManager::class);
     }
 
     /**
@@ -49,8 +53,8 @@ trait ImageField
      */
     protected function makeInterventionImage($source)
     {
-        $manager = new \Intervention\Image\ImageManager(
-            new \Intervention\Image\Drivers\Gd\Driver()
+        $manager = new ImageManager(
+            new Driver
         );
 
         return $manager->read($source);
@@ -110,7 +114,7 @@ trait ImageField
     /**
      * Render a image form field.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function render()
     {

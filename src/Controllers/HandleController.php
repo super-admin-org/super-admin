@@ -5,6 +5,7 @@ namespace SuperAdmin\Admin\Controllers;
 use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Collection;
@@ -12,6 +13,7 @@ use SuperAdmin\Admin\Actions\Action;
 use SuperAdmin\Admin\Actions\GridAction;
 use SuperAdmin\Admin\Actions\Response;
 use SuperAdmin\Admin\Actions\RowAction;
+use SuperAdmin\Admin\Grid\Selectable;
 use SuperAdmin\Admin\Widgets\Form;
 
 class HandleController extends Controller
@@ -58,7 +60,7 @@ class HandleController extends Controller
     }
 
     /**
-     * @return $this|\Illuminate\Http\JsonResponse
+     * @return $this|JsonResponse
      */
     public function handleAction(Request $request)
     {
@@ -146,7 +148,7 @@ class HandleController extends Controller
         $class = str_replace('_', '\\', $class);
 
         if (class_exists($class)) {
-            /** @var \SuperAdmin\Admin\Grid\Selectable $selectable */
+            /** @var Selectable $selectable */
             $selectable = new $class(...array_values($args));
 
             return $selectable->render();

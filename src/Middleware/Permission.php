@@ -74,7 +74,7 @@ class Permission
     /**
      * Determine if the request has a URI that should pass through verification.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return bool
      */
     protected function shouldPassThrough($request)

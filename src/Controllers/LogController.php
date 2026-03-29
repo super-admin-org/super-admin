@@ -2,6 +2,7 @@
 
 namespace SuperAdmin\Admin\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use SuperAdmin\Admin\Auth\Database\OperationLog;
 use SuperAdmin\Admin\Grid;
@@ -67,7 +68,7 @@ class LogController extends AdminController
 
     /**
      * @param  mixed  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function destroy($id)
     {

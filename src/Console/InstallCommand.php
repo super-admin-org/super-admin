@@ -3,6 +3,8 @@
 namespace SuperAdmin\Admin\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
+use SuperAdmin\Admin\Auth\Database\AdminTablesSeeder;
 
 class InstallCommand extends Command
 {
@@ -37,7 +39,7 @@ class InstallCommand extends Command
         $this->initDatabase();
 
         $this->initAdminDirectory();
-        \Illuminate\Support\Facades\Artisan::call('vendor:publish', [
+        Artisan::call('vendor:publish', [
             '--tag' => 'super-admin-assets',
             '--force' => true,
         ]);
@@ -56,7 +58,7 @@ class InstallCommand extends Command
         $userModel = config('admin.database.users_model');
 
         if ($userModel::count() == 0) {
-            $this->call('db:seed', ['--class' => \SuperAdmin\Admin\Auth\Database\AdminTablesSeeder::class]);
+            $this->call('db:seed', ['--class' => AdminTablesSeeder::class]);
         }
     }
 

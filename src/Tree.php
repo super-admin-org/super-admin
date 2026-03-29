@@ -5,6 +5,7 @@ namespace SuperAdmin\Admin;
 use Closure;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\JsonResponse;
 use SuperAdmin\Admin\Tree\Tools;
 
 class Tree implements Renderable
@@ -25,7 +26,7 @@ class Tree implements Renderable
     protected $model;
 
     /**
-     * @var \Closure
+     * @var Closure
      */
     protected $queryCallback;
 
@@ -40,7 +41,7 @@ class Tree implements Renderable
     ];
 
     /**
-     * @var \Closure
+     * @var Closure
      */
     protected $callback;
 
@@ -79,7 +80,7 @@ class Tree implements Renderable
     /**
      * Menu constructor.
      */
-    public function __construct(?Model $model = null, ?\Closure $callback = null)
+    public function __construct(?Model $model = null, ?Closure $callback = null)
     {
         $this->model = $model;
 
@@ -88,7 +89,7 @@ class Tree implements Renderable
 
         $this->setupTools();
 
-        if ($callback instanceof \Closure) {
+        if ($callback instanceof Closure) {
             call_user_func($callback, $this);
         }
 
@@ -126,7 +127,7 @@ class Tree implements Renderable
      *
      * @return $this
      */
-    public function branch(\Closure $branchCallback)
+    public function branch(Closure $branchCallback)
     {
         $this->branchCallback = $branchCallback;
 
@@ -138,7 +139,7 @@ class Tree implements Renderable
      *
      * @return Model
      */
-    public function query(\Closure $callback)
+    public function query(Closure $callback)
     {
         $this->queryCallback = $callback;
 
@@ -274,7 +275,7 @@ SCRIPT;
     /**
      * Render a tree.
      *
-     * @return \Illuminate\Http\JsonResponse|string
+     * @return JsonResponse|string
      */
     public function render()
     {

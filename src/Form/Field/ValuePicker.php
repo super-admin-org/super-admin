@@ -3,6 +3,7 @@
 namespace SuperAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use SuperAdmin\Admin\Admin;
 use SuperAdmin\Admin\Form\Field;
 
@@ -104,7 +105,7 @@ HTML;
     }
 
     /**
-     * @return array|\Illuminate\Support\Collection
+     * @return array|Collection
      */
     public function getPreview(string $field)
     {

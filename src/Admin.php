@@ -3,6 +3,9 @@
 namespace SuperAdmin\Admin;
 
 use Closure;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -73,7 +76,7 @@ class Admin
     }
 
     /**
-     * @return \SuperAdmin\Admin\Grid
+     * @return Grid
      *
      * @deprecated since v1.6.1
      */
@@ -83,7 +86,7 @@ class Admin
     }
 
     /**
-     * @return \SuperAdmin\Admin\Form
+     * @return Form
      *
      *  @deprecated since v1.6.1
      */
@@ -96,7 +99,7 @@ class Admin
      * Build a tree.
      *
      *
-     * @return \SuperAdmin\Admin\Tree
+     * @return Tree
      */
     public function tree($model, ?Closure $callable = null)
     {
@@ -115,7 +118,7 @@ class Admin
     }
 
     /**
-     * @return \SuperAdmin\Admin\Layout\Content
+     * @return Content
      */
     public function content(?Closure $callable = null)
     {
@@ -217,7 +220,7 @@ class Admin
     /**
      * Get the currently authenticated user.
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return Authenticatable|null
      */
     public function user()
     {
@@ -237,7 +240,7 @@ class Admin
     /**
      * Attempt to get the guard from the local cache.
      *
-     * @return \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
+     * @return Guard|StatefulGuard
      */
     public function guard()
     {
@@ -262,7 +265,7 @@ class Admin
     /**
      * Get navbar object.
      *
-     * @return \SuperAdmin\Admin\Widgets\Navbar
+     * @return Navbar
      */
     public function getNavbar()
     {

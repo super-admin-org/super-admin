@@ -3,6 +3,7 @@
 namespace SuperAdmin\Admin\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class Alert extends Widget implements Renderable
 {
@@ -12,7 +13,7 @@ class Alert extends Widget implements Renderable
     protected $view = 'admin::widgets.alert';
 
     /**
-     * @var string|\Symfony\Component\Translation\TranslatorInterface
+     * @var string|TranslatorInterface
      */
     protected $title = '';
 

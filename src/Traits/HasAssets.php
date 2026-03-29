@@ -2,6 +2,9 @@
 
 namespace SuperAdmin\Admin\Traits;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+
 trait HasAssets
 {
     /**
@@ -113,7 +116,7 @@ trait HasAssets
      *
      * @param  null  $css
      * @param  bool  $minify
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return array|Factory|View
      */
     public static function css($css = null, $minify = true)
     {
@@ -157,7 +160,7 @@ trait HasAssets
      *
      * @param  null  $js
      * @param  bool  $minify
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return array|Factory|View
      */
     public static function js($js = null, $minify = true)
     {
@@ -181,7 +184,7 @@ trait HasAssets
      * Add js or get all js.
      *
      * @param  null  $js
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return array|Factory|View
      */
     public static function headerJs($js = null)
     {
@@ -226,7 +229,7 @@ trait HasAssets
     /**
      * @param  string  $script
      * @param  bool  $deferred
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return array|Factory|View
      */
     public static function script($script = '', $deferred = false)
     {
@@ -255,7 +258,7 @@ trait HasAssets
 
     /**
      * @param  string  $style
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return array|Factory|View
      */
     public static function style($style = '')
     {
@@ -274,7 +277,7 @@ trait HasAssets
 
     /**
      * @param  string  $html
-     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return array|Factory|View
      */
     public static function html($html = '')
     {

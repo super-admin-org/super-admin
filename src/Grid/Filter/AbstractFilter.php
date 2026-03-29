@@ -4,6 +4,7 @@ namespace SuperAdmin\Admin\Grid\Filter;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Grid\Filter;
 use SuperAdmin\Admin\Grid\Filter\Presenter\Checkbox;
 use SuperAdmin\Admin\Grid\Filter\Presenter\DateTime;
@@ -249,7 +250,7 @@ abstract class AbstractFilter
     /**
      * Select filter.
      *
-     * @param  array|\Illuminate\Support\Collection  $options
+     * @param  array|Collection  $options
      * @return Select
      */
     public function select($options = [])
@@ -258,7 +259,7 @@ abstract class AbstractFilter
     }
 
     /**
-     * @param  array|\Illuminate\Support\Collection  $options
+     * @param  array|Collection  $options
      * @return MultipleSelect
      */
     public function multipleSelect($options = [])
@@ -267,7 +268,7 @@ abstract class AbstractFilter
     }
 
     /**
-     * @param  array|\Illuminate\Support\Collection  $options
+     * @param  array|Collection  $options
      * @return Radio
      */
     public function radio($options = [])
@@ -276,7 +277,7 @@ abstract class AbstractFilter
     }
 
     /**
-     * @param  array|\Illuminate\Support\Collection  $options
+     * @param  array|Collection  $options
      * @return Checkbox
      */
     public function checkbox($options = [])
@@ -287,7 +288,7 @@ abstract class AbstractFilter
     /**
      * Datetime filter.
      *
-     * @param  array|\Illuminate\Support\Collection  $options
+     * @param  array|Collection  $options
      * @return DateTime
      */
     public function datetime($options = [])
@@ -496,7 +497,7 @@ abstract class AbstractFilter
     /**
      * Render this filter.
      *
-     * @return \Illuminate\View\View|string
+     * @return View|string
      */
     public function render()
     {
@@ -506,7 +507,7 @@ abstract class AbstractFilter
     /**
      * Render this filter.
      *
-     * @return \Illuminate\View\View|string
+     * @return View|string
      */
     public function __toString()
     {

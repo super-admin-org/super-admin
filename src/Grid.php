@@ -3,6 +3,7 @@
 namespace SuperAdmin\Admin;
 
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Support\Collection;
@@ -42,28 +43,28 @@ class Grid
     /**
      * The grid data model instance.
      *
-     * @var \SuperAdmin\Admin\Grid\Model|\Illuminate\Database\Eloquent\Builder
+     * @var Model|Builder
      */
     protected $model;
 
     /**
      * Collection of all grid columns.
      *
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
     protected $columns;
 
     /**
      * Collection of all data rows.
      *
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
     protected $rows;
 
     /**
      * Rows callable fucntion.
      *
-     * @var \Closure
+     * @var Closure
      */
     protected $rowsCallback;
 
@@ -77,7 +78,7 @@ class Grid
     /**
      * Grid builder.
      *
-     * @var \Closure
+     * @var Closure
      */
     protected $builder;
 
@@ -400,7 +401,7 @@ class Grid
     /**
      * Get Grid model.
      *
-     * @return Model|\Illuminate\Database\Eloquent\Builder
+     * @return Model|Builder
      */
     public function model()
     {

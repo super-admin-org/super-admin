@@ -5,9 +5,12 @@ namespace SuperAdmin\Admin\Form;
 use Closure;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Admin;
 use SuperAdmin\Admin\Form;
 use SuperAdmin\Admin\Widgets\Form as WidgetForm;
@@ -119,26 +122,26 @@ class Field implements Renderable
     /**
      * Validation rules.
      *
-     * @var array|\Closure
+     * @var array|Closure
      */
     protected $rules = [];
 
     /**
      * The validation rules for creation.
      *
-     * @var array|\Closure
+     * @var array|Closure
      */
     public $creationRules = [];
 
     /**
      * The validation rules for updates.
      *
-     * @var array|\Closure
+     * @var array|Closure
      */
     public $updateRules = [];
 
     /**
-     * @var \Closure
+     * @var Closure
      */
     protected $validator;
 
@@ -246,7 +249,7 @@ class Field implements Renderable
     /**
      * column data format.
      *
-     * @var \Closure
+     * @var Closure
      */
     protected $customFormat = null;
 
@@ -266,7 +269,7 @@ class Field implements Renderable
     protected $groupClass = [];
 
     /**
-     * @var \Closure
+     * @var Closure
      */
     protected $callback;
 
@@ -432,7 +435,7 @@ class Field implements Renderable
      */
     protected function formatValue()
     {
-        if (isset($this->customFormat) && $this->customFormat instanceof \Closure) {
+        if (isset($this->customFormat) && $this->customFormat instanceof Closure) {
             $this->value = call_user_func($this->customFormat, $this->value);
         }
     }
@@ -443,7 +446,7 @@ class Field implements Renderable
      *
      * @return $this
      */
-    public function customFormat(\Closure $call): self
+    public function customFormat(Closure $call): self
     {
         $this->customFormat = $call;
 
@@ -563,7 +566,7 @@ class Field implements Renderable
         $this->setLabelClass(['asterisk']);
 
         // Only text field has `required` attribute.
-        if (! $this instanceof Form\Field\Text) {
+        if (! $this instanceof Field\Text) {
             return;
         }
 
@@ -723,7 +726,7 @@ class Field implements Renderable
             $rules = $this->rules;
         }
 
-        if ($rules instanceof \Closure) {
+        if ($rules instanceof Closure) {
             $rules = $rules->call($this, $this->form);
         }
 
@@ -872,7 +875,7 @@ class Field implements Renderable
      */
     public function getDefault()
     {
-        if ($this->default instanceof \Closure) {
+        if ($this->default instanceof Closure) {
             return call_user_func($this->default, $this->form);
         }
 
@@ -899,7 +902,7 @@ class Field implements Renderable
      */
     public function getDefaultOnEmpty()
     {
-        if ($this->default_on_empty instanceof \Closure) {
+        if ($this->default_on_empty instanceof Closure) {
             return call_user_func($this->default_on_empty, $this->form);
         }
 
@@ -952,7 +955,7 @@ class Field implements Renderable
      * Get validator for this field.
      *
      *
-     * @return bool|\Illuminate\Contracts\Validation\Validator|mixed
+     * @return bool|Validator|mixed
      */
     public function getValidator(array $input)
     {
@@ -1536,7 +1539,7 @@ class Field implements Renderable
     /**
      * Render this filed.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @return Factory|View|string
      */
     public function render()
     {
@@ -1562,7 +1565,7 @@ class Field implements Renderable
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @return Factory|View|string
      */
     protected function fieldRender(array $variables = [])
     {

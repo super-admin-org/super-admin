@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Grid\Filter\AbstractFilter;
 use SuperAdmin\Admin\Grid\Filter\Layout\Layout;
 use SuperAdmin\Admin\Grid\Filter\Scope;
@@ -164,7 +165,7 @@ class Filter implements Renderable
      */
     protected function initLayout()
     {
-        $this->layout = new Filter\Layout\Layout($this);
+        $this->layout = new Layout($this);
     }
 
     /**
@@ -524,7 +525,7 @@ class Filter implements Renderable
     /**
      * Get the string contents of the filter view.
      *
-     * @return \Illuminate\View\View|string
+     * @return View|string
      */
     public function render()
     {

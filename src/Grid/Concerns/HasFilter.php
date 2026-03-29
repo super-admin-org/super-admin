@@ -3,7 +3,9 @@
 namespace SuperAdmin\Admin\Grid\Concerns;
 
 use Closure;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Grid\Filter;
 
 trait HasFilter
@@ -11,7 +13,7 @@ trait HasFilter
     /**
      * The grid Filter.
      *
-     * @var \SuperAdmin\Admin\Grid\Filter
+     * @var Filter
      */
     protected $filter;
 
@@ -75,7 +77,7 @@ trait HasFilter
     /**
      * Render the grid filter.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @return Factory|View|string
      */
     public function renderFilter()
     {

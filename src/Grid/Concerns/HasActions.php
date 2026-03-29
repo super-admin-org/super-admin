@@ -3,6 +3,7 @@
 namespace SuperAdmin\Admin\Grid\Concerns;
 
 use Closure;
+use Illuminate\Config\Repository;
 use SuperAdmin\Admin\Grid;
 
 trait HasActions
@@ -39,7 +40,7 @@ trait HasActions
     /**
      * Get action display class.
      *
-     * @return \Illuminate\Config\Repository|mixed|string
+     * @return Repository|mixed|string
      */
     public function getActionClass()
     {

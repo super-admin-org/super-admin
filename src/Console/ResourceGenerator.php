@@ -2,6 +2,8 @@
 
 namespace SuperAdmin\Admin\Console;
 
+use Doctrine\DBAL\Schema\AbstractSchemaManager;
+use Doctrine\DBAL\Schema\Column;
 use Illuminate\Database\Eloquent\Model;
 
 class ResourceGenerator
@@ -206,7 +208,7 @@ class ResourceGenerator
     /**
      * Get columns of a giving model.
      *
-     * @return \Doctrine\DBAL\Schema\Column[]
+     * @return Column[]
      *
      * @throws \Exception
      */
@@ -254,7 +256,7 @@ class ResourceGenerator
 
         // Use the Doctrine Schema Manager only if Doctrine DBAL is available
         if (class_exists('Doctrine\DBAL\Driver\Connection')) {
-            /** @var \Doctrine\DBAL\Schema\AbstractSchemaManager $schema */
+            /** @var AbstractSchemaManager $schema */
             $schema = $connection->getDoctrineSchemaManager();
 
             // Custom mapping the types that Doctrine DBAL does not support

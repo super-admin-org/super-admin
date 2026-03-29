@@ -2,10 +2,12 @@
 
 namespace SuperAdmin\Admin\Form\Field;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Relations\HasMany as Relation;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Admin;
 use SuperAdmin\Admin\Form;
 use SuperAdmin\Admin\Form\Field;
@@ -113,7 +115,7 @@ class HasMany extends Field
      * Get validator for this field.
      *
      *
-     * @return bool|\Illuminate\Contracts\Validation\Validator
+     * @return bool|Validator
      */
     public function getValidator(array $input)
     {
@@ -329,7 +331,7 @@ class HasMany extends Field
      */
     protected function buildNestedForm($column, \Closure $builder, $model = null)
     {
-        $form = new Form\NestedForm($column, $model);
+        $form = new NestedForm($column, $model);
 
         if ($this->form instanceof WidgetForm) {
             $form->setWidgetForm($this->form);
@@ -619,7 +621,7 @@ EOT;
     /**
      * Render the `HasMany` field.
      *
-     * @return \Illuminate\View\View
+     * @return View
      *
      * @throws \Exception
      */

@@ -3,6 +3,7 @@
 namespace SuperAdmin\Admin\Grid\Column;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use SuperAdmin\Admin\Grid\Column;
 use SuperAdmin\Admin\Grid\Model;
@@ -38,7 +39,7 @@ class Filter implements Renderable
      * Get filter value of this column.
      *
      * @param  string  $default
-     * @return array|\Illuminate\Http\Request|string
+     * @return array|Request|string
      */
     public function getFilterValue($default = '')
     {

@@ -2,6 +2,8 @@
 
 namespace SuperAdmin\Admin\Grid\Exporters;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -36,7 +38,7 @@ abstract class ExcelExporter extends AbstractExporter implements FromQuery, With
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     * @return Builder|Model
      */
     public function query()
     {

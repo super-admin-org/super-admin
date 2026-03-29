@@ -2,6 +2,9 @@
 
 namespace SuperAdmin\Admin\Form\Field;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+
 class Color extends Text
 {
     protected static $css = [
@@ -62,7 +65,7 @@ class Color extends Text
     /**
      * Render this filed.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function render()
     {

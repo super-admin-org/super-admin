@@ -3,13 +3,18 @@
 namespace SuperAdmin\Admin;
 
 use Closure;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Str;
@@ -22,6 +27,7 @@ use SuperAdmin\Admin\Form\Concerns\HasFields;
 use SuperAdmin\Admin\Form\Concerns\HasFormAttributes;
 use SuperAdmin\Admin\Form\Concerns\HasHooks;
 use SuperAdmin\Admin\Form\Field;
+use SuperAdmin\Admin\Form\Footer;
 use SuperAdmin\Admin\Form\Layout\Layout;
 use SuperAdmin\Admin\Form\Row;
 use SuperAdmin\Admin\Form\Tab;
@@ -53,7 +59,7 @@ class Form implements Renderable
     public $model;
 
     /**
-     * @var \Illuminate\Validation\Validator
+     * @var Validator
      */
     public $validator;
 
@@ -117,7 +123,7 @@ class Form implements Renderable
     protected static $collectedAssets = [];
 
     /**
-     * @var Form\Tab
+     * @var Tab
      */
     protected $tab = null;
 
@@ -187,7 +193,7 @@ class Form implements Renderable
     }
 
     /**
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function fields()
     {
@@ -321,7 +327,7 @@ class Form implements Renderable
     /**
      * Store a new record.
      *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\Http\JsonResponse
+     * @return RedirectResponse|Redirector|JsonResponse
      */
     public function store()
     {
@@ -375,7 +381,7 @@ class Form implements Renderable
     }
 
     /**
-     * @return $this|\Illuminate\Http\JsonResponse
+     * @return $this|JsonResponse
      */
     protected function responseValidationError(MessageBag $message)
     {
@@ -394,7 +400,7 @@ class Form implements Renderable
      * Get ajax response.
      *
      * @param  string  $message
-     * @return bool|\Illuminate\Http\JsonResponse
+     * @return bool|JsonResponse
      */
     protected function ajaxResponse($message)
     {
@@ -510,7 +516,7 @@ class Form implements Renderable
      *
      * @param  int  $id
      * @param  null  $data
-     * @return bool|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|mixed|null|Response
+     * @return bool|ResponseFactory|JsonResponse|RedirectResponse|\Illuminate\Http\Response|mixed|null|Response
      */
     public function update($id, $data = null)
     {
@@ -573,7 +579,7 @@ class Form implements Renderable
     /**
      * Get RedirectResponse after store.
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     protected function redirectAfterStore()
     {
@@ -587,7 +593,7 @@ class Form implements Renderable
      * Get RedirectResponse after update.
      *
      * @param  mixed  $key
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     protected function redirectAfterUpdate($key)
     {
@@ -601,7 +607,7 @@ class Form implements Renderable
      *
      * @param  string  $resourcesPath
      * @param  string  $key
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     protected function redirectAfterSaving($resourcesPath, $key)
     {
@@ -642,7 +648,7 @@ class Form implements Renderable
      *
      * @param  int  $id
      * @param  array  $data
-     * @return array|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response|Response
+     * @return array|ResponseFactory|\Illuminate\Http\Response|Response
      */
     protected function handleColumnUpdates($id, $data)
     {
@@ -1046,7 +1052,7 @@ class Form implements Renderable
     /**
      * Merge validation messages from input validators.
      *
-     * @param  \Illuminate\Validation\Validator[]  $validators
+     * @param  Validator[]  $validators
      */
     protected function mergeValidationMessages($validators): MessageBag
     {
@@ -1298,7 +1304,7 @@ class Form implements Renderable
      * Footer setting for form.
      *
      *
-     * @return \SuperAdmin\Admin\Form\Footer
+     * @return Footer
      */
     public function footer(?Closure $callback = null)
     {

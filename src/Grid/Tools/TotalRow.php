@@ -2,9 +2,11 @@
 
 namespace SuperAdmin\Admin\Grid\Tools;
 
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Grid\Column;
 
 class TotalRow extends AbstractTool
@@ -81,7 +83,7 @@ class TotalRow extends AbstractTool
     /**
      * Render total-row.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function render()
     {

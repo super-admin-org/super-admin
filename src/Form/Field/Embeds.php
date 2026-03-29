@@ -4,6 +4,7 @@ namespace SuperAdmin\Admin\Form\Field;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Form\EmbeddedForm;
 use SuperAdmin\Admin\Form\Field;
 use SuperAdmin\Admin\Widgets\Form as WidgetForm;
@@ -269,7 +270,7 @@ class Embeds extends Field
     /**
      * Render the form.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function render()
     {

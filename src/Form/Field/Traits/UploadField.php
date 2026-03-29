@@ -2,6 +2,7 @@
 
 namespace SuperAdmin\Admin\Form\Field\Traits;
 
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
@@ -27,7 +28,7 @@ trait UploadField
     /**
      * Storage instance.
      *
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $storage = '';
 

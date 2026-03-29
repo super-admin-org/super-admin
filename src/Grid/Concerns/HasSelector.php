@@ -2,6 +2,8 @@
 
 namespace SuperAdmin\Admin\Grid\Concerns;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Grid;
 use SuperAdmin\Admin\Grid\Tools\Selector;
 
@@ -68,7 +70,7 @@ trait HasSelector
     /**
      * Render grid selector.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @return Factory|View|string
      */
     public function renderSelector()
     {

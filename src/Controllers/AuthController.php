@@ -2,16 +2,21 @@
 
 namespace SuperAdmin\Admin\Controllers;
 
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Facades\Admin;
 use SuperAdmin\Admin\Form;
 use SuperAdmin\Admin\Layout\Content;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class AuthController extends Controller
 {
@@ -23,7 +28,7 @@ class AuthController extends Controller
     /**
      * Show the login page.
      *
-     * @return \Illuminate\Contracts\View\Factory|Redirect|\Illuminate\View\View
+     * @return Factory|Redirect|View
      */
     public function getLogin()
     {
@@ -165,7 +170,7 @@ class AuthController extends Controller
     }
 
     /**
-     * @return string|\Symfony\Component\Translation\TranslatorInterface
+     * @return string|TranslatorInterface
      */
     protected function getFailedLoginMessage()
     {
@@ -192,7 +197,7 @@ class AuthController extends Controller
      * Send the response after the user was authenticated.
      *
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     protected function sendLoginResponse(Request $request)
     {
@@ -216,7 +221,7 @@ class AuthController extends Controller
     /**
      * Get the guard to be used during authentication.
      *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     * @return StatefulGuard
      */
     protected function guard()
     {

@@ -2,7 +2,9 @@
 
 namespace SuperAdmin\Admin\Form\Field;
 
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Arr;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Form\Field;
 use SuperAdmin\Admin\Form\Field\Traits\HasMediaPicker;
 use SuperAdmin\Admin\Form\Field\Traits\UploadField;
@@ -221,7 +223,7 @@ class File extends Field
     /**
      * Render file upload field.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function render()
     {

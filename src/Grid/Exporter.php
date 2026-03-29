@@ -36,7 +36,7 @@ class Exporter
     public static $queryName = '_export_';
 
     /**
-     * @var Grid\Exporters\AbstractExporter
+     * @var Exporters\AbstractExporter
      */
     protected static $exporter;
 
@@ -74,7 +74,7 @@ class Exporter
      */
     public function resolve($driver)
     {
-        if ($driver instanceof Grid\Exporters\AbstractExporter) {
+        if ($driver instanceof Exporters\AbstractExporter) {
             return $driver->setGrid($this->grid);
         }
 

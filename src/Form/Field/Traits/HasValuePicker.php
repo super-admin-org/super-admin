@@ -2,6 +2,8 @@
 
 namespace SuperAdmin\Admin\Form\Field\Traits;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use SuperAdmin\Admin\Admin;
 use SuperAdmin\Admin\Form\Field;
 use SuperAdmin\Admin\Form\Field\ValuePicker;
@@ -64,7 +66,7 @@ trait HasValuePicker
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @return Factory|View|string
      */
     protected function renderFilePicker()
     {

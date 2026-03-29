@@ -2,6 +2,7 @@
 
 namespace SuperAdmin\Admin\Grid;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -32,7 +33,7 @@ class Model
     /**
      * Array of queries of the eloquent model.
      *
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
     protected $queries;
 
@@ -391,7 +392,7 @@ class Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Builder|EloquentModel
+     * @return Builder|EloquentModel
      */
     public function getQueryBuilder()
     {

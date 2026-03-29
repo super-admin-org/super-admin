@@ -3,6 +3,7 @@
 namespace SuperAdmin\Admin\Middleware;
 
 use Closure;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Str;
@@ -57,7 +58,7 @@ class Pjax
      * Handle Response with exceptions.
      *
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     protected function handleErrorResponse(Response $response)
     {

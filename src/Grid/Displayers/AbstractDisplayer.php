@@ -5,6 +5,7 @@ namespace SuperAdmin\Admin\Grid\Displayers;
 use Illuminate\Database\Eloquent\Model;
 use SuperAdmin\Admin\Grid;
 use SuperAdmin\Admin\Grid\Column;
+use Symfony\Component\Translation\TranslatorInterface;
 
 abstract class AbstractDisplayer
 {
@@ -129,7 +130,7 @@ abstract class AbstractDisplayer
      * Get translation.
      *
      * @param  string  $text
-     * @return string|\Symfony\Component\Translation\TranslatorInterface
+     * @return string|TranslatorInterface
      */
     protected function trans($text)
     {

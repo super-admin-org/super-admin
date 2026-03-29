@@ -3,6 +3,7 @@
 namespace SuperAdmin\Admin\Form\Field\Traits;
 
 use SuperAdmin\Admin\Admin;
+use SuperAdmin\Admin\Grid;
 use SuperAdmin\Admin\Grid\Selectable;
 
 trait BelongsToRelation
@@ -263,7 +264,7 @@ JS;
     }
 
     /**
-     * @return \SuperAdmin\Admin\Grid
+     * @return Grid
      */
     protected function makeGrid()
     {

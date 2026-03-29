@@ -2,6 +2,7 @@
 
 namespace SuperAdmin\Admin\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use SuperAdmin\Admin\Form;
 use SuperAdmin\Admin\Layout\Column;
@@ -55,7 +56,7 @@ class MenuController extends Controller
      * Redirect to edit page.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function show($id)
     {
@@ -63,7 +64,7 @@ class MenuController extends Controller
     }
 
     /**
-     * @return \SuperAdmin\Admin\Tree
+     * @return Tree
      */
     protected function treeView()
     {

@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use SuperAdmin\Admin\Admin;
 use SuperAdmin\Admin\Form;
+use SuperAdmin\Admin\Form\Field\Hidden;
 use SuperAdmin\Admin\Widgets\Form as WidgetForm;
 
 /**
@@ -92,7 +93,7 @@ class NestedForm
     protected $original = [];
 
     /**
-     * @var \SuperAdmin\Admin\Form|\SuperAdmin\Admin\Widgets\Form
+     * @var Form|WidgetForm
      */
     protected $form;
 
@@ -303,7 +304,7 @@ class NestedForm
                 $value = $field->prepare($value);
             }
 
-            if (($field instanceof \SuperAdmin\Admin\Form\Field\Hidden) || $value != $field->original() || ($this->save_null_values && $value == null)) {
+            if (($field instanceof Hidden) || $value != $field->original() || ($this->save_null_values && $value == null)) {
                 if (is_array($columns)) {
                     foreach ($columns as $name => $column) {
                         Arr::set($prepared, $column, $value[$name]);

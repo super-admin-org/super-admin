@@ -4,11 +4,12 @@ namespace SuperAdmin\Admin\Grid\Tools;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use SuperAdmin\Admin\Grid;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class Paginator extends AbstractTool
 {
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator
+     * @var LengthAwarePaginator
      */
     protected $paginator = null;
 
@@ -69,7 +70,7 @@ class Paginator extends AbstractTool
     /**
      * Get range infomation of paginator.
      *
-     * @return string|\Symfony\Component\Translation\TranslatorInterface
+     * @return string|TranslatorInterface
      */
     protected function paginationRanger()
     {

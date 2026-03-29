@@ -2,13 +2,14 @@
 
 namespace SuperAdmin\Admin\Actions;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use SuperAdmin\Admin\Grid\Column;
 
 abstract class RowAction extends GridAction
 {
     /**
-     * @var \Illuminate\Database\Eloquent\Model
+     * @var Model
      */
     protected $row;
 
@@ -41,7 +42,7 @@ abstract class RowAction extends GridAction
      * Set row model.
      *
      * @param  mixed  $key
-     * @return \Illuminate\Database\Eloquent\Model|mixed
+     * @return Model|mixed
      */
     public function row($key = null)
     {
@@ -55,7 +56,7 @@ abstract class RowAction extends GridAction
     /**
      * Set row model.
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $row
+     * @param  Model  $row
      * @return $this
      */
     public function setRow($row)

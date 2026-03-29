@@ -18,7 +18,7 @@ class LogOperation
     public function handle(Request $request, \Closure $next)
     {
         if ($this->shouldLogOperation($request)) {
-            $setProxy = $request->setTrustedProxies(request()->getClientIps(), \Illuminate\Http\Request::HEADER_X_FORWARDED_FOR);
+            $setProxy = $request->setTrustedProxies(request()->getClientIps(), Request::HEADER_X_FORWARDED_FOR);
             $log = [
                 'user_id' => Admin::user()->id,
                 'path' => substr($request->path(), 0, 255),
@@ -82,7 +82,7 @@ class LogOperation
     /**
      * Determine if the request has a URI that should pass through CSRF verification.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @return bool
      */
     protected function inExceptArray($request)
