@@ -4,11 +4,11 @@
 </a>
 </p>
 
-<p align="center"><code>super-admin</code> is administrative interface builder for laravel which can help you build CRUD backends just with few lines of code.</p>
+<p align="center"><code>super-admin</code> is an administrative interface builder for Laravel which can help you build CRUD backends with just a few lines of code.</p>
 <p align="center">
 <a href="https://super-admin.org">Homepage</a> |
-<a href="https://super-admin.org/docs">Documentation</a> |
-<a href="https://github.com/super-admin-org/super-admin">Download</a> |
+<a href="docs/index.md">Documentation</a> |
+<a href="https://github.com/super-admin-org/super-admin">GitHub</a> |
 <a href="https://github.com/super-admin-org?tab=repositories">Extensions</a>
 </p>
 
@@ -25,165 +25,166 @@
     <a href="https://github.com/super-admin-org/super-admin">
         <img src="https://img.shields.io/badge/Awesome-Laravel-brightgreen.svg?style=flat-square" alt="Awesome Laravel">
     </a>
-<!--
-    <a href="#backers" alt="sponsors on Open Collective">
-        <img src="https://opencollective.com/super-admin/backers/badge.svg?style=flat-square" />
-    </a>
-    <a href="https://www.paypal.me/talemul" alt="Paypal donate">
-        <img src="https://img.shields.io/badge/Donate-Paypal-green.svg?style=flat-square" />
-    </a>-->
-
-<p align="center">
-    Forked from <a href="https://github.com/z-song/laravel-admin">Laravel-admin</a> Much thanks to Z-song for all the effort & great setup!
 </p>
 
 <p align="center">
-    This project is forked from
-    <a href="https://github.com/open-admin-org/open-admin">open-admin</a>,
-    itself a fork of
-    <a href="https://github.com/z-song/laravel-admin">Laravel-admin</a>.
-    Because both projects are no longer updated and remain incompatible with
-    Laravel 11 and 12, this repository continues the work to support these
-    newer versions.
+    Forked from <a href="https://github.com/z-song/laravel-admin">Laravel-admin</a> &
+    <a href="https://github.com/open-admin-org/open-admin">Open-admin</a>.
+    Much thanks to Z-song and the open-admin team for their effort and great setup!
 </p>
 
+<p align="center">
+    Both upstream projects are no longer maintained and remain incompatible with
+    Laravel 11+. This repository continues the work to support <strong>Laravel 10, 11, 12, and 13</strong>.
+</p>
 
-Requirements
-------------
- - PHP >= 8.2.0
- - Laravel >= 12.0.0
- - Fileinfo PHP Extension
+---
 
-Installation
-------------
+## Features
 
-> This package requires PHP 8.2+ and Laravel 12.0 or up
+- CRUD generator for Eloquent models
+- Model Grid with sorting, filtering, inline editing, export, and batch actions
+- Model Form with 60+ field types, validation, tabs, and file uploads
+- Model Show for detail pages with panels and relation display
+- Model Tree for hierarchical/nested data
+- Built-in RBAC (users, roles, permissions)
+- Operation log / audit trail
+- Menu management with drag-and-drop ordering
+- Responsive UI built on Bootstrap 5
+- Extension system for plugins
+- 19 Artisan commands for scaffolding and management
+- Widgets: Box, Tab, Table, InfoBox, Collapse, Form, and more
 
-First, install laravel (12.0 or up), and make sure that the database connection settings are correct.
+## Requirements
 
-```
+- PHP >= 8.2
+- Laravel 10.x / 11.x / 12.x / 13.x
+- Fileinfo PHP Extension
+
+## Installation
+
+> This package requires PHP 8.2+ and Laravel 10.0 or higher.
+
+First, install Laravel and make sure that the database connection settings are correct.
+
+```bash
 composer require super-admin-org/super-admin
 ```
 
-Then run these commands to publish assets and config：
+Publish assets and config:
 
-```
+```bash
 php artisan vendor:publish --provider="SuperAdmin\Admin\AdminServiceProvider"
 ```
-After run command you can find config file in `config/admin.php`, in this file you can change the install directory,db connection or table names.
 
-At last run following command to finish install.
-```
+After running the command you can find the config file in `config/admin.php`, where you can change the install directory, database connection, or table names.
+
+Finally, run the installer:
+
+```bash
 php artisan admin:install
 ```
 
-Open `http://localhost/admin/` in browser,use username `admin` and password `admin` to login.
+Open `http://localhost/admin/` in your browser. Use username `admin` and password `admin` to login.
 
-Updating
-------------
-Updating to a new version of super-admin may require updating assets you can publish them using:
-```
+## Updating
+
+When updating to a new version, republish the assets:
+
+```bash
 php artisan vendor:publish --tag=super-admin-assets --force
 ```
 
-Configurations
-------------
-The file `config/admin.php` contains an array of configurations, you can find the default configurations in there.
+## Quick Start
 
-Running Tests
+### 1. Create a model
 
-1. Install the PHP dependencies using Composer:
+```bash
+php artisan make:model Post -m
+```
 
-   ```bash
-   composer install
-   ```
+### 2. Generate a controller
 
-2. Copy the provided SQLite environment file to `.env` **and** to the test
-   application shipped in `vendor/laravel/laravel`:
+```bash
+php artisan admin:controller \\App\\Models\\Post
+```
 
-   ```bash
-   cp .env.test.sqlite .env
-   cp .env.test.sqlite vendor/laravel/laravel/.env
-   ```
+This creates `app/Admin/Controllers/PostController.php` with grid, form, and detail methods.
 
-   If you prefer, adjust the test bootstrap so that it loads the file directly
-   from the repository root instead of copying it.
+### 3. Add a route
 
-3. Optionally generate a fresh application key (not required when using the
-   provided `.env.test.sqlite`):
+In `app/Admin/routes.php`:
 
-   ```bash
-   php vendor/laravel/laravel/artisan key:generate
-   ```
+```php
+$router->resource('posts', PostController::class);
+```
 
-4. Run the tests with Pest:
+### 4. Add a menu item
 
-   ```bash
-   vendor/bin/pest
-   ```
+Go to `http://localhost/admin/auth/menu` and add a menu entry with URI `posts`.
 
+That's it! You now have a full CRUD interface for your Post model.
+
+## Documentation
+
+Full documentation is available in the [docs/](docs/index.md) directory:
+
+| Section | Description |
+|---------|-------------|
+| [Installation](docs/installation.md) | Setup and configuration |
+| [Quick Start](docs/quick-start.md) | Build your first CRUD in minutes |
+| [Model Grid](docs/model-grid.md) | Data tables with sorting, filters, and export |
+| [Model Form](docs/model-form.md) | Forms with 60+ field types |
+| [Model Form Fields](docs/model-form-fields.md) | Complete field type reference |
+| [Model Form Validation](docs/model-form-validation.md) | Validation rules and messages |
+| [Image/File Upload](docs/model-form-upload.md) | Upload configuration and thumbnails |
+| [Model Show](docs/model-show.md) | Detail pages |
+| [Model Tree](docs/model-tree.md) | Tree/nested data structures |
+| [Column Display](docs/model-grid-column-display.md) | Column formatting and displayers |
+| [Grid Filters](docs/model-grid-filters.md) | Filter types and presenters |
+| [Grid Actions](docs/model-grid-actions.md) | Row and batch actions |
+| [Permissions](docs/permissions.md) | RBAC, roles, and access control |
+| [Widgets](docs/widgets.md) | Box, Tab, Table, InfoBox, and more |
+| [Console Commands](docs/commands.md) | Artisan commands reference |
+| [CSS/JavaScript](docs/frontend.md) | Custom assets and theming |
+| [Extension Development](docs/extensions.md) | Build your own extensions |
+| [Configuration](docs/configuration.md) | Config reference |
 
 ## Extensions
-<a href="https://super-admin.org/docs/en/extension-development">Extension development</a>
 
-More coming soon
+| Extension | Description | Version |
+|-----------|-------------|---------|
+| [helpers](https://github.com/super-admin-org/helpers) | Several tools to help you in development | ~1.0 |
+| [media-manager](https://github.com/super-admin-org/media-manager) | Web interface to manage local files | ~1.0 |
+| [config](https://github.com/super-admin-org/config) | Config manager for super-admin | ~1.0 |
+| [grid-sortable](https://github.com/super-admin-org/grid-sortable) | Sortable grids | ~1.0 |
+| [CkEditor](https://github.com/super-admin-org/ckeditor) | CkEditor for forms | ~1.0 |
+| [api-tester](https://github.com/super-admin-org/api-tester) | Test API calls from the admin | ~1.0 |
+| [scheduling](https://github.com/super-admin-org/scheduling) | Show and test your cron jobs | ~1.0 |
+| [phpinfo](https://github.com/super-admin-org/phpinfo) | Show PHP info in the admin | ~1.0 |
+| [log-viewer](https://github.com/super-admin-org/log-viewer) | Log viewer for Laravel | ~1.0.12 |
+| [page-designer](https://github.com/super-admin-org/page-designer) | Page designer to position items freely | ~1.0.18 |
+| [reporter](https://github.com/super-admin-org/reporter) | Developer-friendly exception viewer | ~1.0.18 |
+| [redis-manager](https://github.com/super-admin-org/redis-manager) | Redis manager for super-admin | ~1.0.20 |
 
-| Extension                                                        | Description                              | super-admin                              |
-| ---------------------------------------------------------------- | ---------------------------------------- |---------------------------------------- |
-| [helpers](https://github.com/super-admin-org/helpers)             | Several tools to help you in development | ~1.0 |
-| [media-manager](https://github.com/super-admin-org/media-manager) | Provides a web interface to manage local files          | ~1.0 |
-| [config](https://github.com/super-admin-org/config)               | Config manager for super-admin            |~1.0 |
-| [grid-sortable](https://github.com/super-admin-org/grid-sortable) | Sortable grids                           |~1.0 |
-| [CkEditor](https://github.com/super-admin-org/ckeditor)           | CkEditor for forms                       |~1.0 |
-| [api-tester](https://github.com/super-admin-org/api-tester)       | Test api calls from the admin            |~1.0 |
-| [scheduling](https://github.com/super-admin-org/scheduling)       | Show and test your cronjobs              |~1.0 |
-| [phpinfo](https://github.com/super-admin-org/phpinfo)             | Show php info in the admin               |~1.0 |
-| [log-viewer](https://github.com/super-admin-org/log-viewer)       | Log viewer for Laravel                   |~1.0.12 |
-| [page-designer](https://github.com/super-admin-org/page-designer) | Page designer to position items freely   |~1.0.18 |
-| [reporter](https://github.com/super-admin-org/reporter)           | Provides a developer-friendly web interface to view the exception    |~1.0.18 |
-| [redis-manager](https://github.com/super-admin-org/redis-manager) | Redis manager for super-admin             |~1.0.20 |
+## Contributing
 
+We are looking for active contributors:
+- Testing
+- Extension development
+- Translating documentation
+- Financing
 
-<!--
-| [backup](https://github.com/super-admin-extensions/backup) | An admin interface for managing backups          |~1.5 |
-| [wangEditor](https://github.com/super-admin-extensions/wangEditor) | A rich text editor based on [wangeditor](http://www.wangeditor.com/)         |~1.6 |
-| [summernote](https://github.com/super-admin-extensions/summernote) | A rich text editor based on [summernote](https://summernote.org/)          |~1.6 |
-| [simplemde](https://github.com/super-admin-extensions/simplemde) | A markdown editor based on [simplemde](https://github.com/sparksuite/simplemde-markdown-editor)          |~1.6 |
-| [php-editor](https://github.com/super-admin-extensions/php-editor) <br/> [python-editor](https://github.com/super-admin-extensions/python-editor) <br/> [js-editor](https://github.com/super-admin-extensions/js-editor)<br/> [css-editor](https://github.com/super-admin-extensions/css-editor)<br/> [clike-editor](https://github.com/super-admin-extensions/clike-editor)| Several programing language editor extensions based on code-mirror          |~1.6 |
-| [json-editor](https://github.com/super-admin-extensions/json-editor) | JSON Editor for super-admin          |~1.6 |
-| [composer-viewer](https://github.com/super-admin-extensions/composer-viewer) | A web interface of composer packages in laravel.          |~1.6 |
-| [data-table](https://github.com/super-admin-extensions/data-table) | Advanced table widget for super-admin |~1.6 |
-| [watermark](https://github.com/super-admin-extensions/watermark) | Text watermark for super-admin |~1.6 |
-| [google-authenticator](https://github.com/ylic/super-admin-google-authenticator) | Google authenticator |~1.6 |
--->
+## Built With
 
-## Contribute?
- we are looking for active contributors:
- - testing
- - extension development
- - translating documentation
- - financing
+- [Laravel](https://laravel.com/) - [Bootstrap 5](https://getbootstrap.com/)
+- [Axios](https://github.com/axios/axios) - [Font Awesome](http://fontawesome.io)
+- [Choicesjs](https://github.com/Choices-js/Choices) - [Flatpickr](https://github.com/flatpickr/flatpickr)
+- [Sweetalert2](https://github.com/sweetalert2/sweetalert2) - [Toastify](https://github.com/apvarun/toastify-js)
+- [Sortablejs](https://github.com/SortableJS/Sortable) - [Nprogress](https://ricostacruz.com/nprogress/)
+- [LeafletJS](https://leafletjs.com/) / [OpenStreetMaps](https://www.openstreetmap.org/)
+- [Dual-Listbox](https://github.com/maykinmedia/dual-listbox/) - [Coloris](https://github.com/mdbassit/Coloris/)
 
-Other
-------------
-`super-admin` based on the following plugins or services:
+## License
 
-+ [Laravel](https://laravel.com/)
-+ [Axios](https://github.com/axios/axios)
-+ [Bootstrap5](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
-+ [Choicesjs](https://github.com/Choices-js/Choices)
-+ [Font-awesome](http://fontawesome.io)
-+ [Moment](http://momentjs.com/)
-+ [LeafletJS](https://leafletjs.com/)
-+ [OpenStreetMaps](https://www.openstreetmap.org/)
-+ [Sweetalert2](https://github.com/sweetalert2/sweetalert2)
-+ [Toastify](https://github.com/apvarun/toastify-js)
-+ [Flatpickr](https://github.com/flatpickr/flatpickr)
-+ [Sortablejs](https://github.com/SortableJS/Sortable)
-+ [Nprogress](https://ricostacruz.com/nprogress/)
-+ [Dual-Listbox](https://github.com/maykinmedia/dual-listbox/)
-+ [Coloris](https://github.com/mdbassit/Coloris/)
-
-License
-------------
 `super-admin` is licensed under [The MIT License (MIT)](LICENSE).

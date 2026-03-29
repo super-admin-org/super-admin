@@ -3,9 +3,6 @@
 namespace SuperAdmin\Admin\Form\Field\Traits;
 
 use Illuminate\Support\Str;
-use Intervention\Image\Constraint;
-use Intervention\Image\Facades\Image as InterventionImage;
-use Intervention\Image\ImageManagerStatic;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait ImageField
@@ -35,6 +32,31 @@ trait ImageField
     }
 
     /**
+     * Check if intervention/image is available.
+     *
+     * @return bool
+     */
+    protected function interventionImageAvailable()
+    {
+        return class_exists(\Intervention\Image\ImageManager::class);
+    }
+
+    /**
+     * Create an intervention image instance.
+     *
+     * @param  mixed  $source
+     * @return mixed
+     */
+    protected function makeInterventionImage($source)
+    {
+        $manager = new \Intervention\Image\ImageManager(
+            new \Intervention\Image\Drivers\Gd\Driver()
+        );
+
+        return $manager->read($source);
+    }
+
+    /**
      * Execute Intervention calls.
      *
      * @param  string  $target
@@ -43,14 +65,16 @@ trait ImageField
     public function callInterventionMethods($target)
     {
         if (! empty($this->interventionCalls)) {
-            $image = ImageManagerStatic::make($target);
+            $image = $this->makeInterventionImage($target);
 
             foreach ($this->interventionCalls as $call) {
                 call_user_func_array(
                     [$image, $call['method']],
                     $call['arguments']
-                )->save($target);
+                );
             }
+
+            $image->save($target);
         }
 
         return $target;
@@ -71,7 +95,7 @@ trait ImageField
             return $this;
         }
 
-        if (! class_exists(ImageManagerStatic::class)) {
+        if (! $this->interventionImageAvailable()) {
             throw new \Exception('To use image handling and manipulation, please install [intervention/image] first.');
         }
 
@@ -191,24 +215,22 @@ trait ImageField
             // We merge original name + thumbnail name + extension
             $path = $path.'-'.$name.'.'.$ext;
 
-            /** @var \Intervention\Image\Image $image */
-            $image = InterventionImage::make($file);
+            $image = $this->makeInterventionImage($file);
 
             if ($size_or_closure instanceof \Closure) {
                 $image = $size_or_closure->call($this, $image);
             } else {
                 $size = $size_or_closure;
                 $action = $size[2] ?? 'resize';
-                // Resize image with aspect ratio
-                $image->$action($size[0], $size[1], function (Constraint $constraint) {
-                    $constraint->aspectRatio();
-                })->resizeCanvas($size[0], $size[1], 'center', false, '#ffffff');
+                $image->$action($size[0], $size[1]);
             }
 
+            $encoded = $image->encodeByExtension($ext);
+
             if (! is_null($this->storagePermission)) {
-                $this->storage->put("{$this->getDirectory()}/{$path}", $image->encode(), $this->storagePermission);
+                $this->storage->put("{$this->getDirectory()}/{$path}", (string) $encoded, $this->storagePermission);
             } else {
-                $this->storage->put("{$this->getDirectory()}/{$path}", $image->encode());
+                $this->storage->put("{$this->getDirectory()}/{$path}", (string) $encoded);
             }
         }
 
