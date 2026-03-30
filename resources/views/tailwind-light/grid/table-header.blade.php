@@ -1,5 +1,5 @@
 
-<div class="glass-card overflow-hidden">
+<div class="glass-card">
     @if(isset($title))
         <div class="px-5 py-3 border-b border-gray-200/30">
             <h3 class="text-sm font-semibold text-gray-700"> {{ $title }}</h3>

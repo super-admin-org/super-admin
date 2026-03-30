@@ -46,23 +46,102 @@ const SuperAdminUI = {
   },
 
   /**
-   * Collapse - Toggle visibility of a target element
+   * Collapse - Toggle visibility of a target element.
+   * Inside #sidebar: accordion behavior (close sibling collapses when opening one).
    */
   initCollapses() {
     document.addEventListener('click', (e) => {
       const trigger = e.target.closest('[data-sa-toggle="collapse"]');
-      if (trigger) {
-        e.preventDefault();
-        const targetId = trigger.getAttribute('data-sa-target');
-        const target = document.querySelector(targetId);
-        if (target) {
-          target.classList.toggle('hidden');
-          // Toggle icon rotation
-          const icon = trigger.querySelector('.collapse-icon');
-          if (icon) icon.classList.toggle('rotate-90');
+      if (!trigger) return;
+      e.preventDefault();
+      const targetId = trigger.getAttribute('data-sa-target');
+      const target = document.querySelector(targetId);
+      if (!target) return;
+
+      const isInSidebar = !!trigger.closest('#sidebar');
+
+      if (isInSidebar) {
+        const isCurrentlyHidden = target.classList.contains('hidden');
+
+        // Accordion: close all other sidebar collapses at the same depth level
+        const parentLi = trigger.closest('li');
+        const parentUl = parentLi ? parentLi.parentElement : null;
+        if (parentUl) {
+          parentUl.querySelectorAll(':scope > li > button[data-sa-toggle="collapse"]').forEach((btn) => {
+            if (btn === trigger) return;
+            const otherId = btn.getAttribute('data-sa-target');
+            const other = otherId ? document.querySelector(otherId) : null;
+            if (other) {
+              other.classList.add('hidden');
+              const icon = btn.querySelector('.collapse-icon');
+              if (icon) icon.classList.remove('rotate-90');
+            }
+          });
         }
+
+        // Toggle current
+        target.classList.toggle('hidden', !isCurrentlyHidden);
+        const icon = trigger.querySelector('.collapse-icon');
+        if (icon) icon.classList.toggle('rotate-90', isCurrentlyHidden);
+      } else {
+        target.classList.toggle('hidden');
+        const icon = trigger.querySelector('.collapse-icon');
+        if (icon) icon.classList.toggle('rotate-90');
       }
     });
+  },
+
+  /**
+   * Update sidebar active link and auto-expand its parent submenu.
+   * Called on initial load and after every PJAX navigation.
+   */
+  updateSidebarActive() {
+    const currentPath = window.location.pathname;
+
+    // Clear all active states
+    document.querySelectorAll('#sidebar a.glass-menu-item').forEach((el) => {
+      el.classList.remove('glass-menu-item-active');
+    });
+
+    // Collapse all submenus
+    document.querySelectorAll('#sidebar ul[id^="collapse-"]').forEach((ul) => {
+      ul.classList.add('hidden');
+      const icon = document.querySelector(`[data-sa-target="#${ul.id}"] .collapse-icon`);
+      if (icon) icon.classList.remove('rotate-90');
+    });
+
+    // Find best matching link (longest matching href wins)
+    let bestMatch = null;
+    let bestLen = 0;
+    document.querySelectorAll('#sidebar a.glass-menu-item').forEach((link) => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+      try {
+        const linkPath = new URL(href, window.location.origin).pathname.replace(/\/$/, '');
+        const cur = currentPath.replace(/\/$/, '');
+        if (cur === linkPath || cur.startsWith(linkPath + '/')) {
+          if (linkPath.length > bestLen) {
+            bestLen = linkPath.length;
+            bestMatch = link;
+          }
+        }
+      } catch (_) {}
+    });
+
+    if (bestMatch) {
+      bestMatch.classList.add('glass-menu-item-active');
+
+      // Walk up and expand any parent collapse submenus
+      let el = bestMatch.parentElement;
+      while (el && el.id !== 'menu') {
+        if (el.tagName === 'UL' && el.id && el.id.startsWith('collapse-')) {
+          el.classList.remove('hidden');
+          const icon = document.querySelector(`[data-sa-target="#${el.id}"] .collapse-icon`);
+          if (icon) icon.classList.add('rotate-90');
+        }
+        el = el.parentElement;
+      }
+    }
   },
 
   /**
@@ -198,6 +277,7 @@ const SuperAdminUI = {
 // Auto-init on DOM ready and after PJAX loads
 document.addEventListener('DOMContentLoaded', () => {
   SuperAdminUI.init();
+  SuperAdminUI.updateSidebarActive();
 
   // Back-to-top button
   const totop = document.getElementById('totop');
@@ -208,7 +288,11 @@ document.addEventListener('DOMContentLoaded', () => {
     totop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 });
-document.addEventListener('pjax:complete', () => SuperAdminUI.init());
+
+document.addEventListener('pjax:complete', () => {
+  SuperAdminUI.init();
+  SuperAdminUI.updateSidebarActive();
+});
 
 // Export for global access
 window.SuperAdminUI = SuperAdminUI;

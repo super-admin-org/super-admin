@@ -1,4 +1,4 @@
-<div class="glass-card overflow-hidden">
+<div class="glass-card">
 
     <div class="flex items-center gap-2 px-5 py-3 border-b border-gray-200/30 flex-wrap">
         <div class="flex gap-2">
