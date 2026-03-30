@@ -4,8 +4,8 @@
     <a
         id="{{ $trigger }}"
         class="ie"
-        data-bs-toggle="popover"
-        data-target="{{ $target }}"
+        data-sa-toggle="popover"
+        data-sa-target="#{{ $target }}"
         data-value="{{ $value }}"
         data-original="{{ $value }}"
         data-key="{{ $key }}"

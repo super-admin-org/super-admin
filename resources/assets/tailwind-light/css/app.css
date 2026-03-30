@@ -69,14 +69,25 @@
 
   /* --- Glass Inputs --- */
   .glass-input {
-    @apply w-full px-3 py-2 bg-white/60 border border-gray-200/60 rounded-lg
+    @apply w-full px-3 py-2 rounded-lg
            text-gray-800 placeholder-gray-400
-           focus:outline-none focus:ring-2 focus:ring-primary-500/40 focus:border-primary-400
+           focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-400
            transition-all duration-200;
+    background: rgba(255,255,255,0.72);
+    border: 1px solid rgba(203,213,225,0.8);
+    height: 2.375rem;
+  }
+
+  .glass-input:focus {
+    background: rgba(255,255,255,0.92);
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96,165,250,0.20);
+    outline: none;
   }
 
   .glass-select {
     @apply glass-input appearance-none bg-no-repeat;
+    height: 2.375rem;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z'/%3E%3C/svg%3E");
     background-position: right 0.5rem center;
     background-size: 1.25rem;
@@ -337,9 +348,14 @@
     @apply opacity-40 cursor-not-allowed pointer-events-none;
   }
 
-  /* --- Tab active state (data-driven) --- */
-  .glass-tab.active {
-    @apply text-primary-600 bg-white/60 border border-gray-200/50 border-b-white;
+  /* --- Tab active state --- */
+  .glass-tab.active,
+  .glass-tab.glass-tab-active {
+    @apply text-primary-600 font-medium;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(229,231,235,0.6);
+    border-bottom: 2px solid #3b82f6;
+    margin-bottom: -1px;
   }
 
   /* --- Info Box --- */
@@ -649,6 +665,49 @@
   .float-right { float: right; }
   .text-end    { text-align: right; }
 
+  /* --- Bootstrap col-auto and flex utils --- */
+  .col-auto { flex: 0 0 auto; max-width: 100%; }
+  .flex-grow-1 { flex-grow: 1; }
+  .flex-shrink-0 { flex-shrink: 0; }
+
+  /* --- Bootstrap spacing utils missing from Tailwind --- */
+  .ps-4 { padding-left: 1rem; }
+  .ps-3 { padding-left: 0.75rem; }
+  .m-0  { margin: 0; }
+  .p-0  { padding: 0; }
+
+  /* --- show-on-rows-selected (batch action) --- */
+  .show-on-rows-selected { display: none; }
+  .show-on-rows-selected.active { display: inline-flex; }
+
+  /* --- Inline edit popover --- */
+  .ie { cursor: pointer; position: relative; display: inline-flex; align-items: center; gap: 0.25rem; }
+  .ie:hover .icon-edit { visibility: visible !important; }
+  .ie-wrap { position: relative; display: inline-block; }
+  .ie-popover {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    z-index: 9999;
+    min-width: 220px;
+    background: rgba(255,255,255,0.97);
+    border: 1px solid rgba(209,213,219,0.6);
+    border-radius: 0.75rem;
+    box-shadow: 0 12px 40px rgba(99,102,241,0.12), 0 2px 12px rgba(0,0,0,0.08);
+    padding: 0.75rem;
+  }
+
+  /* --- Tab content panels --- */
+  .tab-content { }
+  .tab-pane { }
+
+  /* --- Glass table thead sticky --- */
+  .glass-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
   /* --- Info-box link colors (dynamic $color variable safelist) --- */
   .text-primary-600   { color: #2563eb; }
   .text-success-600,
@@ -828,7 +887,30 @@
 }
 
 /* form-group row spacing fix */
-.form-group.row { margin-left: 0; margin-right: 0; }
+.form-group.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0.5rem 1.25rem;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.4);
+}
+
+.form-group.row:last-of-type { border-bottom: none; }
+
+.form-group.row > label {
+  padding-top: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.form-group.row > .col-sm-8,
+.form-group.row > .col-sm-9,
+.form-group.row > .col-sm-10 {
+  padding-left: 0.75rem;
+}
 
 /* --- NProgress bar --- */
 #nprogress .bar { background: #3b82f6 !important; }

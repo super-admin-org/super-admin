@@ -5,7 +5,7 @@
             @foreach ($tabs as $i => $tab)
                 @if ($tab['type'] == \SuperAdmin\Admin\Widgets\Tab::TYPE_CONTENT)
                     <a class="glass-tab {{ $active === $i ? 'active' : '' }}" href="#{{ $tab['ref'] }}"
-                            data-sa-toggle="tab" data-sa-target="#widget-tab-panes-{{$loop->depth}}">{{ $tab['title'] }}</a>
+                            data-sa-toggle="tab" data-sa-target="#{{ $tab['ref'] }}">{{ $tab['title'] }}</a>
                 @elseif($tab['type'] == \SuperAdmin\Admin\Widgets\Tab::TYPE_LINK)
                     <a class="glass-tab {{ $active === $i ? 'active' : '' }}"
                             href="{{ $tab['href'] }}">{{ $tab['title'] }}</a>
@@ -30,7 +30,7 @@
             @endif
         </nav>
     </div>
-    <div id="widget-tab-panes-{{$loop->depth ?? 0}}" class="tab-content">
+    <div class="tab-content">
         @foreach ($tabs as $i => $tab)
             <div class="tab-pane p-4 {{ $active === $i ? '' : 'hidden' }}" id="{{ $tab['ref'] }}">
                 @php($content = \Illuminate\Support\Arr::get($tab, 'content'))
