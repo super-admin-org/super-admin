@@ -3,6 +3,7 @@ export default {
   content: [
     './resources/views/tailwind-light/**/*.blade.php',
     './src/**/*.php',
+    './resources/assets/dual-listbox/**/*.js',
   ],
   theme: {
     extend: {
