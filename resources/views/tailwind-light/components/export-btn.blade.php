@@ -1,4 +1,4 @@
-<div class="relative inline-block mr-1">
+<div class="relative inline-flex items-stretch mr-1">
     <a href="{{$grid->getExportUrl('all')}}" target="_blank" class="glass-btn-primary text-sm inline-flex items-center rounded-r-none" title="{{trans('admin.export')}}">
         <i class="icon-download mr-1"></i>{{trans('admin.export')}}
     </a>

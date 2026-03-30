@@ -196,7 +196,18 @@ const SuperAdminUI = {
 };
 
 // Auto-init on DOM ready and after PJAX loads
-document.addEventListener('DOMContentLoaded', () => SuperAdminUI.init());
+document.addEventListener('DOMContentLoaded', () => {
+  SuperAdminUI.init();
+
+  // Back-to-top button
+  const totop = document.getElementById('totop');
+  if (totop) {
+    window.addEventListener('scroll', () => {
+      totop.classList.toggle('visible', window.scrollY > 300);
+    });
+    totop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+});
 document.addEventListener('pjax:complete', () => SuperAdminUI.init());
 
 // Export for global access

@@ -1,5 +1,5 @@
 {{-- Glassmorphism Sidebar --}}
-<aside id="sidebar" class="glass-sidebar fixed lg:sticky top-0 left-0 z-50 h-full w-[260px] flex flex-col transform -translate-x-full lg:translate-x-0 transition-transform duration-300 glass-scrollbar overflow-y-auto">
+<aside id="sidebar" class="glass-sidebar fixed top-0 left-0 z-50 h-full w-[260px] flex flex-col transform -translate-x-full lg:translate-x-0 transition-transform duration-300 glass-scrollbar overflow-y-auto">
 
     {{-- Logo --}}
     <div class="flex items-center h-16 px-5 border-b border-white/[0.08] flex-shrink-0">

@@ -19,7 +19,7 @@
     <script src="{{ Admin::asset('tailwind-light/dist/super-admin-js.js') }}"></script>
 </head>
 
-<body class="h-full glass-bg antialiased">
+<body class="glass-bg antialiased">
 
     @if($alert = config('admin.top_alert'))
         <div class="glass-alert-warning mx-4 mt-2">
@@ -27,15 +27,15 @@
         </div>
     @endif
 
-    <div class="flex h-full">
+    <div class="flex">
 
         @include('admin::partials.sidebar')
 
-        <div class="flex-1 flex flex-col min-h-screen transition-all duration-300" id="main-content">
+        <div class="flex-1 flex flex-col min-h-screen transition-all duration-300 lg:ml-[260px]" id="main-content">
 
             @include('admin::partials.header')
 
-            <main id="main" class="flex-1 p-4 lg:p-6 overflow-y-auto">
+            <main id="main" class="flex-1 p-4 lg:p-6">
                 <div id="pjax-container">
                 <!--start-pjax-container-->
                     {!! Admin::style() !!}
