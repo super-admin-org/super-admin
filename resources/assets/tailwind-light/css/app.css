@@ -600,7 +600,8 @@
   }
 
   .dual-list {
-    @apply flex items-stretch gap-3 w-full;
+    @apply flex items-stretch gap-2 w-full;
+    min-height: 280px;
   }
 
   /* Each listbox column (plain <div> wrapping search + title + list) */
@@ -613,6 +614,7 @@
 
   .dual-list .list-group {
     @apply flex-1 flex flex-col min-h-0 border border-gray-200/60 rounded-xl overflow-hidden bg-white/60;
+    min-height: 200px;
   }
 
   .dual-list .list-group-form-label {
@@ -621,33 +623,73 @@
   }
 
   .dual-list .form-control {
-    @apply glass-input rounded-none border-0 border-b border-gray-200/50 text-sm rounded-t-xl;
+    height: auto !important;
+    min-height: unset !important;
+    @apply w-full px-3 py-2 text-sm border-0 border-b border-gray-200/50 bg-white/70 text-gray-800 placeholder-gray-400
+           focus:outline-none focus:ring-0 focus:bg-white/90 transition-colors;
+    border-radius: 0.75rem 0.75rem 0 0 !important;
   }
 
   .dual-list .list-group-item {
     @apply block px-3 py-2 text-sm text-gray-700 cursor-pointer
            border-b border-gray-100/60 last:border-0
            hover:bg-primary-50/50 transition-colors duration-150 select-none;
+    display: list-item !important;
   }
 
   .dual-list .list-group-item.active {
     @apply bg-primary-100/70 text-primary-700 font-medium;
   }
 
-  .dual-list-items {
-    @apply overflow-y-auto flex-1;
-    min-height: 180px;
-    max-height: 260px;
+  .dual-list ul.list-group {
+    @apply overflow-y-auto;
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
   .btn-group-vertical {
-    @apply flex flex-col justify-center gap-2 px-1 shrink-0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0 0.25rem;
+    flex-shrink: 0;
+    width: 2.25rem;
   }
 
   .btn-group-vertical .btn,
   .btn-outline-light {
-    @apply glass-btn-secondary text-xs px-2 py-1.5;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 1.875rem;
+    height: 1.875rem !important;
+    min-height: unset !important;
+    padding: 0 !important;
+    border-radius: 0.375rem;
+    border: 1px solid rgba(209, 213, 219, 0.7);
+    background: rgba(255, 255, 255, 0.75);
+    color: #374151;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1;
   }
+
+  .btn-group-vertical .btn:hover,
+  .btn-outline-light:hover {
+    background: rgba(219, 234, 254, 0.8);
+    border-color: #93c5fd;
+    color: #1d4ed8;
+  }
+
+  /* Icon font fallback for dual-listbox arrow icons */
+  .btn-group-vertical .btn .icon-angle-right::before       { content: '›'; font-style: normal; font-size: 1rem; }
+  .btn-group-vertical .btn .icon-angle-left::before        { content: '‹'; font-style: normal; font-size: 1rem; }
+  .btn-group-vertical .btn .icon-angle-double-right::before { content: '»'; font-style: normal; font-size: 0.9rem; }
+  .btn-group-vertical .btn .icon-angle-double-left::before  { content: '«'; font-style: normal; font-size: 0.9rem; }
 
   /* --- Dropdown items (Bootstrap .dropdown-item) --- */
   .dropdown-item {
