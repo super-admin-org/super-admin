@@ -991,3 +991,28 @@ body.sidebar-collapsed #sidebar nav span {
 /* --- Back-to-top: show on scroll --- */
 #totop { display: none; }
 #totop.visible { display: flex; }
+
+/* --- Fixed form footer: account for sidebar width and last-field overlap --- */
+/* The footer.blade.php renders with `fixed bottom-0 left-0 right-0` when fixedFooter=true.
+   On desktop (lg+) we push left past the 260px sidebar. */
+@media (min-width: 1024px) {
+  form .fixed.bottom-0.left-0 {
+    left: 260px !important;
+  }
+}
+
+/* Add bottom padding to glass-card forms so the fixed footer never hides the last field */
+.glass-card {
+  padding-bottom: 0;
+}
+.glass-card > form > div:not(.fixed) ~ * {
+  padding-bottom: 0;
+}
+#app .glass-card {
+  margin-bottom: 5rem;
+}
+
+/* --- Grid table alternating row colors --- */
+.table tbody tr:nth-child(odd)  { background-color: rgba(255, 255, 255, 0.55); }
+.table tbody tr:nth-child(even) { background-color: rgba(241, 245, 249, 0.50); }
+.table tbody tr:hover           { background-color: rgba(219, 234, 254, 0.45) !important; }
