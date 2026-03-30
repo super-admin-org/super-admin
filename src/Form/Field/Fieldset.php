@@ -14,13 +14,13 @@ class Fieldset
     public function start($title)
     {
         return <<<HTML
-<div>
-    <div class="fieldset">
-        <a data-bs-toggle="collapse" href="#{$this->name}" class="{$this->name}-title fieldset-link collapsed">
-        <i class="icon-angle-up"></i>&nbsp;&nbsp;{$title}
-        </a>
+<div class="form-fieldset">
+    <div class="form-fieldset-legend">
+        <button type="button" data-sa-toggle="collapse" data-sa-target="#{$this->name}" class="{$this->name}-title">
+        <span class="collapse-icon transition-transform rotate-90">&#9656;</span>&nbsp;&nbsp;{$title}
+        </button>
     </div>
-    <div class="collapse in" id="{$this->name}">
+    <div id="{$this->name}">
 HTML;
     }
 
