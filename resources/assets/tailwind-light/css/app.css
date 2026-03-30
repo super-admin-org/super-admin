@@ -730,6 +730,62 @@
   .m-0  { margin: 0; }
   .p-0  { padding: 0; }
 
+  /* --- Show Page --- */
+  .show-panel .show-fields {
+    @apply divide-y divide-gray-100/60;
+  }
+
+  .show-field {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    padding: 0.875rem 1.5rem;
+    gap: 0.5rem;
+    transition: background-color 0.15s ease;
+  }
+
+  .show-field:hover {
+    background-color: rgba(241, 245, 249, 0.5);
+  }
+
+  .show-field:last-child {
+    border-bottom: none;
+  }
+
+  .show-field-label {
+    width: 10rem;
+    flex-shrink: 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    padding-top: 0.125rem;
+  }
+
+  .show-field-value {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.9375rem;
+    color: #111827;
+    font-weight: 400;
+    word-break: break-word;
+  }
+
+  .show-field-value .badge {
+    @apply inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium mr-1 mb-1;
+    background: linear-gradient(135deg, rgba(219, 234, 254, 0.8), rgba(224, 231, 255, 0.8));
+    color: #1d4ed8;
+    border: 1px solid rgba(191, 219, 254, 0.6);
+  }
+
+  .show-field-wrapped {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(209, 213, 219, 0.4);
+    border-radius: 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
   /* --- show-on-rows-selected (batch action) --- */
   .show-on-rows-selected { display: none; }
   .show-on-rows-selected.active { display: inline-flex; }
