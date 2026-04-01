@@ -10,25 +10,32 @@
  */
 
 $fa-font-path: '../../fontawesome/webfonts';
-$fa-css-prefix: 'icon';
 
+/**
+ * Import Font Awesome with default 'fa' prefix for compatibility.
+ * Icons stored in database use 'fa-' prefixed classes (fa-bars, fa-user, etc.).
+ */
 @import '../../fontawesome/scss/fontawesome';
 @import '../../fontawesome/scss/solid';
 @import '../../fontawesome/scss/brands';
+@import '../../fontawesome/scss/regular';
 
+/**
+ * Font Awesome icon styles for both 'fa-' and 'icon-' prefixes.
+ * Supports legacy icons stored in database with 'fa-' prefix.
+ */
+[class^='fa-']:before,
+[class*=' fa-']:before,
 [class^='icon-']:before,
-[class*=' icon-']:before,
-.far [class^='icon-']:before,
-.far [class*=' icon-']:before {
+[class*=' icon-']:before {
     font-family: 'Font Awesome 5 Free';
     font-style: normal;
-    font-weight: normal;
+    font-weight: 900;
     speak: never;
 
     display: inline-block;
     text-decoration: inherit;
     width: 1em;
-    margin-right: 0.2em;
     text-align: center;
 
     font-variant: normal;
@@ -36,18 +43,23 @@ $fa-css-prefix: 'icon';
 
     line-height: 1em;
 
-    margin-left: 0.2em;
-
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-.fas:before {
+.fa,
+.fas {
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
 }
 
-.fab:before {
+.far {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 400;
+}
+
+.fab {
     font-family: 'Font Awesome 5 Brands';
+    font-weight: 400;
 }
 
