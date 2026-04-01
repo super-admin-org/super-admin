@@ -1,4 +1,5 @@
 @use "sass:math";
+@use "sass:string";
 // Variables
 // --------------------------
 
@@ -16,7 +17,7 @@ $fa-secondary-opacity: .4 !default;
 
 // Convenience function used to set content property
 @function fa-content($fa-var) {
-  @return unquote("\"#{ $fa-var }\"");
+  @return string.unquote("\"#{ $fa-var }\"");
 }
 
 $fa-var-500px: \f26e;

@@ -9,16 +9,16 @@
  *   → ../../fontawesome/webfonts/
  */
 
-$fa-font-path: '../../fontawesome/webfonts';
-
 /**
  * Import Font Awesome with default 'fa' prefix for compatibility.
  * Icons stored in database use 'fa-' prefixed classes (fa-bars, fa-user, etc.).
+ * Configure the font path first via _variables.scss, then import the rest.
  */
-@import '../../fontawesome/scss/fontawesome';
-@import '../../fontawesome/scss/solid';
-@import '../../fontawesome/scss/brands';
-@import '../../fontawesome/scss/regular';
+@use '../../fontawesome/scss/variables' with ($fa-font-path: '../../fontawesome/webfonts');
+@use '../../fontawesome/scss/fontawesome';
+@use '../../fontawesome/scss/solid';
+@use '../../fontawesome/scss/brands';
+@use '../../fontawesome/scss/regular';
 
 /**
  * Font Awesome icon styles for both 'fa-' and 'icon-' prefixes.
