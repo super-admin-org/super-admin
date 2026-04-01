@@ -8,16 +8,26 @@ $selected-color: #fff;
 .iconpicker-dropdown {
     visibility: hidden;
     opacity: 0;
-    background: #fff;
     z-index: 9999;
     border-radius: 8px !important;
     background: #fff;
     left: 2.5rem !important;
-    box-shadow: 0 0px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
     position: absolute;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
 
     &::before {
-        @include caret-up;
+        content: '';
+        position: absolute;
+        top: -6px;
+        left: 1rem;
+        width: 12px;
+        height: 12px;
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-right: none;
+        border-bottom: none;
+        transform: rotate(45deg);
     }
 
     &.show {
@@ -38,6 +48,9 @@ $selected-color: #fff;
         padding: 1rem 0 1rem 1rem;
         margin: 0;
         border-radius: 8px !important;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
 
         li {
             float: left;
@@ -46,14 +59,15 @@ $selected-color: #fff;
             line-height: $item-height;
             text-align: center;
             border: $item-border;
-            border-radius: $border-radius;
+            border-radius: 4px;
             cursor: pointer;
             margin-right: 0.5rem;
             margin-bottom: 0.5rem;
             font-size: 1.3rem;
+            transition: all 0.15s ease;
 
             &.selected {
-                background-color: $primary;
+                background-color: #007bff;
                 color: $selected-color;
             }
 
@@ -61,7 +75,7 @@ $selected-color: #fff;
                 display: none;
             }
             &:hover {
-                background: $light;
+                background: #f8f9fa;
             }
         }
     }
