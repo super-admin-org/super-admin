@@ -4,8 +4,9 @@
  * Compiles @font-face declarations and all .icon-* glyph rules
  * using the custom `icon-` prefix (not `fa-`).
  *
- * Font path is relative to the output dist folder where fonts are copied.
- * Vite copies fonts to same directory as CSS, so use current directory.
+ * Font path is relative to where the CSS file will be output (dist folder).
+ * Using '.' so font URLs become url('./fa-solid-900.woff2').
+ * Fonts are copied to dist alongside the CSS during build.
  */
 
 $fa-font-path: '.';
