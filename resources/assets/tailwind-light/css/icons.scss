@@ -4,12 +4,11 @@
  * Compiles @font-face declarations and all .icon-* glyph rules
  * using the custom `icon-` prefix (not `fa-`).
  *
- * Font path is relative to the published CSS location:
- *   public/vendor/super-admin/tailwind-light/dist/super-admin-icons.css
- *   → ../../fontawesome/webfonts/
+ * Font path is relative to the output dist folder where fonts are copied.
+ * Vite copies fonts to same directory as CSS, so use current directory.
  */
 
-$fa-font-path: '../../fontawesome/webfonts';
+$fa-font-path: '.';
 
 /**
  * Import Font Awesome with default 'fa' prefix for compatibility.

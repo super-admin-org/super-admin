@@ -12,6 +12,7 @@ export default defineConfig({
   build: {
     outDir: 'resources/assets/tailwind-light/dist',
     emptyOutDir: true,
+    assetsInlineLimit: 0,
     rollupOptions: {
       input: {
         'super-admin': resolve(__dirname, 'resources/assets/tailwind-light/css/app.css'),
@@ -30,4 +31,5 @@ export default defineConfig({
       '@': resolve(__dirname, 'resources/assets'),
     },
   },
+  base: './',
 });
