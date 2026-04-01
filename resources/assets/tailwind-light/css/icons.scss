@@ -1,8 +1,8 @@
 /**
  * Font Awesome 5 Icons - Standalone build for tailwind-light template.
  *
- * Compiles @font-face declarations and all .icon-* glyph rules
- * using the custom `icon-` prefix (not `fa-`).
+ * Compiles @font-face declarations and all .fa-* and .icon-* glyph rules.
+ * Supports both 'fa-' prefix (Font Awesome default) and 'icon-' prefix (legacy).
  *
  * Font path is relative to where the CSS file will be output (dist folder).
  * Using '.' so font URLs become url('./fa-solid-900.woff2').
@@ -12,8 +12,8 @@
 $fa-font-path: '.';
 
 /**
- * Import Font Awesome with default 'fa' prefix for compatibility.
- * Icons stored in database use 'fa-' prefixed classes (fa-bars, fa-user, etc.).
+ * Import Font Awesome with default 'fa' prefix.
+ * This generates .fa-* classes automatically.
  */
 @import '../../fontawesome/scss/fontawesome';
 @import '../../fontawesome/scss/solid';
@@ -21,8 +21,15 @@ $fa-font-path: '.';
 @import '../../fontawesome/scss/regular';
 
 /**
+ * Now import Font Awesome icons again with 'icon' prefix for backward compatibility.
+ * This generates .icon-* classes that match the existing database values.
+ */
+$fa-css-prefix: icon;
+@import '../../fontawesome/scss/_icons';
+
+/**
  * Font Awesome icon styles for both 'fa-' and 'icon-' prefixes.
- * Supports legacy icons stored in database with 'fa-' prefix.
+ * Sets up the font family for all icon classes.
  */
 [class^='fa-']:before,
 [class*=' fa-']:before,

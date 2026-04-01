@@ -8,7 +8,7 @@
 
     {!! $form->open() !!}
 
-    <div class="p-0">
+    <div class="p-0 @if(!empty($form->fixedFooter)) pb-20 @endif">
 
         @if(!$tabObj->isEmpty())
             @include('admin::form.tab', compact('tabObj'))
