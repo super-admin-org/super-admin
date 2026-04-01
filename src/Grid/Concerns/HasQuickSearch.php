@@ -30,8 +30,8 @@ trait HasQuickSearch
     protected $search;
 
     /**
-     * @param array|string|\Closure
-     * @return Tools\QuickSearch
+     * @param  array|string|\Closure|null  $search
+     * @return $this
      */
     public function quickSearch($search = null)
     {
@@ -41,9 +41,9 @@ trait HasQuickSearch
             $this->search = $search;
         }
 
-        return tap(new Tools\QuickSearch, function ($search) {
-            $this->tools->append($search);
-        });
+        $this->tools->append(new Tools\QuickSearch);
+
+        return $this;
     }
 
     /**

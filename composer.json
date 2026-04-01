@@ -44,6 +44,14 @@
       "src/helpers.php"
     ]
   },
+  "autoload-dev": {
+    "classmap": [
+      "tests/TestCase.php",
+      "tests/migrations/",
+      "tests/models/",
+      "tests/seeds/"
+    ]
+  },
   "scripts": {
     "sass": "sass --watch resources/assets/super-admin/scss/styles.scss:resources/assets/super-admin/css/styles.css resources/assets/super-admin/scss/pages:resources/assets/super-admin/css/pages --style compressed"
   },

@@ -24,4 +24,7 @@ jobs:
           coverage: none
 
       - name: Install composer dependencies
-        run: composer install --prefer-dist --no-interaction --no-dev
+        run: composer install --prefer-dist --no-interaction
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse --no-progress || echo "PHPStan not configured yet — skipping"

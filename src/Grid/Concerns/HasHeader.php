@@ -8,23 +8,23 @@ use SuperAdmin\Admin\Grid\Tools\Header;
 trait HasHeader
 {
     /**
-     * @var Closure
+     * @var Closure|string|null
      */
     protected $header;
 
     /**
      * Set grid header.
      *
-     *
-     * @return $this|Closure
+     * @param  Closure|string|null  $content
+     * @return $this|Closure|string|null
      */
-    public function header(?Closure $closure = null)
+    public function header(Closure|string|null $content = null)
     {
-        if (! $closure) {
+        if ($content === null) {
             return $this->header;
         }
 
-        $this->header = $closure;
+        $this->header = $content;
 
         return $this;
     }

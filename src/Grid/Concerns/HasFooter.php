@@ -8,7 +8,7 @@ use SuperAdmin\Admin\Grid\Tools\Footer;
 trait HasFooter
 {
     /**
-     * @var Closure
+     * @var Closure|string|null
      */
     protected $footer;
 
@@ -17,8 +17,8 @@ trait HasFooter
     /**
      * Set footer fixed.
      *
-     * @param bool
-     * @return $this|Closure
+     * @param  bool  $bool
+     * @return $this
      */
     public function fixedFooter($bool = true)
     {
@@ -30,16 +30,16 @@ trait HasFooter
     /**
      * Set grid footer.
      *
-     *
-     * @return $this|Closure
+     * @param  Closure|string|null  $content
+     * @return $this|Closure|string|null
      */
-    public function footer(?Closure $closure = null)
+    public function footer(Closure|string|null $content = null)
     {
-        if (! $closure) {
+        if ($content === null) {
             return $this->footer;
         }
 
-        $this->footer = $closure;
+        $this->footer = $content;
 
         return $this;
     }

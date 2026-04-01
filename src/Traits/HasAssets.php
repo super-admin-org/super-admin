@@ -90,6 +90,7 @@ trait HasAssets
         'vendor/super-admin/choicesjs/styles/choices.min.css',
         'vendor/super-admin/sortablejs/nestable.css',
         'vendor/super-admin/dual-listbox/dual-listbox.css',
+        'vendor/super-admin/tailwind-light/dist/super-admin-icons.css',
     ];
 
     /**

@@ -41,7 +41,13 @@ class Header extends AbstractTool
      */
     public function render()
     {
-        $content = call_user_func($this->grid->header(), $this->queryBuilder());
+        $header = $this->grid->header();
+
+        if ($header instanceof \Closure) {
+            $content = call_user_func($header, $this->queryBuilder());
+        } else {
+            $content = $header;
+        }
 
         if (empty($content)) {
             return '';

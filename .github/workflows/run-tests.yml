@@ -9,6 +9,9 @@ on:
       - '.github/workflows/run-tests.yml'
       - 'composer.json'
       - 'composer.lock'
+  pull_request:
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -17,7 +20,7 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
@@ -63,9 +66,13 @@ jobs:
       - name: Install dependencies
         run: |
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
-          composer update --prefer-stable --prefer-dist --no-interaction --no-dev
+          composer update --prefer-stable --prefer-dist --no-interaction
 
       - name: Verify installation
         run: |
           php -v
           composer show laravel/framework --format=json | python3 -c "import json,sys; print('Laravel', json.loads(sys.stdin.read())['versions'][0])"
+
+      - name: Run tests
+        run: vendor/bin/pest --compact
+

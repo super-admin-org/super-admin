@@ -1,0 +1,53 @@
+/**
+ * Font Awesome 5 Icons - Standalone build for tailwind-light template.
+ *
+ * Compiles @font-face declarations and all .icon-* glyph rules
+ * using the custom `icon-` prefix (not `fa-`).
+ *
+ * Font path is relative to the published CSS location:
+ *   public/vendor/super-admin/tailwind-light/dist/super-admin-icons.css
+ *   → ../../fontawesome/webfonts/
+ */
+
+$fa-font-path: '../../fontawesome/webfonts';
+$fa-css-prefix: 'icon';
+
+@import '../../fontawesome/scss/fontawesome';
+@import '../../fontawesome/scss/solid';
+@import '../../fontawesome/scss/brands';
+
+[class^='icon-']:before,
+[class*=' icon-']:before,
+.far [class^='icon-']:before,
+.far [class*=' icon-']:before {
+    font-family: 'Font Awesome 5 Free';
+    font-style: normal;
+    font-weight: normal;
+    speak: never;
+
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: 0.2em;
+    text-align: center;
+
+    font-variant: normal;
+    text-transform: none;
+
+    line-height: 1em;
+
+    margin-left: 0.2em;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.fas:before {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+
+.fab:before {
+    font-family: 'Font Awesome 5 Brands';
+}
+

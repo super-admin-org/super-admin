@@ -10,5 +10,15 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Notice
-      run: echo "Tests are run locally. This workflow is available for manual dispatch only."
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.4'
+        extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, intl, gd, fileinfo
+        coverage: none
+
+    - name: Install dependencies
+      run: composer update --prefer-stable --prefer-dist --no-interaction
+
+    - name: Run tests
+      run: vendor/bin/pest --compact
