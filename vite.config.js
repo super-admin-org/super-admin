@@ -16,7 +16,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         'super-admin': resolve(__dirname, 'resources/assets/tailwind-light/css/app.css'),
-        'super-admin-icons': resolve(__dirname, 'resources/assets/tailwind-light/css/icons.scss'),
         'super-admin-js': resolve(__dirname, 'resources/assets/tailwind-light/js/app.js'),
       },
       output: {
