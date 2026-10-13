@@ -1,5 +1,5 @@
 
-<div class="flex items-center justify-between px-5 py-4 border-t border-gray-200/30 @if (!empty($fixedFooter))fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-md shadow-lg z-30 @endif">
+<div class="flex items-center justify-between px-5 py-4 border-t border-gray-200/30 @if (!empty($fixedFooter))sticky bottom-0 bg-white/85 backdrop-blur-md shadow-[0_-4px_16px_rgba(0,0,0,0.06)] rounded-b-glass z-30 @endif">
     {{ csrf_field() }}
 
     <div style="flex: 0 0 {{ ($width['label']/12 * 100) }}%; max-width: {{ ($width['label']/12 * 100) }}%;">

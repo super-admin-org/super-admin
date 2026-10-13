@@ -1220,7 +1220,11 @@ class Form implements Renderable
      */
     public function isCreating(): bool
     {
-        return Str::endsWith(\request()->route()->getName(), ['.create', '.store']);
+        if (($name = $this->currentRouteName()) !== '') {
+            return Str::endsWith($name, ['.create', '.store']);
+        }
+
+        return ! $this->model()->exists;
     }
 
     /**
@@ -1228,7 +1232,21 @@ class Form implements Renderable
      */
     public function isEditing(): bool
     {
-        return Str::endsWith(\request()->route()->getName(), ['.edit', '.update']);
+        if (($name = $this->currentRouteName()) !== '') {
+            return Str::endsWith($name, ['.edit', '.update']);
+        }
+
+        return $this->model()->exists;
+    }
+
+    /**
+     * Name of the current route, or an empty string outside of a routed request.
+     */
+    protected function currentRouteName(): string
+    {
+        $route = \request()->route();
+
+        return $route ? (string) $route->getName() : '';
     }
 
     /**

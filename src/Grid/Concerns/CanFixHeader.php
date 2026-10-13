@@ -29,5 +29,7 @@ trait CanFixHeader
 }
 STYLE
         );
+
+        return $this;
     }
 }

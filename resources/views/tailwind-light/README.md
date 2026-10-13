@@ -2,7 +2,7 @@
 
 Modern glassmorphism UI template built with Tailwind CSS.
 
-**Status:** In development. Views not yet implemented will fall back to the default root views automatically.
+**Status:** Stable (default template since 1.3.0). Any view not present here falls back to the classic root views automatically.
 
 ## Design
 

@@ -41,6 +41,8 @@
 | 12.x | 8.2, 8.3, 8.4 | Supported |
 | 11.x | 8.2, 8.3, 8.4 | Supported |
 | 10.x | 8.2, 8.3 | Supported |
+| 9.x | 8.0, 8.1, 8.2 | Supported (end-of-life framework, see note) |
+| 8.x | 8.0, 8.1 | Supported (end-of-life framework, see note) |
 
 ## Features
 
@@ -58,7 +60,7 @@
 
 ## Installation
 
-> Requires PHP 8.2+ and Laravel 10.0 or higher.
+> Requires PHP 8.0+ and Laravel 8.0 or higher. Laravel 8 and 9 are end-of-life and ship with published security advisories; Composer 2.8+ refuses to install them unless `audit.block-insecure` is set to `false`. Use them only for existing applications you cannot upgrade yet.
 
 ```bash
 composer require super-admin-org/super-admin

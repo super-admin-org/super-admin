@@ -292,6 +292,7 @@ admin.ajax = {
                 NProgress.done();
                 if (typeof result_function == 'undefined' && !admin.ajax.currenTarget) {
                     admin.pages.init();
+                    document.dispatchEvent(new CustomEvent('pjax:complete', { detail: { url: url } }));
                 }
             });
     },

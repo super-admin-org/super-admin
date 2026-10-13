@@ -76,6 +76,7 @@ trait HasFields
         'currency' => Field\Currency::class,
         'date' => Field\Date::class,
         'dateRange' => Field\DateRange::class,
+        'dateMultiple' => Field\DateMultiple::class,
         'DateMultiple' => Field\DateMultiple::class,
         'datetime' => Field\Datetime::class,
         'dateTimeRange' => Field\DatetimeRange::class,

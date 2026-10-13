@@ -17,6 +17,8 @@ trait CanFixColumns
         $this->fixColumns = new FixColumns($this, $head, $tail);
 
         $this->rendering($this->fixColumns->apply());
+
+        return $this;
     }
 
     /**

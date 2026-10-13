@@ -8,7 +8,7 @@
     <hr class="border-gray-200/50 mx-5">
 @endif
 
-<div class="{{$viewClass['form-group']}} flex flex-wrap items-start px-5 py-3 {!! !$errors->has($errorKey) ? '' : 'bg-red-50/30' !!}">
+<div class="{{$viewClass['form-group']}} flex flex-wrap items-start px-5 py-3 {!! !$errors->has($errorKey) ? '' : 'has-error bg-red-50/30' !!}">
     <label for="{{$id}}" class="{{$viewClass['label']}} text-sm font-medium text-gray-600 pt-2 shrink-0">@if (empty($showAsSection)){{$label}}@endif</label>
     <div class="{{$viewClass['field']}} flex-1 min-w-0">
         @include('admin::form.error')

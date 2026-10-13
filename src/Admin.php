@@ -28,12 +28,12 @@ class Admin
      *
      * @var string
      */
-    public const VERSION = '1.0.27';
+    public const VERSION = '1.3.0';
 
     /**
      * @var Navbar
      */
-    protected $navbar;
+    protected static $navbar;
 
     /**
      * @var array
@@ -253,13 +253,13 @@ class Admin
      *
      * @return Navbar
      */
-    public function navbar(?Closure $builder = null)
+    public static function navbar(?Closure $builder = null)
     {
         if (is_null($builder)) {
-            return $this->getNavbar();
+            return static::getNavbar();
         }
 
-        call_user_func($builder, $this->getNavbar());
+        call_user_func($builder, static::getNavbar());
     }
 
     /**
@@ -267,13 +267,13 @@ class Admin
      *
      * @return Navbar
      */
-    public function getNavbar()
+    public static function getNavbar()
     {
-        if (is_null($this->navbar)) {
-            $this->navbar = new Navbar;
+        if (is_null(static::$navbar)) {
+            static::$navbar = new Navbar;
         }
 
-        return $this->navbar;
+        return static::$navbar;
     }
 
     /**
@@ -325,6 +325,9 @@ class Admin
             $router->get('auth/setting', $authController.'@getSetting')->name('admin.setting');
             $router->put('auth/setting', $authController.'@putSetting');
         });
+
+        app('router')->getRoutes()->refreshNameLookups();
+        app('router')->getRoutes()->refreshActionLookups();
     }
 
     /**

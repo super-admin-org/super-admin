@@ -1,8 +1,8 @@
 <div class="border-b border-gray-200/30">
-    <nav class="flex gap-0 px-5 pt-3 overflow-x-auto glass-tabs">
+    <nav class="flex gap-0 px-5 pt-3 overflow-x-auto glass-tabs nav-tabs">
 
         @foreach($tabObj->getTabs() as $tab)
-            <a class="glass-tab {{ $tab['active'] ? 'active' : '' }}" href="#tab-{{ $tab['id'] }}" data-sa-toggle="tab" data-sa-target="#tab-panes">
+            <a class="glass-tab nav-link {{ $tab['active'] ? 'active' : '' }}" href="#tab-{{ $tab['id'] }}" data-sa-toggle="tab" data-sa-target="#tab-panes">
                 {{ $tab['title'] }} <i class="icon-exclamation-circle text-red-400 ml-1 hidden"></i>
             </a>
         @endforeach

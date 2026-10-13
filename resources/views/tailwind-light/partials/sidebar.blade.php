@@ -31,7 +31,7 @@
 
     @if(config('admin.enable_menu_search'))
     {{-- Search --}}
-    <div class="px-3 pt-4 pb-2">
+    <div class="px-3 pt-4 pb-2 sidebar-form">
         <div class="relative">
             <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             <input type="text" autocomplete="off" class="autocomplete w-full pl-9 pr-3 py-2 bg-white/[0.08] border border-white/[0.1] rounded-lg text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-primary-500/50 focus:bg-white/[0.12] transition-all" placeholder="Search menu...">

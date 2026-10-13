@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Super Admin – Video tutorial and promotion guide</title>
+<style>
+  :root { --text:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#ffffff; --code:#f3f4f6; --accent:#2563eb; --side:#f8fafc; }
+  @media (prefers-color-scheme: dark) {
+    :root { --text:#e5e7eb; --muted:#9ca3af; --line:#374151; --bg:#0f172a; --code:#1e293b; --accent:#60a5fa; --side:#111827; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font: 16px/1.6 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color:var(--text); background:var(--bg); }
+  .layout { display:flex; min-height:100vh; }
+  nav.toc { width:280px; flex:0 0 280px; position:sticky; top:0; height:100vh; overflow:auto; padding:24px 16px; border-right:1px solid var(--line); background:var(--side); font-size:14px; }
+  nav.toc h2 { font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 12px; }
+  nav.toc ul { list-style:none; margin:0; padding:0; }
+  nav.toc li.toc-l2 { margin:6px 0 2px; font-weight:600; }
+  nav.toc li.toc-l3 { margin:2px 0 2px 14px; font-weight:400; }
+  nav.toc a { color:var(--text); text-decoration:none; }
+  nav.toc a:hover { color:var(--accent); }
+  main { flex:1; min-width:0; max-width:960px; padding:32px 40px 80px; }
+  h1 { font-size:2.1rem; line-height:1.2; margin:0 0 .5rem; }
+  h2 { font-size:1.5rem; margin:2.4rem 0 .8rem; padding-top:1rem; border-top:1px solid var(--line); }
+  h3 { font-size:1.15rem; margin:1.6rem 0 .5rem; }
+  h4 { font-size:1rem; margin:1.2rem 0 .4rem; }
+  p, ul, ol { margin: .6rem 0; }
+  li { margin:.2rem 0; }
+  a { color:var(--accent); }
+  code { font: 13.5px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:var(--code); padding:.1em .35em; border-radius:4px; }
+  pre { background:var(--code); padding:14px 16px; border-radius:8px; overflow:auto; border:1px solid var(--line); }
+  pre code { background:none; padding:0; }
+  table { border-collapse:collapse; width:100%; margin:1rem 0; font-size:14.5px; }
+  th, td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+  th { background:var(--side); }
+  img { max-width:100%; height:auto; border:1px solid var(--line); border-radius:8px; margin:.6rem 0; }
+  blockquote { margin:1rem 0; padding:.5rem 1rem; border-left:4px solid var(--accent); background:var(--side); color:var(--muted); }
+  hr { border:0; border-top:1px solid var(--line); margin:2rem 0; }
+  .meta { color:var(--muted); font-size:14px; margin-bottom:1.5rem; }
+  @media (max-width: 900px) { .layout { display:block; } nav.toc { position:static; width:auto; height:auto; border-right:0; border-bottom:1px solid var(--line); } main { padding:20px 16px 60px; } }
+  @media print { nav.toc { display:none; } main { max-width:none; padding:0; } }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc"><h2>Contents</h2><ul>
+<li class="toc-l2"><a href="#1-what-makes-an-admin-panel-video-work">1. What makes an admin-panel video work</a></li>
+<li class="toc-l2"><a href="#2-recording-setup">2. Recording setup</a></li>
+<li class="toc-l2"><a href="#3-series-plan-8-episodes">3. Series plan (8 episodes)</a></li>
+<li class="toc-l2"><a href="#4-episode-script-template">4. Episode script template</a></li>
+<li class="toc-l3"><a href="#example-script-episode-2-your-first-crud">Example script, episode 2 (Your first CRUD)</a></li>
+<li class="toc-l2"><a href="#5-publishing-checklist">5. Publishing checklist</a></li>
+<li class="toc-l2"><a href="#6-making-the-package-known">6. Making the package known</a></li>
+<li class="toc-l3"><a href="#where-to-post">Where to post</a></li>
+<li class="toc-l3"><a href="#comparison-people-will-ask-for">Comparison people will ask for</a></li>
+<li class="toc-l3"><a href="#things-that-build-trust">Things that build trust</a></li>
+<li class="toc-l3"><a href="#measuring">Measuring</a></li>
+</ul></nav>
+<main>
+<h1>Video tutorial and promotion guide</h1>
+<p>How to record a tutorial series for Super Admin and how to make the package known. Written for the maintainer. Companion to the <a href="user-manual.md">User manual</a>.</p>
+<h2 id="1-what-makes-an-admin-panel-video-work">1. What makes an admin-panel video work</h2>
+<p>Developers watch a package video to answer one question: <em>will this save me time on my next project?</em> Every episode should show a real result on screen within the first 60 seconds, then explain how it was done. Rules that hold for all episodes:</p>
+<ul>
+<li>Start with the finished screen, not with <code>composer require</code>.</li>
+<li>One episode = one outcome (a CRUD page, a filtered grid, a role setup). Ten minutes maximum.</li>
+<li>Use a realistic demo domain (a blog with posts, categories, authors) rather than <code>foo</code> / <code>bar</code>.</li>
+<li>Type the code on screen; do not paste large blocks. Cut the waiting (install, builds).</li>
+<li>Show the Tailwind Light template; mention the Classic template once with a quick switch.</li>
+<li>End with the command or link the viewer needs next.</li>
+</ul>
+<h2 id="2-recording-setup">2. Recording setup</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Recommendation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Screen</td>
+<td>1920×1080, browser zoom 110–125 % so grid text is readable on phones</td>
+</tr>
+<tr>
+<td>Editor</td>
+<td>VS Code or PhpStorm, font size 16+, light theme matches the panel; hide side panels you do not use</td>
+</tr>
+<tr>
+<td>Browser</td>
+<td>A clean profile, no extensions, bookmarks bar hidden</td>
+</tr>
+<tr>
+<td>Terminal</td>
+<td>Same font size as the editor, prompt shortened to the project folder</td>
+</tr>
+<tr>
+<td>Audio</td>
+<td>Any USB microphone, quiet room, normalise to −16 LUFS in the editor</td>
+</tr>
+<tr>
+<td>Recorder</td>
+<td>OBS Studio (free): one scene with browser + editor side by side, one with editor only</td>
+</tr>
+<tr>
+<td>Demo app</td>
+<td>A fresh Laravel app with the package installed from Packagist, SQLite, seeded with 20–30 posts so grids look real</td>
+</tr>
+<tr>
+<td>Repeatability</td>
+<td>Keep a <code>git tag</code> per episode start state so you can re-record a segment without redoing the setup</td>
+</tr>
+</tbody></table>
+<p>Prepare the demo app before recording with the steps in the manual&#39;s installation section, including the <code>admin</code> upload disk.</p>
+<h2 id="3-series-plan-8-episodes">3. Series plan (8 episodes)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Title</th>
+<th>Outcome shown first</th>
+<th>What you build on screen</th>
+<th>Length</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Super Admin in 5 minutes</td>
+<td>Login, dashboard, users page</td>
+<td><code>composer require</code>, publish, disk config, <code>admin:install</code>, login, switch template</td>
+<td>6 min</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Your first CRUD</td>
+<td>Posts grid with create/edit/show</td>
+<td>Model + migration, <code>admin:controller</code>, route, menu item</td>
+<td>9 min</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Grids that people like</td>
+<td>Sorted, filtered, exported grid</td>
+<td>Column helpers (<code>label</code>, <code>dot</code>, <code>switch</code>), filters, quick search, export, column selector</td>
+<td>9 min</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Forms and relations</td>
+<td>Tabbed post form with category select and tags</td>
+<td>Field types, tabs, validation rules, <code>belongsTo</code>, <code>belongsToMany</code>, image upload</td>
+<td>10 min</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Inline edit and actions</td>
+<td>Editing titles in the grid, a &quot;Publish&quot; row action, a batch delete</td>
+<td><code>editable()</code>, <code>switch()</code>, custom <code>RowAction</code> and <code>BatchAction</code> with toast responses</td>
+<td>8 min</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Users, roles and permissions</td>
+<td>A content-editor role that can see Posts only</td>
+<td>Roles, permission paths, menu binding, <code>check_route_permission</code></td>
+<td>8 min</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Make it yours</td>
+<td>Rebranded panel with custom navbar and dashboard</td>
+<td><code>config/admin.php</code>, <code>bootstrap.php</code>, overriding a view, dashboard widgets</td>
+<td>8 min</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Extensions and the road ahead</td>
+<td>Media manager or log viewer installed</td>
+<td>Installing an extension, <code>admin:extend</code> scaffold, where to contribute</td>
+<td>7 min</td>
+</tr>
+</tbody></table>
+<p>Publish episodes one week apart; the first three on the same day so a new viewer can binge the basics.</p>
+<h2 id="4-episode-script-template">4. Episode script template</h2>
+<p>Use this skeleton for every episode (times are targets):</p>
+<ol>
+<li><strong>Cold open (0:00–0:30).</strong> The finished screen. One sentence: what it is and that it took N minutes.</li>
+<li><strong>Context (0:30–1:00).</strong> What you start from (the state tag) and what the viewer needs installed.</li>
+<li><strong>Build (1:00–7:30).</strong> Type the code in two or three small steps; after each step, refresh the browser and point at what changed.</li>
+<li><strong>Gotcha (7:30–8:30).</strong> The one mistake people make here (for example forgetting <code>view:clear</code> after a template switch, or the missing <code>admin</code> disk).</li>
+<li><strong>Next (8:30–9:00).</strong> The command or link for the next episode and the docs page.</li>
+</ol>
+<p>Keep a text file with the exact commands and code snippets for the episode open on a second monitor; the final code also goes in the video description and the docs repo.</p>
+<h3 id="example-script-episode-2-your-first-crud">Example script, episode 2 (Your first CRUD)</h3>
+<ul>
+<li>Cold open: show <code>/admin/posts</code> with 20 posts, open one, edit it, save. &quot;This whole page is 40 lines of PHP.&quot;</li>
+<li>Context: Laravel app with Super Admin installed (episode 1), a <code>posts</code> table with title, body, status, published_at.</li>
+<li>Step 1: <code>php artisan admin:controller \App\Models\Post</code> and open the generated file; show the grid, form and show methods.</li>
+<li>Step 2: add <code>$router-&gt;resource(&#39;posts&#39;, PostController::class);</code> to <code>app/Admin/routes.php</code>; refresh <code>/admin/posts</code>.</li>
+<li>Step 3: add the menu item on the Menu page (title Posts, icon <code>icon-file</code>, URI <code>posts</code>); show it in the sidebar.</li>
+<li>Step 4: tune three columns: <code>-&gt;sortable()</code>, <code>-&gt;label()</code>, <code>-&gt;switch()</code>.</li>
+<li>Gotcha: the route is relative to the admin prefix; <code>posts</code>, not <code>/admin/posts</code>.</li>
+<li>Next: filters and export in episode 3.</li>
+</ul>
+<h2 id="5-publishing-checklist">5. Publishing checklist</h2>
+<ul>
+<li>Title pattern: &quot;Laravel admin panel in 5 minutes with Super Admin (free, open source)&quot;. Put the benefit and the word <em>Laravel</em> first.</li>
+<li>Thumbnail: the panel screenshot with a three-word overlay; same layout for every episode so the series is recognisable.</li>
+<li>Description: the commands shown, links to docs page, GitHub, Packagist, and the previous and next episode. Add chapters (timestamps).</li>
+<li>Playlist: &quot;Super Admin for Laravel&quot;, episodes in order.</li>
+<li>Captions: upload the auto captions after correcting command names; many viewers watch muted.</li>
+<li>Pin a comment with the demo repository link.</li>
+</ul>
+<h2 id="6-making-the-package-known">6. Making the package known</h2>
+<p>Super Admin&#39;s position is simple and should be repeated everywhere: a complete Laravel admin builder (grid, form, show, tree, RBAC, menu, logs) that is free, has no paid tier, supports Laravel 10–13, and keeps the laravel-admin / open-admin API so existing projects can move over.</p>
+<h3 id="where-to-post">Where to post</h3>
+<table>
+<thead>
+<tr>
+<th>Channel</th>
+<th>What to post</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GitHub README</td>
+<td>Hero screenshot of the Tailwind template, 3-command install, link to the manual and the video playlist</td>
+<td>Before the first video</td>
+</tr>
+<tr>
+<td>Packagist</td>
+<td>Keep the description keyword-rich (laravel admin panel, crud generator, open source)</td>
+<td>Now</td>
+</tr>
+<tr>
+<td>Laravel News (laravel-news.com/links)</td>
+<td>Submit the release post and the first video</td>
+<td>Release day</td>
+</tr>
+<tr>
+<td>Reddit r/laravel, r/PHP</td>
+<td>A &quot;show and tell&quot; post with 2 screenshots and the 5-minute video; answer every comment the same day</td>
+<td>Release week</td>
+</tr>
+<tr>
+<td>X / Twitter, LinkedIn, Mastodon</td>
+<td>One screenshot + one sentence per feature, one per day for two weeks; tag Laravel community accounts sparingly</td>
+<td>Release week onward</td>
+</tr>
+<tr>
+<td>dev.to / Medium / Hashnode</td>
+<td>Long-form tutorials that mirror episodes 2, 4 and 6; cross-link the videos</td>
+<td>Weekly</td>
+</tr>
+<tr>
+<td>awesome-laravel lists, Laravel package directories (laravelpackages, packagist search)</td>
+<td>Pull request adding the package</td>
+<td>Once</td>
+</tr>
+<tr>
+<td>Laracasts forum, Laravel.io</td>
+<td>Answer &quot;which admin panel&quot; questions with a factual comparison and a link</td>
+<td>Ongoing</td>
+</tr>
+<tr>
+<td>YouTube Shorts / TikTok</td>
+<td>30-second clips: inline edit, switch toggle, template switch</td>
+<td>Weekly</td>
+</tr>
+<tr>
+<td>Bangla developer community (Facebook groups, YouTube)</td>
+<td>The same series in Bangla; the docs already have Bangla translations</td>
+<td>Parallel</td>
+</tr>
+</tbody></table>
+<h3 id="comparison-people-will-ask-for">Comparison people will ask for</h3>
+<p>Be factual; the package wins on price and compatibility, not on every feature.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Super Admin</th>
+<th>Filament</th>
+<th>Laravel Nova</th>
+<th>Backpack</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Price</td>
+<td>Free, MIT</td>
+<td>Free core, paid plugins</td>
+<td>Paid licence</td>
+<td>Free core, paid pro</td>
+</tr>
+<tr>
+<td>Approach</td>
+<td>PHP builders (grid/form/show), Blade</td>
+<td>Livewire components</td>
+<td>Vue</td>
+<td>Blade/Backpack API</td>
+</tr>
+<tr>
+<td>Laravel versions</td>
+<td>10–13</td>
+<td>10+</td>
+<td>10+</td>
+<td>10+</td>
+</tr>
+<tr>
+<td>Migration path</td>
+<td>laravel-admin / open-admin projects move with few changes</td>
+<td>New code</td>
+<td>New code</td>
+<td>New code</td>
+</tr>
+</tbody></table>
+<h3 id="things-that-build-trust">Things that build trust</h3>
+<ul>
+<li>A public demo site (<code>demo.super-admin.org</code>) reset every hour. Mention it in every post.</li>
+<li>A changelog with dates and a release every 4–6 weeks, even if small.</li>
+<li>Response to issues within 48 hours; label <code>good first issue</code> for newcomers.</li>
+<li>Screenshots in the README that match the current version (re-capture with the Playwright flow used for the manual).</li>
+<li>A one-page &quot;migrate from laravel-admin&quot; guide; those projects are the largest pool of users.</li>
+<li>GitHub Discussions enabled for questions, so issues stay for bugs.</li>
+</ul>
+<h3 id="measuring">Measuring</h3>
+<p>Track weekly: Packagist installs, GitHub stars, video views and average watch time, docs page views, number of open issues. Watch-time under 40 % means the episodes are too long or the result comes too late.</p>
+
+</main>
+</div>
+</body>
+</html>

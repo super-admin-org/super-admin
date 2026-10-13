@@ -12,6 +12,8 @@ class OperationLog extends Model
 
     protected $fillable = ['user_id', 'path', 'method', 'ip', 'input'];
 
+    protected $casts = ['user_id' => 'integer'];
+
     public static $methodColors = [
         'GET' => 'success',
         'POST' => 'primary',

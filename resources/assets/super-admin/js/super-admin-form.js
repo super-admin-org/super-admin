@@ -107,18 +107,27 @@ admin.form = {
 
     check_tab_errors() {
         let errors = document.querySelectorAll('.tab-pane .has-error, .was-validated .tab-pane .form-control:invalid');
-        if (this.tabs_ref.length && errors) {
+        if (this.tabs_ref.length && errors.length) {
             let first_tab = false;
             errors.forEach((error) => {
-                let tabId = '#' + error.closest('.tab-pane').getAttribute('id');
-                document.querySelector('li a[href="' + tabId + '"] i').classList.remove('hide');
+                let pane = error.closest('.tab-pane');
+                if (!pane || !pane.getAttribute('id')) {
+                    return;
+                }
+                let tabId = '#' + pane.getAttribute('id');
+                let icon = document.querySelector('.nav-tabs a[href="' + tabId + '"] i');
+                if (icon) {
+                    icon.classList.remove('hide', 'hidden');
+                }
                 if (!first_tab) {
                     first_tab = tabId;
                 }
             });
             if (first_tab) {
                 let errorTab = document.querySelector('.nav-tabs a[href="' + first_tab + '"]');
-                new bootstrap.Tab(errorTab).show();
+                if (errorTab && typeof bootstrap !== 'undefined') {
+                    new bootstrap.Tab(errorTab).show();
+                }
             }
         }
     },

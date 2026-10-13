@@ -91,3 +91,13 @@ For development with hot reload:
 ```bash
 npm run dev
 ```
+
+## JavaScript in the tailwind-light template
+
+The template does not load Bootstrap's JavaScript. Its bundle (`resources/assets/tailwind-light/dist/super-admin-js.js`) provides:
+
+- Dropdown, collapse, tab and modal behaviour for elements marked with `data-sa-toggle="dropdown|collapse|tab|modal"` and `data-sa-target="#id"`. The Bootstrap spelling (`data-bs-toggle`, `data-bs-target`, `data-bs-dismiss`) is accepted as well, so markup emitted by PHP keeps working.
+- A `window.bootstrap` compatibility layer with `Modal`, `Popover`, `Tooltip`, `Tab`, `Collapse` and `Dropdown` classes (`getInstance`, `getOrCreateInstance`, `show`, `hide`, `toggle`, `dispose`, and the `show.bs.*` / `shown.bs.*` / `hide.bs.*` / `hidden.bs.*` events). The shared admin scripts (inline edit, selectable pickers, action modals, hasMany tabs) rely on it.
+- Re-initialisation after PJAX page loads: the shared `admin.ajax` script dispatches a `pjax:complete` event on `document` after every page load, and the template refreshes the sidebar active state and tooltips on it.
+
+Form and grid footers use `position: sticky` (not `fixed`), because `.glass-card` uses `backdrop-filter`, which makes it the containing block for fixed descendants.

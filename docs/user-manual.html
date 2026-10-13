@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Super Admin – User Manual and Developer Guide</title>
+<style>
+  :root { --text:#1f2937; --muted:#6b7280; --line:#e5e7eb; --bg:#ffffff; --code:#f3f4f6; --accent:#2563eb; --side:#f8fafc; }
+  @media (prefers-color-scheme: dark) {
+    :root { --text:#e5e7eb; --muted:#9ca3af; --line:#374151; --bg:#0f172a; --code:#1e293b; --accent:#60a5fa; --side:#111827; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font: 16px/1.6 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color:var(--text); background:var(--bg); }
+  .layout { display:flex; min-height:100vh; }
+  nav.toc { width:280px; flex:0 0 280px; position:sticky; top:0; height:100vh; overflow:auto; padding:24px 16px; border-right:1px solid var(--line); background:var(--side); font-size:14px; }
+  nav.toc h2 { font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); margin:0 0 12px; }
+  nav.toc ul { list-style:none; margin:0; padding:0; }
+  nav.toc li.toc-l2 { margin:6px 0 2px; font-weight:600; }
+  nav.toc li.toc-l3 { margin:2px 0 2px 14px; font-weight:400; }
+  nav.toc a { color:var(--text); text-decoration:none; }
+  nav.toc a:hover { color:var(--accent); }
+  main { flex:1; min-width:0; max-width:960px; padding:32px 40px 80px; }
+  h1 { font-size:2.1rem; line-height:1.2; margin:0 0 .5rem; }
+  h2 { font-size:1.5rem; margin:2.4rem 0 .8rem; padding-top:1rem; border-top:1px solid var(--line); }
+  h3 { font-size:1.15rem; margin:1.6rem 0 .5rem; }
+  h4 { font-size:1rem; margin:1.2rem 0 .4rem; }
+  p, ul, ol { margin: .6rem 0; }
+  li { margin:.2rem 0; }
+  a { color:var(--accent); }
+  code { font: 13.5px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:var(--code); padding:.1em .35em; border-radius:4px; }
+  pre { background:var(--code); padding:14px 16px; border-radius:8px; overflow:auto; border:1px solid var(--line); }
+  pre code { background:none; padding:0; }
+  table { border-collapse:collapse; width:100%; margin:1rem 0; font-size:14.5px; }
+  th, td { border:1px solid var(--line); padding:8px 10px; text-align:left; vertical-align:top; }
+  th { background:var(--side); }
+  img { max-width:100%; height:auto; border:1px solid var(--line); border-radius:8px; margin:.6rem 0; }
+  blockquote { margin:1rem 0; padding:.5rem 1rem; border-left:4px solid var(--accent); background:var(--side); color:var(--muted); }
+  hr { border:0; border-top:1px solid var(--line); margin:2rem 0; }
+  .meta { color:var(--muted); font-size:14px; margin-bottom:1.5rem; }
+  @media (max-width: 900px) { .layout { display:block; } nav.toc { position:static; width:auto; height:auto; border-right:0; border-bottom:1px solid var(--line); } main { padding:20px 16px 60px; } }
+  @media print { nav.toc { display:none; } main { max-width:none; padding:0; } }
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc"><h2>Contents</h2><ul>
+<li class="toc-l2"><a href="#1-history-of-the-code-base">1. History of the code base</a></li>
+<li class="toc-l3"><a href="#1-1-what-is-in-the-repository">1.1 What is in the repository</a></li>
+<li class="toc-l3"><a href="#1-2-design-in-one-paragraph">1.2 Design in one paragraph</a></li>
+<li class="toc-l2"><a href="#2-requirements-and-compatibility">2. Requirements and compatibility</a></li>
+<li class="toc-l2"><a href="#3-installation">3. Installation</a></li>
+<li class="toc-l3"><a href="#3-1-updating">3.1 Updating</a></li>
+<li class="toc-l3"><a href="#3-2-moving-from-laravel-admin-or-open-admin">3.2 Moving from laravel-admin or open-admin</a></li>
+<li class="toc-l2"><a href="#4-configuration">4. Configuration</a></li>
+<li class="toc-l2"><a href="#5-templates">5. Templates</a></li>
+<li class="toc-l2"><a href="#6-using-the-panel-administrators">6. Using the panel (administrators)</a></li>
+<li class="toc-l3"><a href="#6-1-signing-in-and-your-account">6.1 Signing in and your account</a></li>
+<li class="toc-l3"><a href="#6-2-navigation">6.2 Navigation</a></li>
+<li class="toc-l3"><a href="#6-3-lists-grids">6.3 Lists (grids)</a></li>
+<li class="toc-l3"><a href="#6-4-forms">6.4 Forms</a></li>
+<li class="toc-l3"><a href="#6-5-detail-pages">6.5 Detail pages</a></li>
+<li class="toc-l3"><a href="#6-6-users-roles-permissions">6.6 Users, roles, permissions</a></li>
+<li class="toc-l3"><a href="#6-7-menu">6.7 Menu</a></li>
+<li class="toc-l3"><a href="#6-8-operation-log">6.8 Operation log</a></li>
+<li class="toc-l2"><a href="#7-developer-quick-start">7. Developer quick start</a></li>
+<li class="toc-l3"><a href="#7-1-a-complete-resource-in-four-steps">7.1 A complete resource in four steps</a></li>
+<li class="toc-l3"><a href="#7-2-pages-that-are-not-crud">7.2 Pages that are not CRUD</a></li>
+<li class="toc-l2"><a href="#8-grid-reference">8. Grid reference</a></li>
+<li class="toc-l3"><a href="#8-1-columns">8.1 Columns</a></li>
+<li class="toc-l3"><a href="#8-2-filters">8.2 Filters</a></li>
+<li class="toc-l3"><a href="#8-3-tools-export-pagination">8.3 Tools, export, pagination</a></li>
+<li class="toc-l3"><a href="#8-4-row-and-batch-actions">8.4 Row and batch actions</a></li>
+<li class="toc-l2"><a href="#9-form-reference">9. Form reference</a></li>
+<li class="toc-l3"><a href="#9-1-fields">9.1 Fields</a></li>
+<li class="toc-l3"><a href="#9-2-layout">9.2 Layout</a></li>
+<li class="toc-l3"><a href="#9-3-conditional-fields">9.3 Conditional fields</a></li>
+<li class="toc-l3"><a href="#9-4-relations">9.4 Relations</a></li>
+<li class="toc-l3"><a href="#9-5-callbacks-and-footer">9.5 Callbacks and footer</a></li>
+<li class="toc-l2"><a href="#10-show-tree-widgets-rbac-in-code">10. Show, Tree, widgets, RBAC in code</a></li>
+<li class="toc-l3"><a href="#10-1-show">10.1 Show</a></li>
+<li class="toc-l3"><a href="#10-2-tree">10.2 Tree</a></li>
+<li class="toc-l3"><a href="#10-3-widgets">10.3 Widgets</a></li>
+<li class="toc-l3"><a href="#10-4-permissions-in-code">10.4 Permissions in code</a></li>
+<li class="toc-l2"><a href="#11-customization">11. Customization</a></li>
+<li class="toc-l3"><a href="#11-1-branding-navbar-assets-app-admin-bootstrap-php">11.1 Branding, navbar, assets (app/Admin/bootstrap.php)</a></li>
+<li class="toc-l3"><a href="#11-2-overriding-a-view">11.2 Overriding a view</a></li>
+<li class="toc-l3"><a href="#11-3-custom-form-field">11.3 Custom form field</a></li>
+<li class="toc-l3"><a href="#11-4-theming-the-tailwind-template">11.4 Theming the Tailwind template</a></li>
+<li class="toc-l3"><a href="#11-5-javascript-hooks">11.5 JavaScript hooks</a></li>
+<li class="toc-l3"><a href="#11-6-a-new-template">11.6 A new template</a></li>
+<li class="toc-l3"><a href="#11-7-extensions">11.7 Extensions</a></li>
+<li class="toc-l2"><a href="#12-artisan-commands">12. Artisan commands</a></li>
+<li class="toc-l2"><a href="#13-fixed-in-1-3-0">13. Fixed in 1.3.0</a></li>
+<li class="toc-l2"><a href="#14-troubleshooting">14. Troubleshooting</a></li>
+<li class="toc-l2"><a href="#15-improvement-scope-roadmap-candidates">15. Improvement scope (roadmap candidates)</a></li>
+<li class="toc-l2"><a href="#16-links">16. Links</a></li>
+</ul></nav>
+<main>
+<h1>Super Admin – User Manual and Developer Guide</h1>
+<p>Version 1.3.0 · October 2026 · Package <code>super-admin-org/super-admin</code> · MIT licence</p>
+<p>Super Admin is an administrative interface builder for Laravel. You describe a grid, a form, a detail page or a tree in PHP, and the package renders a complete admin panel around it: authentication, roles and permissions, a sidebar menu editor, an operation log, file uploads, exports, and two UI templates (Tailwind Light and Classic Bootstrap 5).</p>
+<p>This document is written for two readers:</p>
+<ul>
+<li><strong>Administrators</strong> who use a panel built with Super Admin (sections 5 to 7).</li>
+<li><strong>Developers</strong> who install the package and build pages with it (sections 2 to 4 and 8 to 12).</li>
+</ul>
+<p>Screenshots are from the Tailwind Light template unless marked Classic. Every page shown exists in both templates.</p>
+<hr>
+<h2 id="1-history-of-the-code-base">1. History of the code base</h2>
+<p>Super Admin continues a line of Laravel admin builders that started in 2016.</p>
+<table>
+<thead>
+<tr>
+<th>When</th>
+<th>What</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2016–2021</td>
+<td><strong>laravel-admin</strong> by z-song</td>
+<td>The original builder: Grid, Form, Show, Tree, RBAC, extensions. Built on AdminLTE / Bootstrap 3 and jQuery. Development stopped around Laravel 9.</td>
+</tr>
+<tr>
+<td>2021–2023</td>
+<td><strong>open-admin</strong> (open-admin-org)</td>
+<td>A fork that removed jQuery and AdminLTE, rebuilt the front end on Bootstrap 5 with plain JavaScript and PJAX page loads, kept the PHP API. Stopped before Laravel 11.</td>
+</tr>
+<tr>
+<td>May 2025</td>
+<td><strong>super-admin</strong> forked</td>
+<td>New repository <code>super-admin-org/super-admin</code> by Talemul Islam. Goal: keep the laravel-admin / open-admin API working on current Laravel and PHP. First commits 24–25 May 2025.</td>
+</tr>
+<tr>
+<td>Jun 2025</td>
+<td>v1.0.0, v1.1.0</td>
+<td>Laravel 10/11/12 support, PHP 8.2+, Pest test suite, GitHub Actions matrix.</td>
+</tr>
+<tr>
+<td>Aug 2025</td>
+<td>v1.1.2 – v1.1.6</td>
+<td>First public release on Packagist (changelog entry 11 Aug 2025), documentation set (28 pages), 23 translations.</td>
+</tr>
+<tr>
+<td>Sep 2025</td>
+<td>v1.1.7 – v1.1.10</td>
+<td>Laravel 13 support, bug fixes, code-style automation.</td>
+</tr>
+<tr>
+<td>Mar 2026</td>
+<td>v1.2.0, v1.2.1</td>
+<td>Last release on the single Bootstrap template.</td>
+</tr>
+<tr>
+<td>Mar–Oct 2026</td>
+<td><code>template</code> branch</td>
+<td>Template system: views can live in <code>resources/views/&lt;template&gt;/</code> with fallback to the root views; new <strong>Tailwind Light</strong> template (Tailwind CSS 3.4, Vite build, no Bootstrap JS); the old views kept as <strong>super-admin-template-1</strong>. 32 commits.</td>
+</tr>
+<tr>
+<td>Oct 2026</td>
+<td><strong>v1.3.0</strong></td>
+<td>Template release. 24 bugs fixed (see section 13), the test suite runs to completion again (819 tests), this manual.</td>
+</tr>
+</tbody></table>
+<h3 id="1-1-what-is-in-the-repository">1.1 What is in the repository</h3>
+<pre><code>src/                      PHP source (~39,000 lines)
+  Admin.php               Service: builders, menu, user, navbar, assets, routes
+  AdminServiceProvider    Registers views (template aware), middleware, commands, publishing
+  Grid.php, Grid/         Data tables: 35 column displayers, 21 filter types, exporters, tools
+  Form.php, Form/         Forms: 59 field types, tabs/rows, uploads, nested forms, cascades
+  Show.php, Show/         Detail pages: fields, panels, relations
+  Tree.php, Tree/         Nested, drag-and-drop lists
+  Actions/                Row, batch and standalone actions with toast / dialog responses
+  Auth/                   Administrator, Role, Permission, Menu, OperationLog models; RBAC checks
+  Controllers/            Built-in pages (users, roles, permissions, menu, logs, auth, dashboard)
+  Middleware/             admin.auth, admin.permission, admin.log, admin.pjax, admin.bootstrap, admin.throttle
+  Widgets/                Box, InfoBox, Tab, Table, Alert, Callout, Collapse, Carousel, Form, StepForm, Navbar
+  Console/                19 artisan commands (install, make, controller, menu, user, extension, ...)
+  Layout/                 Content, Row, Column (page composition)
+  Traits/HasAssets        CSS/JS registration, template-aware base assets
+resources/views/          Classic (Bootstrap 5) views = fallback for every template
+resources/views/tailwind-light/        Tailwind Light template (138 Blade files)
+resources/views/super-admin-template-1/ Copy of the classic views, selectable by name
+resources/assets/         Vendor libraries (axios, flatpickr, choices.js, sortable, sweetalert2, toastify, nprogress, Font Awesome, dual-listbox) and the compiled bundles
+resources/lang/           23 languages
+config/admin.php          Published configuration
+database/migrations/      Admin tables
+docs/                     This manual and 28 reference pages
+tests/                    Pest suite (BrowserKit), 819 tests
+</code></pre>
+<h3 id="1-2-design-in-one-paragraph">1.2 Design in one paragraph</h3>
+<p>A controller extends <code>AdminController</code> and returns a <code>Grid</code>, <code>Form</code> or <code>Show</code> built with a fluent PHP API. Each builder renders Blade views from the active template; the shared JavaScript (<code>admin.*</code> namespace) loads pages over PJAX, submits forms, handles inline edits, actions and toasts. All data access goes through Eloquent, so relations, scopes and accessors work as they do in the rest of the application. Authentication uses a dedicated <code>admin</code> guard and its own tables (<code>admin_users</code>, <code>admin_roles</code>, <code>admin_permissions</code>, <code>admin_menu</code>, <code>admin_operation_log</code>), so the admin panel never mixes with the application&#39;s users.</p>
+<hr>
+<h2 id="2-requirements-and-compatibility">2. Requirements and compatibility</h2>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Supported</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>PHP</td>
+<td>8.0, 8.1, 8.2, 8.3, 8.4</td>
+</tr>
+<tr>
+<td>Laravel</td>
+<td>8.x and 9.x (end-of-life, see below), 10.x, 11.x, 12.x, 13.x</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>Anything Eloquent supports (MySQL, MariaDB, PostgreSQL, SQLite, SQL Server)</td>
+</tr>
+<tr>
+<td>Browser</td>
+<td>Current Chrome, Edge, Firefox, Safari (the Tailwind template uses <code>backdrop-filter</code> and <code>:has()</code>)</td>
+</tr>
+<tr>
+<td>Node.js</td>
+<td>Not required at runtime; only to rebuild the Tailwind template</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>Laravel</th>
+<th>PHP</th>
+<th>Status in 1.3.0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>13</td>
+<td>8.3, 8.4</td>
+<td>Supported, in CI</td>
+</tr>
+<tr>
+<td>12</td>
+<td>8.2, 8.3, 8.4</td>
+<td>Supported, in CI</td>
+</tr>
+<tr>
+<td>11</td>
+<td>8.2, 8.3, 8.4</td>
+<td>Supported, in CI</td>
+</tr>
+<tr>
+<td>10</td>
+<td>8.2, 8.3</td>
+<td>Supported, in CI</td>
+</tr>
+<tr>
+<td>9</td>
+<td>8.0, 8.1, 8.2</td>
+<td>Supported, in CI; verified with the full suite and browser checks on PHP 8.1</td>
+</tr>
+<tr>
+<td>8</td>
+<td>8.0, 8.1</td>
+<td>Supported, in CI; verified with the full suite and browser checks on PHP 8.0</td>
+</tr>
+<tr>
+<td>4, 5, 6, 7</td>
+<td>5.3 – 8.0</td>
+<td>Not supported</td>
+</tr>
+</tbody></table>
+<p><strong>Laravel 8 and 9 are end-of-life.</strong> Both have published security advisories, and Composer 2.8 or newer refuses to install them unless you set <code>composer config audit.block-insecure false</code> in the application. Use them only for existing applications that cannot be upgraded yet, and plan the upgrade.</p>
+<p><strong>Why Laravel 4 to 7 cannot be supported.</strong> They run on PHP 5.3 to 8.0 and lack the framework APIs the package is built on: Laravel 4 has no middleware, no namespaced service-provider resource loading and no package discovery; Laravel 5 to 7 predate the PHP 8 syntax used throughout the package (union and nullable types, typed properties) and the Symfony 5.4+ components it depends on. Supporting them would mean rewriting the package for those PHP versions, with no security updates on either side. Upgrade the application first (the Laravel upgrade guides or Laravel Shift), then install Super Admin.</p>
+<hr>
+<h2 id="3-installation">3. Installation</h2>
+<p>A fresh install takes four commands and one config edit.</p>
+<pre><code class="language-bash">composer require super-admin-org/super-admin
+php artisan vendor:publish --provider=&quot;SuperAdmin\Admin\AdminServiceProvider&quot;
+</code></pre>
+<p>Add the upload disk the package expects to <code>config/filesystems.php</code> (image and file fields fail with <em>Disk [admin] not configured</em> without it):</p>
+<pre><code class="language-php">&#39;disks&#39; =&gt; [
+    // ...
+    &#39;admin&#39; =&gt; [
+        &#39;driver&#39; =&gt; &#39;local&#39;,
+        &#39;root&#39; =&gt; public_path(&#39;uploads&#39;),
+        &#39;visibility&#39; =&gt; &#39;public&#39;,
+        &#39;url&#39; =&gt; env(&#39;APP_URL&#39;).&#39;/uploads&#39;,
+    ],
+],
+</code></pre>
+<p>Run the installer. It migrates the admin tables, seeds the default user, role, permissions and menu, and creates <code>app/Admin</code> with <code>routes.php</code>, <code>bootstrap.php</code>, a <code>HomeController</code> and an <code>AuthController</code>:</p>
+<pre><code class="language-bash">php artisan admin:install
+</code></pre>
+<p>Open <code>http://your-app.test/admin</code> and sign in with <strong>admin / admin</strong>. Change the password from the user menu (top right) → <strong>Setting</strong> before the panel is reachable by anyone else.</p>
+<p><img src="images/login.png" alt="Login page"></p>
+<h3 id="3-1-updating">3.1 Updating</h3>
+<pre><code class="language-bash">composer update super-admin-org/super-admin
+php artisan vendor:publish --tag=super-admin-assets --force
+php artisan view:clear
+</code></pre>
+<p>The second command keeps the compiled CSS and JavaScript in <code>public/vendor/super-admin</code> in sync with the package; most &quot;the page looks broken after update&quot; reports are a missing re-publish.</p>
+<h3 id="3-2-moving-from-laravel-admin-or-open-admin">3.2 Moving from laravel-admin or open-admin</h3>
+<p>The PHP API is the same; change the namespace from <code>Encore\Admin</code> / <code>OpenAdmin\Admin</code> to <code>SuperAdmin\Admin</code>, the config file name stays <code>config/admin.php</code>, and the table names are unchanged. Views you had overridden under <code>resources/views/vendor/admin</code> need to be checked against the new templates. See <code>docs/upgrading.md</code> for the step list.</p>
+<hr>
+<h2 id="4-configuration">4. Configuration</h2>
+<p>All settings live in <code>config/admin.php</code>. After editing run <code>php artisan config:clear</code> and <code>php artisan view:clear</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name</code></td>
+<td><code>Super Admin</code></td>
+<td>Name on the login page</td>
+</tr>
+<tr>
+<td><code>logo</code>, <code>logo-mini</code></td>
+<td><code>&lt;b&gt;Super&lt;/b&gt; Admin</code>, <code>&lt;b&gt;SA&lt;/b&gt;</code></td>
+<td>Sidebar brand (full / collapsed); may be an <code>&lt;img&gt;</code> tag</td>
+</tr>
+<tr>
+<td><code>template</code></td>
+<td><code>tailwind-light</code></td>
+<td><code>tailwind-light</code> or <code>super-admin-template-1</code> (Classic)</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td><code>Admin</code></td>
+<td>HTML title prefix</td>
+</tr>
+<tr>
+<td><code>route.prefix</code></td>
+<td><code>admin</code> (<code>ADMIN_ROUTE_PREFIX</code>)</td>
+<td>URL prefix; empty string serves the panel at the site root</td>
+</tr>
+<tr>
+<td><code>route.namespace</code></td>
+<td><code>App\Admin\Controllers</code></td>
+<td>Controller namespace for <code>app/Admin/routes.php</code></td>
+</tr>
+<tr>
+<td><code>route.middleware</code></td>
+<td><code>[&#39;web&#39;, &#39;admin&#39;]</code></td>
+<td><code>admin</code> = auth, throttle, pjax, log, bootstrap, permission</td>
+</tr>
+<tr>
+<td><code>directory</code></td>
+<td><code>app/Admin</code></td>
+<td>Where <code>admin:install</code> and generators write files</td>
+</tr>
+<tr>
+<td><code>auth.guard</code>, <code>auth.guards</code>, <code>auth.providers</code></td>
+<td><code>admin</code> guard, Eloquent <code>Administrator</code> provider</td>
+<td>Separate auth stack for the panel</td>
+</tr>
+<tr>
+<td><code>auth.remember</code></td>
+<td><code>true</code></td>
+<td>&quot;Remember me&quot; on the login form</td>
+</tr>
+<tr>
+<td><code>auth.redirect_to</code></td>
+<td><code>auth/login</code></td>
+<td>Where guests are sent; always reachable</td>
+</tr>
+<tr>
+<td><code>auth.throttle_logins</code>, <code>throttle_attempts</code>, <code>throttle_timeout</code></td>
+<td><code>true</code>, 5, 900</td>
+<td>Brute-force protection</td>
+</tr>
+<tr>
+<td><code>auth.excepts</code></td>
+<td><code>auth/login</code>, <code>auth/logout</code></td>
+<td>Paths that skip authentication</td>
+</tr>
+<tr>
+<td><code>upload.disk</code>, <code>upload.directory</code></td>
+<td><code>admin</code>, <code>images</code> / <code>files</code></td>
+<td>Disk and sub-folders for uploads</td>
+</tr>
+<tr>
+<td><code>database.*</code></td>
+<td><code>admin_*</code> tables, built-in models</td>
+<td>Connection, table and model names</td>
+</tr>
+<tr>
+<td><code>operation_log.enable</code>, <code>allowed_methods</code>, <code>except</code>, <code>filter_input</code></td>
+<td>on, all methods, <code>admin/auth/logs*</code>, passwords</td>
+<td>Request logging</td>
+</tr>
+<tr>
+<td><code>check_route_permission</code>, <code>check_menu_roles</code></td>
+<td><code>true</code></td>
+<td>Enforce permissions on routes; hide menu items by role</td>
+</tr>
+<tr>
+<td><code>default_avatar</code></td>
+<td><code>/vendor/super-admin/super-admin/gfx/user.svg</code></td>
+<td>Avatar when none is uploaded</td>
+</tr>
+<tr>
+<td><code>map_provider</code></td>
+<td><code>openstreetmaps</code></td>
+<td><code>openstreetmaps</code>, <code>google</code>, <code>tencent</code>, <code>yandex</code> for the map field</td>
+</tr>
+<tr>
+<td><code>login_background_image</code></td>
+<td><code>&#39;&#39;</code></td>
+<td>Image URL for the login page background</td>
+</tr>
+<tr>
+<td><code>show_version</code>, <code>show_environment</code></td>
+<td><code>true</code></td>
+<td>Footer badges</td>
+</tr>
+<tr>
+<td><code>menu_bind_permission</code></td>
+<td><code>true</code></td>
+<td>Menu items can require a permission</td>
+</tr>
+<tr>
+<td><code>enable_default_breadcrumb</code></td>
+<td><code>true</code></td>
+<td>Breadcrumb from the URL when a page sets none</td>
+</tr>
+<tr>
+<td><code>enable_menu_search</code></td>
+<td><code>true</code></td>
+<td>Search box above the menu</td>
+</tr>
+<tr>
+<td><code>enable_user_panel</code></td>
+<td><code>false</code></td>
+<td>User card in the sidebar</td>
+</tr>
+<tr>
+<td><code>top_alert</code></td>
+<td><code>&#39;&#39;</code></td>
+<td>HTML banner on every page</td>
+</tr>
+<tr>
+<td><code>grid_action_class</code></td>
+<td><code>Actions::class</code></td>
+<td>Row actions as buttons, <code>DropdownActions::class</code> or <code>ContextMenuActions::class</code></td>
+</tr>
+<tr>
+<td><code>minify_assets</code></td>
+<td><code>[&#39;excepts&#39; =&gt; []]</code></td>
+<td>For <code>php artisan admin:minify</code></td>
+</tr>
+<tr>
+<td><code>extension_dir</code>, <code>extensions</code></td>
+<td><code>app/Admin/Extensions</code>, <code>[]</code></td>
+<td>Extension scaffolding and settings</td>
+</tr>
+<tr>
+<td><code>skin</code>, <code>layout</code></td>
+<td>—</td>
+<td>Classic template only</td>
+</tr>
+</tbody></table>
+<p>Environment variables read by the config: <code>ADMIN_ROUTE_PREFIX</code>, <code>ADMIN_HTTPS</code> (force <code>https</code> URLs behind a TLS proxy).</p>
+<hr>
+<h2 id="5-templates">5. Templates</h2>
+<p>Set <code>&#39;template&#39;</code> in the config; nothing else changes.</p>
+<table>
+<thead>
+<tr>
+<th>Template</th>
+<th>Config value</th>
+<th>Stack</th>
+<th>Looks</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tailwind Light (default)</td>
+<td><code>tailwind-light</code></td>
+<td>Tailwind CSS 3.4, Inter font, frosted-glass cards, dark sidebar, no Bootstrap JS</td>
+<td><img src="images/dashboard.png" alt="Tailwind Light dashboard"></td>
+</tr>
+<tr>
+<td>Classic</td>
+<td><code>super-admin-template-1</code></td>
+<td>Bootstrap 5, white cards</td>
+<td><img src="images/classic-dashboard.png" alt="Classic dashboard"></td>
+</tr>
+</tbody></table>
+<p><strong>Resolution order.</strong> Views are loaded from <code>resources/views/vendor/admin/</code> in your application first, then from the template directory, then from the package&#39;s root views (the Classic markup). A template only needs the files it changes.</p>
+<p><strong>Tailwind Light layout.</strong> Fixed dark sidebar with menu search and a collapse toggle (desktop), sticky header with the user menu, content cards. Grid paginators and form footers are sticky, so Submit and the page controls stay visible while scrolling. On phones the sidebar slides over the page.</p>
+<p><img src="images/sidebar-collapsed.png" alt="Sidebar collapsed"></p>
+<p><img src="images/mobile-menu.png" alt="Mobile menu"></p>
+<p><strong>JavaScript.</strong> Both templates share the same scripts (<code>admin.ajax</code>, <code>admin.grid</code>, <code>admin.form</code>, <code>admin.toastr</code>, <code>admin.selectable</code>). Tailwind Light does not load Bootstrap; its bundle provides <code>window.bootstrap</code> with <code>Modal</code>, <code>Popover</code>, <code>Tooltip</code>, <code>Tab</code>, <code>Collapse</code> and <code>Dropdown</code> classes implementing the subset the panel uses, and it accepts both <code>data-sa-*</code> and <code>data-bs-*</code> attributes. Custom Blade written for the Classic template keeps working after a switch.</p>
+<p>Clear the view cache after switching: <code>php artisan view:clear</code>.</p>
+<hr>
+<h2 id="6-using-the-panel-administrators">6. Using the panel (administrators)</h2>
+<h3 id="6-1-signing-in-and-your-account">6.1 Signing in and your account</h3>
+<p>Sign in with your username and password. <strong>Remember me</strong> keeps you signed in on that browser. After five failed attempts the account is locked for 15 minutes. The user menu (top right) has <strong>Setting</strong> (change your name, avatar and password) and <strong>Logout</strong>.</p>
+<h3 id="6-2-navigation">6.2 Navigation</h3>
+<p>The sidebar lists the pages you are allowed to see. Parent items expand on click; the search box filters the menu as you type. On desktop the arrow button in the header collapses the sidebar to icons; on phones the menu button opens it.</p>
+<h3 id="6-3-lists-grids">6.3 Lists (grids)</h3>
+<p><img src="images/grid.png" alt="Posts grid"></p>
+<ul>
+<li><strong>New</strong> opens the create form. <strong>Edit</strong>, <strong>Show</strong> and <strong>Delete</strong> act on one row.</li>
+<li>Column headers with arrows sort; click again to reverse.</li>
+<li><strong>Filter</strong> opens the filter panel; <strong>Search</strong> applies it (the URL changes, so a filtered view can be bookmarked or shared), <strong>Reset</strong> clears it. The quick search box searches the configured columns as you type.</li>
+<li><strong>Export</strong> downloads a CSV of all rows, the current page, or the selected rows.</li>
+<li>The table icon opens the <strong>column selector</strong>: untick columns to hide them (the choice is remembered in your browser).</li>
+<li>Tick the row checkboxes to reveal the batch actions button (for example delete selected).</li>
+<li>The footer has the row count, the page-size selector and the pager.</li>
+</ul>
+<p><img src="images/grid-filters.png" alt="Grid with filters"></p>
+<p><strong>Inline editing.</strong> Columns marked editable show a pencil on hover. Click the value, change it in the popover and press <strong>Submit</strong>; a toast confirms the save. Switch columns toggle directly.</p>
+<p><img src="images/grid-inline-edit.png" alt="Inline edit"></p>
+<h3 id="6-4-forms">6.4 Forms</h3>
+<p><img src="images/form-create.png" alt="Create form"></p>
+<p>Fields are grouped in tabs when the page defines them; a tab with a validation error gets a red marker. Required fields must be filled before the form sends. The footer has <strong>Reset</strong>, <strong>Submit</strong> and after-save options: <em>Continue editing</em>, <em>Continue creating</em>, <em>View</em>. Image fields show a preview with delete and download buttons.</p>
+<h3 id="6-5-detail-pages">6.5 Detail pages</h3>
+<p><img src="images/show.png" alt="Detail page"></p>
+<p>One row per field, with <strong>Edit</strong>, <strong>Delete</strong> and <strong>List</strong> in the header. Related records (for example a post&#39;s comments) appear as additional grids below.</p>
+<h3 id="6-6-users-roles-permissions">6.6 Users, roles, permissions</h3>
+<p><img src="images/users-edit.png" alt="Users"></p>
+<ul>
+<li><strong>Users</strong>: create administrators, set a password, upload an avatar, assign roles and direct permissions.</li>
+<li><strong>Roles</strong>: a slug, a name and a set of permissions chosen in the dual list box.</li>
+<li><strong>Permissions</strong>: a name, a slug, the HTTP methods allowed and the route paths covered (<code>posts*</code> matches everything under posts; <code>/</code> is the dashboard). A user may do something if any of their roles, or their direct permissions, cover the route. The <code>administrator</code> role bypasses all checks.</li>
+</ul>
+<p><img src="images/roles-edit.png" alt="Roles"></p>
+<h3 id="6-7-menu">6.7 Menu</h3>
+<p><img src="images/menu-tree.png" alt="Menu"></p>
+<p>Drag items to reorder or nest them and press <strong>Save</strong>. The form on the right adds an item: parent, title, icon (a Font Awesome name such as <code>icon-file</code>), URI (relative to the admin prefix, or a full URL for an external link that opens in a new tab), roles and an optional permission.</p>
+<h3 id="6-8-operation-log">6.8 Operation log</h3>
+<p>Every request made in the panel with user, method, path, IP address and input (passwords filtered). Filter by user, method or path; delete entries singly or in batch. Disable logging in the config if your policy requires it.</p>
+<hr>
+<h2 id="7-developer-quick-start">7. Developer quick start</h2>
+<p>After <code>admin:install</code> the application has:</p>
+<pre><code>app/Admin/
+  bootstrap.php         Runs on every admin request: register fields, assets, navbar items
+  routes.php            Your admin routes (inside the admin prefix and middleware)
+  Controllers/
+    HomeController.php  Dashboard
+    AuthController.php  Login/logout/setting (extends the package controller)
+    ExampleController.php
+</code></pre>
+<h3 id="7-1-a-complete-resource-in-four-steps">7.1 A complete resource in four steps</h3>
+<p><strong>1. Model and migration</strong></p>
+<pre><code class="language-bash">php artisan make:model Post -m
+</code></pre>
+<pre><code class="language-php">// database/migrations/xxxx_create_posts_table.php
+Schema::create(&#39;posts&#39;, function (Blueprint $table) {
+    $table-&gt;id();
+    $table-&gt;string(&#39;title&#39;);
+    $table-&gt;string(&#39;slug&#39;)-&gt;nullable();
+    $table-&gt;string(&#39;category&#39;)-&gt;default(&#39;news&#39;);
+    $table-&gt;unsignedTinyInteger(&#39;status&#39;)-&gt;default(1);
+    $table-&gt;boolean(&#39;is_featured&#39;)-&gt;default(false);
+    $table-&gt;dateTime(&#39;published_at&#39;)-&gt;nullable();
+    $table-&gt;text(&#39;content&#39;)-&gt;nullable();
+    $table-&gt;string(&#39;cover&#39;)-&gt;nullable();
+    $table-&gt;timestamps();
+});
+</code></pre>
+<p><strong>2. Controller</strong> (generated with <code>php artisan admin:controller \App\Models\Post</code>, then edited):</p>
+<pre><code class="language-php">&lt;?php
+
+namespace App\Admin\Controllers;
+
+use App\Models\Post;
+use SuperAdmin\Admin\Controllers\AdminController;
+use SuperAdmin\Admin\Form;
+use SuperAdmin\Admin\Grid;
+use SuperAdmin\Admin\Show;
+
+class PostController extends AdminController
+{
+    protected $title = &#39;Posts&#39;;
+
+    protected function grid(): Grid
+    {
+        $grid = new Grid(new Post);
+
+        $grid-&gt;column(&#39;id&#39;, &#39;ID&#39;)-&gt;sortable();
+        $grid-&gt;column(&#39;title&#39;)-&gt;editable();
+        $grid-&gt;column(&#39;category&#39;)-&gt;label([&#39;news&#39; =&gt; &#39;primary&#39;, &#39;tutorial&#39; =&gt; &#39;success&#39;, &#39;release&#39; =&gt; &#39;warning&#39;]);
+        $grid-&gt;column(&#39;status&#39;)-&gt;using([0 =&gt; &#39;Draft&#39;, 1 =&gt; &#39;Published&#39;, 2 =&gt; &#39;Archived&#39;])
+            -&gt;dot([0 =&gt; &#39;warning&#39;, 1 =&gt; &#39;success&#39;, 2 =&gt; &#39;default&#39;]);
+        $grid-&gt;column(&#39;is_featured&#39;, &#39;Featured&#39;)-&gt;switch();
+        $grid-&gt;column(&#39;published_at&#39;)-&gt;sortable();
+
+        $grid-&gt;quickSearch(&#39;title&#39;);
+
+        $grid-&gt;filter(function (Grid\Filter $filter) {
+            $filter-&gt;like(&#39;title&#39;);
+            $filter-&gt;equal(&#39;category&#39;)-&gt;select([&#39;news&#39; =&gt; &#39;News&#39;, &#39;tutorial&#39; =&gt; &#39;Tutorial&#39;, &#39;release&#39; =&gt; &#39;Release&#39;]);
+            $filter-&gt;between(&#39;published_at&#39;)-&gt;datetime();
+        });
+
+        return $grid;
+    }
+
+    protected function detail($id): Show
+    {
+        $show = new Show(Post::findOrFail($id));
+
+        $show-&gt;field(&#39;id&#39;, &#39;ID&#39;);
+        $show-&gt;field(&#39;title&#39;);
+        $show-&gt;field(&#39;category&#39;);
+        $show-&gt;field(&#39;status&#39;)-&gt;using([0 =&gt; &#39;Draft&#39;, 1 =&gt; &#39;Published&#39;, 2 =&gt; &#39;Archived&#39;]);
+        $show-&gt;field(&#39;is_featured&#39;, &#39;Featured&#39;)-&gt;as(fn ($value) =&gt; $value ? &#39;Yes&#39; : &#39;No&#39;);
+        $show-&gt;field(&#39;published_at&#39;);
+        $show-&gt;field(&#39;content&#39;);
+        $show-&gt;field(&#39;created_at&#39;);
+
+        return $show;
+    }
+
+    protected function form(): Form
+    {
+        $form = new Form(new Post);
+
+        $form-&gt;tab(&#39;Basic&#39;, function (Form $form) {
+            $form-&gt;text(&#39;title&#39;)-&gt;rules(&#39;required|max:120&#39;);
+            $form-&gt;text(&#39;slug&#39;)-&gt;help(&#39;Leave empty to generate from the title.&#39;);
+            $form-&gt;select(&#39;category&#39;)-&gt;options([&#39;news&#39; =&gt; &#39;News&#39;, &#39;tutorial&#39; =&gt; &#39;Tutorial&#39;, &#39;release&#39; =&gt; &#39;Release&#39;])-&gt;default(&#39;news&#39;);
+            $form-&gt;radio(&#39;status&#39;)-&gt;options([0 =&gt; &#39;Draft&#39;, 1 =&gt; &#39;Published&#39;, 2 =&gt; &#39;Archived&#39;])-&gt;default(1);
+            $form-&gt;switch(&#39;is_featured&#39;, &#39;Featured&#39;);
+            $form-&gt;datetime(&#39;published_at&#39;);
+        })-&gt;tab(&#39;Content&#39;, function (Form $form) {
+            $form-&gt;textarea(&#39;content&#39;)-&gt;rows(8);
+            $form-&gt;image(&#39;cover&#39;)-&gt;help(&#39;JPG or PNG&#39;);
+        });
+
+        $form-&gt;saving(function (Form $form) {
+            if (! $form-&gt;slug) {
+                $form-&gt;slug = \Illuminate\Support\Str::slug($form-&gt;title);
+            }
+        });
+
+        return $form;
+    }
+}
+</code></pre>
+<p><strong>3. Route</strong> in <code>app/Admin/routes.php</code>:</p>
+<pre><code class="language-php">$router-&gt;resource(&#39;posts&#39;, PostController::class);
+</code></pre>
+<p><strong>4. Menu item</strong>: on the Menu page add <em>Posts</em>, icon <code>icon-file</code>, URI <code>posts</code>. Or seed it:</p>
+<pre><code class="language-php">use SuperAdmin\Admin\Auth\Database\Menu;
+
+Menu::create([&#39;parent_id&#39; =&gt; 0, &#39;order&#39; =&gt; 3, &#39;title&#39; =&gt; &#39;Posts&#39;, &#39;icon&#39; =&gt; &#39;icon-file&#39;, &#39;uri&#39; =&gt; &#39;posts&#39;]);
+</code></pre>
+<p>That is the whole CRUD: list with sorting, filters, quick search, inline edit, export and batch delete; create and edit forms with validation; a detail page.</p>
+<h3 id="7-2-pages-that-are-not-crud">7.2 Pages that are not CRUD</h3>
+<p>Any controller can return a <code>Content</code> layout:</p>
+<pre><code class="language-php">use SuperAdmin\Admin\Layout\Content;
+use SuperAdmin\Admin\Layout\Row;
+use SuperAdmin\Admin\Layout\Column;
+use SuperAdmin\Admin\Widgets\Box;
+use SuperAdmin\Admin\Widgets\InfoBox;
+
+public function index(Content $content)
+{
+    return $content
+        -&gt;title(&#39;Reports&#39;)
+        -&gt;description(&#39;Last 30 days&#39;)
+        -&gt;row(function (Row $row) {
+            $row-&gt;column(4, new InfoBox(&#39;Orders&#39;, &#39;shopping-cart&#39;, &#39;aqua&#39;, &#39;/admin/orders&#39;, &#39;1,284&#39;));
+            $row-&gt;column(4, new InfoBox(&#39;Revenue&#39;, &#39;dollar-sign&#39;, &#39;green&#39;, &#39;/admin/orders&#39;, &#39;$ 48,200&#39;));
+            $row-&gt;column(4, new InfoBox(&#39;Refunds&#39;, &#39;undo&#39;, &#39;red&#39;, &#39;/admin/refunds&#39;, &#39;17&#39;));
+        })
+        -&gt;row(new Box(&#39;Notes&#39;, view(&#39;admin.reports.notes&#39;)));
+}
+</code></pre>
+<p>Register it in <code>app/Admin/routes.php</code> with <code>$router-&gt;get(&#39;reports&#39;, &#39;ReportController@index&#39;);</code>.</p>
+<hr>
+<h2 id="8-grid-reference">8. Grid reference</h2>
+<h3 id="8-1-columns">8.1 Columns</h3>
+<pre><code class="language-php">$grid-&gt;column(&#39;name&#39;, &#39;Label&#39;);            // column, label
+$grid-&gt;column(&#39;author.name&#39;, &#39;Author&#39;);    // relation attribute (belongsTo)
+$grid-&gt;column(&#39;tags&#39;, &#39;Tags&#39;)-&gt;display(fn ($tags) =&gt; implode(&#39;, &#39;, array_column($tags, &#39;name&#39;)));
+$grid-&gt;column(&#39;price&#39;)-&gt;sortable()-&gt;help(&#39;Net price&#39;);
+$grid-&gt;column(&#39;cover&#39;)-&gt;image(&#39;&#39;, 60, 60);
+$grid-&gt;column(&#39;status&#39;)-&gt;label([0 =&gt; &#39;default&#39;, 1 =&gt; &#39;success&#39;]);
+$grid-&gt;column(&#39;status&#39;)-&gt;badge(&#39;danger&#39;);
+$grid-&gt;column(&#39;progress&#39;)-&gt;progressBar();
+$grid-&gt;column(&#39;homepage&#39;)-&gt;link();
+$grid-&gt;column(&#39;body&#39;)-&gt;limit(50);
+$grid-&gt;column(&#39;token&#39;)-&gt;secret();
+$grid-&gt;column(&#39;body&#39;)-&gt;expand(fn () =&gt; view(&#39;admin.posts.body&#39;, [&#39;post&#39; =&gt; $this]));
+$grid-&gt;column(&#39;details&#39;)-&gt;modal(&#39;Details&#39;, fn ($model) =&gt; new Table([&#39;Field&#39;, &#39;Value&#39;], $model-&gt;toArray()));
+$grid-&gt;column(&#39;sku&#39;)-&gt;copyable();
+$grid-&gt;column(&#39;created_at&#39;)-&gt;dateFormat(&#39;Y-m-d&#39;);
+$grid-&gt;column(&#39;updated_at&#39;)-&gt;diffForHumans();
+$grid-&gt;column(&#39;is_active&#39;)-&gt;bool();
+</code></pre>
+<p>Display helpers available on every column: <code>using</code>, <code>replace</code>, <code>prefix</code>, <code>suffix</code>, <code>repeat</code>, <code>view</code>, <code>filesize</code>, <code>gravatar</code>, <code>loading</code>, <code>icon</code>, <code>diffForHumans</code>, <code>dateFormat</code>, <code>bool</code>, <code>default</code>, <code>dot</code>, <code>limit</code>, <code>badge</code>, <code>label</code>, <code>link</code>, <code>image</code>, <code>carousel</code>, <code>progressBar</code>, <code>copyable</code>, <code>qrcode</code>, <code>secret</code>, <code>downloadable</code>, <code>expand</code>, <code>modal</code>, <code>table</code>, <code>orderable</code>, <code>button</code>.</p>
+<p>Inline editing helpers: <code>editable()</code> (text), <code>editable(&#39;select&#39;, $options)</code>, <code>text</code>, <code>textarea</code>, <code>select</code>, <code>multipleSelect</code>, <code>radio</code>, <code>checkbox</code>, <code>switch</code>, <code>switchGroup</code>, <code>datetime</code>, <code>ip</code>, <code>email</code>, <code>url</code>, <code>currency</code>, <code>decimal</code>, <code>integer</code>, <code>timezone</code>, <code>belongsTo</code>, <code>belongsToMany</code>, <code>upload</code>.</p>
+<h3 id="8-2-filters">8.2 Filters</h3>
+<pre><code class="language-php">$grid-&gt;filter(function (Grid\Filter $filter) {
+    $filter-&gt;disableIdFilter();
+    $filter-&gt;like(&#39;title&#39;);
+    $filter-&gt;equal(&#39;status&#39;)-&gt;select([0 =&gt; &#39;Draft&#39;, 1 =&gt; &#39;Published&#39;]);
+    $filter-&gt;in(&#39;category&#39;)-&gt;multipleSelect([...]);
+    $filter-&gt;between(&#39;created_at&#39;)-&gt;datetime();
+    $filter-&gt;gt(&#39;price&#39;);
+    $filter-&gt;date(&#39;published_at&#39;);
+    $filter-&gt;where(function ($query) {
+        $query-&gt;whereHas(&#39;author&#39;, fn ($q) =&gt; $q-&gt;where(&#39;name&#39;, &#39;like&#39;, &quot;%{$this-&gt;input}%&quot;));
+    }, &#39;Author&#39;);
+    $filter-&gt;scope(&#39;trashed&#39;, &#39;Recycle bin&#39;)-&gt;onlyTrashed();
+    $filter-&gt;column(1 / 2, fn ($filter) =&gt; $filter-&gt;equal(&#39;country&#39;));
+    $filter-&gt;expand();
+});
+</code></pre>
+<p>Filter types: <code>equal</code>, <code>notEqual</code>, <code>like</code>, <code>ilike</code>, <code>startsWith</code>, <code>endsWith</code>, <code>gt</code>, <code>lt</code>, <code>between</code>, <code>in</code>, <code>notIn</code>, <code>date</code>, <code>day</code>, <code>month</code>, <code>year</code>, <code>time</code>, <code>where</code>, <code>group</code>, <code>hidden</code>, <code>scope</code>. Presenters: <code>text</code>, <code>select</code>, <code>multipleSelect</code>, <code>radio</code>, <code>checkbox</code>, <code>datetime</code>.</p>
+<h3 id="8-3-tools-export-pagination">8.3 Tools, export, pagination</h3>
+<pre><code class="language-php">$grid-&gt;quickSearch(&#39;title&#39;, &#39;slug&#39;);
+$grid-&gt;paginate(25)-&gt;perPages([10, 25, 50, 100]);
+$grid-&gt;export()-&gt;filename(&#39;posts&#39;)-&gt;only([&#39;id&#39;, &#39;title&#39;])-&gt;originalValue([&#39;status&#39;]);
+$grid-&gt;disableExport();
+$grid-&gt;disableCreateButton();
+$grid-&gt;disableRowSelector();
+$grid-&gt;disableColumnSelector();
+$grid-&gt;disableDefaults();              // all of the above plus actions, filter, pagination, tools
+$grid-&gt;fixColumns(2, -1);              // keep first two and last column visible while scrolling
+$grid-&gt;fixHeader();
+$grid-&gt;header(fn () =&gt; &#39;Showing published posts&#39;);
+$grid-&gt;footer(fn () =&gt; &#39;Totals are recalculated nightly&#39;);
+$grid-&gt;model()-&gt;where(&#39;status&#39;, 1)-&gt;orderBy(&#39;published_at&#39;, &#39;desc&#39;);
+$grid-&gt;tools(function (Grid\Tools $tools) {
+    $tools-&gt;append(&#39;&lt;a class=&quot;btn btn-sm btn-success&quot; href=&quot;/admin/posts/import&quot;&gt;Import&lt;/a&gt;&#39;);
+});
+</code></pre>
+<h3 id="8-4-row-and-batch-actions">8.4 Row and batch actions</h3>
+<pre><code class="language-php">use SuperAdmin\Admin\Actions\RowAction;
+
+class Publish extends RowAction
+{
+    public $name = &#39;Publish&#39;;
+
+    public function handle()
+    {
+        $this-&gt;getModel()-&gt;update([&#39;status&#39; =&gt; 1]);
+
+        return $this-&gt;response()-&gt;success(&#39;Published&#39;)-&gt;refresh();
+    }
+
+    public function dialog()
+    {
+        $this-&gt;confirm(&#39;Publish this post?&#39;);
+    }
+}
+</code></pre>
+<pre><code class="language-php">use SuperAdmin\Admin\Actions\BatchAction;
+
+class BatchArchive extends BatchAction
+{
+    public $name = &#39;Archive selected&#39;;
+
+    public function handle()
+    {
+        foreach ($this-&gt;getModels() as $post) {
+            $post-&gt;update([&#39;status&#39; =&gt; 2]);
+        }
+
+        return $this-&gt;response()-&gt;success(&#39;Archived&#39;)-&gt;refresh();
+    }
+}
+</code></pre>
+<pre><code class="language-php">$grid-&gt;actions(function (Grid\Displayers\Actions\Actions $actions) {
+    $actions-&gt;add(new Publish);
+    $actions-&gt;disableView();
+});
+
+$grid-&gt;batchActions(function (Grid\Tools\BatchActions $batch) {
+    $batch-&gt;add(new BatchArchive);
+});
+</code></pre>
+<p>Responses: <code>success()</code>, <code>info()</code>, <code>warning()</code>, <code>error()</code>, then <code>refresh()</code>, <code>redirect($url)</code>, <code>download($url)</code> or <code>html($html)</code>. An action can also collect input first: implement <code>form()</code> with <code>$this-&gt;text(&#39;reason&#39;)</code> etc. and read <code>$this-&gt;request-&gt;get(&#39;reason&#39;)</code> in <code>handle()</code>.</p>
+<hr>
+<h2 id="9-form-reference">9. Form reference</h2>
+<h3 id="9-1-fields">9.1 Fields</h3>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Methods</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Text</td>
+<td><code>text</code>, <code>textarea</code>, <code>email</code>, <code>url</code>, <code>ip</code>, <code>phonenumber</code>, <code>password</code>, <code>hidden</code>, <code>display</code>, <code>html</code>, <code>captcha</code></td>
+</tr>
+<tr>
+<td>Numbers</td>
+<td><code>number</code>, <code>decimal</code>, <code>currency</code>, <code>rate</code>, <code>slider</code></td>
+</tr>
+<tr>
+<td>Choice</td>
+<td><code>select</code>, <code>multipleSelect</code>, <code>listbox</code>, <code>radio</code>, <code>radioButton</code>, <code>radioCard</code>, <code>checkbox</code>, <code>checkboxButton</code>, <code>checkboxCard</code>, <code>switch</code>, <code>tags</code>, <code>icon</code>, <code>color</code>, <code>timezone</code></td>
+</tr>
+<tr>
+<td>Date and time</td>
+<td><code>date</code>, <code>datetime</code>, <code>time</code>, <code>month</code>, <code>year</code>, <code>dateRange</code>, <code>datetimeRange</code>, <code>timeRange</code>, <code>dateMultiple</code></td>
+</tr>
+<tr>
+<td>Files</td>
+<td><code>file</code>, <code>image</code>, <code>multipleFile</code>, <code>multipleImage</code></td>
+</tr>
+<tr>
+<td>Structure</td>
+<td><code>divider</code>, <code>embeds</code>, <code>table</code>, <code>keyValue</code>, <code>list</code>, <code>map</code>, <code>button</code></td>
+</tr>
+<tr>
+<td>Relations</td>
+<td><code>belongsTo</code>, <code>belongsToMany</code>, <code>hasMany</code>, <code>morphMany</code></td>
+</tr>
+</tbody></table>
+<p>Common field options: <code>-&gt;rules(&#39;required|max:50&#39;)</code>, <code>-&gt;default($v)</code>, <code>-&gt;help(&#39;text&#39;, &#39;icon-name&#39;)</code>, <code>-&gt;placeholder()</code>, <code>-&gt;readonly()</code>, <code>-&gt;disable()</code>, <code>-&gt;required()</code>, <code>-&gt;value()</code>, <code>-&gt;options([...])</code> or <code>-&gt;options(Model::pluck(&#39;name&#39;, &#39;id&#39;))</code>, <code>-&gt;width(8, 2)</code> (field / label columns), <code>-&gt;attribute(&#39;data-x&#39;, &#39;y&#39;)</code>, <code>-&gt;setWidth</code>.</p>
+<p>Selects can load options from a URL and chain: <code>$form-&gt;select(&#39;province&#39;)-&gt;options(&#39;/api/provinces&#39;)-&gt;load(&#39;city&#39;, &#39;/api/cities&#39;);</code>.</p>
+<p>Uploads: <code>$form-&gt;image(&#39;cover&#39;)-&gt;move(&#39;posts&#39;)-&gt;uniqueName()-&gt;removable()-&gt;downloadable();</code> and <code>-&gt;thumbnail(&#39;small&#39;, 200, 200)</code> for generated thumbnails (needs <code>intervention/image</code>).</p>
+<h3 id="9-2-layout">9.2 Layout</h3>
+<pre><code class="language-php">$form-&gt;tab(&#39;Basic&#39;, fn (Form $form) =&gt; ...)-&gt;tab(&#39;SEO&#39;, fn (Form $form) =&gt; ...);
+$form-&gt;row(function (Form\Row $row) {
+    $row-&gt;width(6)-&gt;text(&#39;first_name&#39;);
+    $row-&gt;width(6)-&gt;text(&#39;last_name&#39;);
+});
+$form-&gt;column(1 / 2, fn (Form $form) =&gt; ...)-&gt;column(1 / 2, fn (Form $form) =&gt; ...);
+$form-&gt;fieldset(&#39;Address&#39;, fn (Form $form) =&gt; ...);
+$form-&gt;divider(&#39;Options&#39;);
+</code></pre>
+<h3 id="9-3-conditional-fields">9.3 Conditional fields</h3>
+<pre><code class="language-php">$form-&gt;radio(&#39;type&#39;)-&gt;options([1 =&gt; &#39;Person&#39;, 2 =&gt; &#39;Company&#39;])
+    -&gt;when(1, fn (Form $form) =&gt; $form-&gt;text(&#39;first_name&#39;))
+    -&gt;when(2, fn (Form $form) =&gt; $form-&gt;text(&#39;company_name&#39;))
+    -&gt;whenIn([1, 2], fn (Form $form) =&gt; $form-&gt;email(&#39;contact_email&#39;))
+    -&gt;whenNot(2, fn (Form $form) =&gt; $form-&gt;date(&#39;birthday&#39;));
+</code></pre>
+<h3 id="9-4-relations">9.4 Relations</h3>
+<pre><code class="language-php">$form-&gt;select(&#39;author_id&#39;, &#39;Author&#39;)-&gt;options(Author::pluck(&#39;name&#39;, &#39;id&#39;));
+$form-&gt;multipleSelect(&#39;tags&#39;, &#39;Tags&#39;)-&gt;options(Tag::pluck(&#39;name&#39;, &#39;id&#39;));   // belongsToMany, saved automatically
+$form-&gt;hasMany(&#39;comments&#39;, function (Form\NestedForm $form) {
+    $form-&gt;text(&#39;author&#39;);
+    $form-&gt;textarea(&#39;body&#39;);
+});
+$form-&gt;belongsTo(&#39;author_id&#39;, AuthorSelectable::class);   // picker modal backed by a Grid
+</code></pre>
+<h3 id="9-5-callbacks-and-footer">9.5 Callbacks and footer</h3>
+<pre><code class="language-php">$form-&gt;saving(function (Form $form) { /* before validation passed and save */ });
+$form-&gt;saved(function (Form $form, $result) { /* after save, $form-&gt;model() has the id */ });
+$form-&gt;deleting(fn (Form $form) =&gt; ...)-&gt;deleted(fn (Form $form) =&gt; ...);
+$form-&gt;submitted(fn (Form $form) =&gt; $form-&gt;ignore(&#39;confirm&#39;));
+
+$form-&gt;footer(function (Form\Footer $footer) {
+    $footer-&gt;disableReset();
+    $footer-&gt;disableViewCheck();
+    $footer-&gt;disableEditingCheck();
+    $footer-&gt;disableCreatingCheck();
+    $footer-&gt;fixedFooter(false);
+});
+$form-&gt;tools(function (Form\Tools $tools) {
+    $tools-&gt;disableDelete();
+});
+</code></pre>
+<p>Validation uses Laravel rules; messages can be set with <code>-&gt;rules(&#39;required&#39;, [&#39;required&#39; =&gt; &#39;Please enter a title&#39;])</code>. Server-side errors are shown under the field and on the tab holding it.</p>
+<hr>
+<h2 id="10-show-tree-widgets-rbac-in-code">10. Show, Tree, widgets, RBAC in code</h2>
+<h3 id="10-1-show">10.1 Show</h3>
+<pre><code class="language-php">$show = new Show(Post::findOrFail($id));
+$show-&gt;field(&#39;title&#39;);
+$show-&gt;field(&#39;cover&#39;)-&gt;image();
+$show-&gt;field(&#39;tags&#39;)-&gt;as(fn ($tags) =&gt; $tags-&gt;pluck(&#39;name&#39;)-&gt;implode(&#39;, &#39;));
+$show-&gt;field(&#39;body&#39;)-&gt;unescape();
+$show-&gt;comments(&#39;Comments&#39;, function ($comments) {
+    $comments-&gt;field(&#39;id&#39;);
+    $comments-&gt;field(&#39;body&#39;);
+    $comments-&gt;disableCreateButton();
+});
+$show-&gt;panel()-&gt;title(&#39;Post&#39;)-&gt;tools(fn ($tools) =&gt; $tools-&gt;disableDelete())
+    -&gt;footer(fn () =&gt; &#39;Last synced 5 minutes ago&#39;);
+</code></pre>
+<h3 id="10-2-tree">10.2 Tree</h3>
+<pre><code class="language-php">use SuperAdmin\Admin\Tree;
+
+$tree = new Tree(new Category);        // model needs the ModelTree trait with parent_id/order/title columns
+$tree-&gt;branch(fn ($branch) =&gt; &quot;&lt;strong&gt;{$branch[&#39;title&#39;]}&lt;/strong&gt; &lt;span class=\&quot;text-muted\&quot;&gt;{$branch[&#39;slug&#39;]}&lt;/span&gt;&quot;);
+$tree-&gt;disableCreate();
+return $content-&gt;title(&#39;Categories&#39;)-&gt;body($tree);
+</code></pre>
+<h3 id="10-3-widgets">10.3 Widgets</h3>
+<p><code>Box($title, $content)</code>, <code>InfoBox($name, $icon, $color, $link, $info)</code>, <code>Tab</code> (<code>-&gt;add($title, $content)</code>), <code>Table($headers, $rows)</code>, <code>Alert($message, $type)</code>, <code>Callout($content, $title, $type)</code>, <code>Collapse</code> (<code>-&gt;add($title, $content)</code>), <code>Carousel($items)</code>, <code>Form</code> (standalone form that posts to your route), <code>StepForm</code> / <code>MultipleSteps</code>, <code>Navbar</code>.</p>
+<h3 id="10-4-permissions-in-code">10.4 Permissions in code</h3>
+<pre><code class="language-php">use SuperAdmin\Admin\Facades\Admin;
+
+Admin::user()-&gt;isAdministrator();
+Admin::user()-&gt;isRole(&#39;editor&#39;);
+Admin::user()-&gt;inRoles([&#39;editor&#39;, &#39;author&#39;]);
+Admin::user()-&gt;can(&#39;posts.publish&#39;);      // permission slug
+Admin::user()-&gt;cannot(&#39;posts.delete&#39;);
+
+// Protect a route explicitly
+$router-&gt;resource(&#39;posts&#39;, PostController::class)-&gt;middleware(&#39;admin.permission:allow,editor,author&#39;);
+$router-&gt;get(&#39;reports&#39;, &#39;ReportController@index&#39;)-&gt;middleware(&#39;admin.permission:check,reports.view&#39;);
+</code></pre>
+<p>Permission paths support wildcards (<code>posts*</code>, <code>*</code>), method lists (GET, POST, ...), and the <code>administrator</code> role always passes. Menu items can be limited to roles and bound to a permission so the sidebar only shows what the user can open.</p>
+<hr>
+<h2 id="11-customization">11. Customization</h2>
+<h3 id="11-1-branding-navbar-assets-app-admin-bootstrap-php">11.1 Branding, navbar, assets (<code>app/Admin/bootstrap.php</code>)</h3>
+<pre><code class="language-php">use SuperAdmin\Admin\Facades\Admin;
+use SuperAdmin\Admin\Widgets\Navbar;
+
+Admin::navbar(function (Navbar $navbar) {
+    $navbar-&gt;left(&#39;&lt;a class=&quot;glass-btn-secondary text-sm&quot; href=&quot;/&quot;&gt;Visit site&lt;/a&gt;&#39;);
+    $navbar-&gt;right(view(&#39;admin.partials.notifications&#39;));
+});
+
+Admin::css(&#39;/css/admin-extra.css&#39;);
+Admin::js(&#39;/js/admin-extra.js&#39;);
+Admin::script(&#39;console.log(&quot;admin page ready&quot;);&#39;);
+
+\SuperAdmin\Admin\Form::extend(&#39;markdown&#39;, \App\Admin\Fields\Markdown::class);
+</code></pre>
+<h3 id="11-2-overriding-a-view">11.2 Overriding a view</h3>
+<p>Copy a file from the package into <code>resources/views/vendor/admin/</code> keeping its path <em>inside the template folder</em>:</p>
+<pre><code>vendor/super-admin-org/super-admin/resources/views/tailwind-light/partials/footer.blade.php
+→ resources/views/vendor/admin/partials/footer.blade.php
+</code></pre>
+<p>Files there take precedence for every template, so keep overrides template specific or branch on <code>config(&#39;admin.template&#39;)</code>.</p>
+<h3 id="11-3-custom-form-field">11.3 Custom form field</h3>
+<pre><code class="language-php">namespace App\Admin\Fields;
+
+use SuperAdmin\Admin\Form\Field;
+
+class Markdown extends Field
+{
+    protected $view = &#39;admin.fields.markdown&#39;;       // resources/views/admin/fields/markdown.blade.php
+    protected static $css = [&#39;/vendor/easymde/easymde.min.css&#39;];
+    protected static $js = [&#39;/vendor/easymde/easymde.min.js&#39;];
+
+    public function render()
+    {
+        $this-&gt;script = &quot;new EasyMDE({ element: document.getElementById(&#39;{$this-&gt;id}&#39;) });&quot;;
+
+        return parent::render();
+    }
+}
+</code></pre>
+<p>The Blade view includes <code>admin::form._header</code> and <code>admin::form._footer</code> around the control, as the package views do.</p>
+<h3 id="11-4-theming-the-tailwind-template">11.4 Theming the Tailwind template</h3>
+<p>Classes prefixed <code>glass-</code> (<code>glass-card</code>, <code>glass-btn-primary</code>, <code>glass-input</code>, <code>glass-table</code>, <code>glass-menu-item</code>, ...) are defined in <code>resources/assets/tailwind-light/css/app.css</code>; colours and shadows come from <code>tailwind.config.js</code>. Bootstrap class names emitted by PHP (<code>btn btn-primary</code>, <code>badge</code>, <code>modal</code>, <code>dropdown-menu</code>, <code>col-md-6</code>) map to the same design, so custom Blade with Bootstrap classes renders correctly. To rebuild after changing them:</p>
+<pre><code class="language-bash">npm install
+npm run build                                                   # writes resources/assets/tailwind-light/dist
+php artisan vendor:publish --tag=super-admin-assets --force    # in the application
+</code></pre>
+<h3 id="11-5-javascript-hooks">11.5 JavaScript hooks</h3>
+<pre><code class="language-js">document.addEventListener(&#39;pjax:complete&#39;, () =&gt; {
+    // runs after every page loaded through the sidebar / links
+});
+
+admin.toastr.success(&#39;Saved&#39;);
+admin.ajax.navigate(&#39;/admin/posts&#39;);       // PJAX navigation
+admin.ajax.reload();
+</code></pre>
+<p>Dropdowns, modals, tabs and collapses use <code>data-sa-toggle=&quot;dropdown|modal|tab|collapse&quot;</code> with <code>data-sa-target=&quot;#id&quot;</code>; <code>data-bs-*</code> is accepted too, and <code>bootstrap.Modal</code>, <code>bootstrap.Popover</code>, <code>bootstrap.Tooltip</code>, <code>bootstrap.Tab</code>, <code>bootstrap.Collapse</code> and <code>bootstrap.Dropdown</code> exist in both templates.</p>
+<h3 id="11-6-a-new-template">11.6 A new template</h3>
+<p>Create <code>resources/views/&lt;name&gt;/index.blade.php</code> in the package (that file marks the directory as a template), override the views you need, set <code>&#39;template&#39; =&gt; &#39;&lt;name&gt;&#39;</code>. Everything else falls back to the Classic views.</p>
+<h3 id="11-7-extensions">11.7 Extensions</h3>
+<pre><code class="language-bash">php artisan admin:extend vendor/my-extension --namespace=Vendor\\MyExtension
+</code></pre>
+<p>The scaffold contains a service provider, routes, views, assets and an <code>Extension</code> class with <code>boot()</code>; register it in the <code>extensions</code> config array and publish assets with <code>php artisan admin:publish</code>. Official extensions: helpers, log-viewer, backup, config, api-tester, media-manager, scheduling, reporter, redis-manager, grid-sortable, ckeditor.</p>
+<hr>
+<h2 id="12-artisan-commands">12. Artisan commands</h2>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>admin:install</code></td>
+<td>Migrate, seed and scaffold <code>app/Admin</code></td>
+</tr>
+<tr>
+<td><code>admin:uninstall</code></td>
+<td>Remove tables and the <code>app/Admin</code> directory</td>
+</tr>
+<tr>
+<td><code>admin:publish [--force]</code></td>
+<td>Publish config, assets, translations and migrations</td>
+</tr>
+<tr>
+<td><code>admin:controller Model [--title=] [--name=] [--stub=] [--namespace=]</code></td>
+<td>Generate a CRUD controller (grid, form, show) for a model</td>
+</tr>
+<tr>
+<td><code>admin:make Model</code></td>
+<td>Generate an admin controller for a model (older form of the above)</td>
+</tr>
+<tr>
+<td><code>admin:form Name</code></td>
+<td>Generate a standalone form class</td>
+</tr>
+<tr>
+<td><code>admin:action Name [--grid-row] [--grid-batch] [--form] [--dialog]</code></td>
+<td>Generate an action class</td>
+</tr>
+<tr>
+<td><code>admin:menu</code></td>
+<td>Print the menu tree</td>
+</tr>
+<tr>
+<td><code>admin:generate-menu [--dry-run]</code></td>
+<td>Create menu rows for registered resources</td>
+</tr>
+<tr>
+<td><code>admin:permissions [--tables=]</code></td>
+<td>Generate permissions for tables/resources</td>
+</tr>
+<tr>
+<td><code>admin:create-user</code></td>
+<td>Create an administrator interactively</td>
+</tr>
+<tr>
+<td><code>admin:reset-password</code></td>
+<td>Reset an administrator&#39;s password</td>
+</tr>
+<tr>
+<td><code>admin:export-seed [ClassName]</code></td>
+<td>Dump users/roles/permissions/menu as a seeder class</td>
+</tr>
+<tr>
+<td><code>admin:import [extension]</code></td>
+<td>Import an extension&#39;s seed data (menu items, permissions)</td>
+</tr>
+<tr>
+<td><code>admin:extend vendor/name [--namespace=]</code></td>
+<td>Scaffold an extension</td>
+</tr>
+<tr>
+<td><code>admin:minify [--clear]</code></td>
+<td>Concatenate and minify the panel&#39;s CSS/JS (or remove the bundle)</td>
+</tr>
+<tr>
+<td><code>admin:config [path]</code></td>
+<td>Print the effective configuration (or one key)</td>
+</tr>
+<tr>
+<td><code>admin:dev-links</code></td>
+<td>Symlink package assets for package development</td>
+</tr>
+<tr>
+<td><code>admin</code></td>
+<td>Show version and help</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="13-fixed-in-1-3-0">13. Fixed in 1.3.0</h2>
+<p>Found by running both templates in a browser and by getting the package&#39;s test suite to run through:</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Before</th>
+<th>Now</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Grid</td>
+<td><code>-&gt;editable()</code> crashed the page</td>
+<td>Resolves the inline editor by type</td>
+</tr>
+<tr>
+<td>Flash messages</td>
+<td>HTTP 500 after login/save on Laravel 13 (JSON sessions)</td>
+<td>Partials accept arrays and message bags</td>
+</tr>
+<tr>
+<td>Uploads</td>
+<td>Avatar preview URL doubled</td>
+<td>Absolute values are not prefixed</td>
+</tr>
+<tr>
+<td>Auth</td>
+<td>Guests looped on the login page when <code>auth.excepts</code> was empty</td>
+<td>Login path always passes</td>
+</tr>
+<tr>
+<td>Permissions, paging</td>
+<td>Denial and &quot;page out of range&quot; called <code>exit</code></td>
+<td>Proper <code>HttpResponseException</code></td>
+</tr>
+<tr>
+<td>Tailwind footers</td>
+<td><code>position: fixed</code> inside a blurred card overlapped rows/fields</td>
+<td>Sticky footers</td>
+</tr>
+<tr>
+<td>Tailwind JS</td>
+<td>Bootstrap-only calls threw (inline edit, pickers, action modals, hasMany tabs)</td>
+<td>Compatibility layer bundled</td>
+</tr>
+<tr>
+<td>Tailwind PJAX</td>
+<td>Listeners re-bound on every load; sidebar highlight stale</td>
+<td><code>pjax:complete</code> event, bind-once</td>
+</tr>
+<tr>
+<td>Tailwind UI</td>
+<td>Sidebar search dead, batch actions hidden, action modal visible on load, filters without labels, belongs-to modal, status dots</td>
+<td>All fixed</td>
+</tr>
+<tr>
+<td>Form</td>
+<td><code>isCreating()</code> / <code>isEditing()</code> crashed without a route; <code>$errors</code> missing outside requests</td>
+<td>Safe defaults</td>
+</tr>
+<tr>
+<td>API additions</td>
+<td>—</td>
+<td><code>whenIn/whenNot/whenNotIn</code>, <code>dateMultiple()</code>, <code>Grid::disableDefaults()</code>, chainable <code>fixColumns/fixHeader</code>, <code>Show\Panel::footer()</code>, <code>app(&#39;admin&#39;)</code> singleton</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>Footer showed 1.0.27</td>
+<td>1.3.0</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="14-troubleshooting">14. Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Cause</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>No styling or empty icon boxes</td>
+<td>Assets not published or stale</td>
+<td><code>php artisan vendor:publish --tag=super-admin-assets --force</code>, hard refresh</td>
+</tr>
+<tr>
+<td><em>Disk [admin] not configured</em></td>
+<td>Missing disk</td>
+<td>Add it to <code>config/filesystems.php</code> (section 3)</td>
+</tr>
+<tr>
+<td>Uploaded images do not show</td>
+<td>Disk <code>url</code> or <code>APP_URL</code> wrong</td>
+<td>Match <code>APP_URL</code> to the address in the browser</td>
+</tr>
+<tr>
+<td>500 after login: <em>member function get() on array</em></td>
+<td>Package older than 1.3.0 with JSON sessions</td>
+<td>Update</td>
+</tr>
+<tr>
+<td>Template change not visible</td>
+<td>Cached views/config</td>
+<td><code>php artisan view:clear &amp;&amp; php artisan config:clear</code></td>
+</tr>
+<tr>
+<td>Every page says <em>Unauthorized</em></td>
+<td>User lacks a matching permission</td>
+<td>Grant it on the Permissions page, or set <code>check_route_permission</code> to <code>false</code> while debugging</td>
+</tr>
+<tr>
+<td>Menu item missing for a user</td>
+<td>Role or permission restriction on the item</td>
+<td>Edit the item, or set <code>check_menu_roles</code> to <code>false</code></td>
+</tr>
+<tr>
+<td><em>Too many login attempts</em></td>
+<td>Throttle (5 attempts / 15 min)</td>
+<td>Wait or change <code>auth.throttle_*</code></td>
+</tr>
+<tr>
+<td>Mixed content behind HTTPS proxy</td>
+<td><code>http</code> URLs generated</td>
+<td><code>ADMIN_HTTPS=true</code></td>
+</tr>
+<tr>
+<td>Some grid columns missing</td>
+<td>Column selector preference in the browser</td>
+<td>Open the selector and press <strong>All</strong></td>
+</tr>
+<tr>
+<td>Inline edit popover does not open in a custom template</td>
+<td>No Bootstrap JS and no Tailwind bundle</td>
+<td>Load <code>tailwind-light/dist/super-admin-js.js</code> or Bootstrap 5 JS</td>
+</tr>
+<tr>
+<td>Route <code>admin.login</code> not found when routes load late</td>
+<td>Name lookups stale</td>
+<td>1.3.0 refreshes them; otherwise call <code>refreshNameLookups()</code></td>
+</tr>
+</tbody></table>
+<p>Logs: admin actions on the Operation log page; PHP errors in <code>storage/logs/laravel.log</code>; browser errors in the developer console.</p>
+<hr>
+<h2 id="15-improvement-scope-roadmap-candidates">15. Improvement scope (roadmap candidates)</h2>
+<p>What a maintainer would tackle next, in the order of value for users:</p>
+<ol>
+<li><strong>Track the test suite in git.</strong> <code>tests/</code> is in <code>.gitignore</code>; 819 tests exist on disk but not in the repository, so CI cannot run them and contributors cannot see them. Remove that line and commit the suite.</li>
+<li><strong>Drop Laravel 8 and 9 again when their share falls</strong>, so the package can use PHP 8.2+ features; until then keep the CI matrix running on PHP 8.0 and 8.1.</li>
+<li><strong>Dark mode for Tailwind Light.</strong> The CSS already uses tokens (<code>--sa-*</code>); add a <code>data-theme=&quot;dark&quot;</code> palette and a toggle in the header.</li>
+<li><strong>Streamed exports without <code>exit</code>.</strong> <code>CsvExporter</code> and <code>ExcelExporter</code> still call <code>exit</code> after sending; return <code>StreamedResponse</code> objects instead so middleware and tests run cleanly.</li>
+<li><strong>View publishing tag</strong> (<code>--tag=super-admin-views</code>) so overriding a view is one command.</li>
+<li><strong>Accessibility pass</strong> on the Tailwind template: focus rings, <code>aria-*</code> on dropdowns/modals, keyboard navigation for the menu tree.</li>
+<li><strong>Media manager in core</strong> or as a first-class extension install step; the demo and tutorials need it.</li>
+<li><strong>API resources / JSON mode</strong> for grids (<code>?format=json</code>) so the same controllers can feed mobile or SPA front ends.</li>
+<li><strong>Two-factor authentication</strong> for administrators and session management (log out other devices).</li>
+<li><strong>Typed PHP cleanup</strong>: the IDE reports many docblocks that disagree with declared types; adding native types in <code>Form</code>, <code>Grid</code> and <code>Field</code> would make static analysis (PHPStan level 5) pass.</li>
+<li><strong>Demo site and screenshots automation</strong>: the Playwright flow used for this manual (login, crawl, interaction checks) can run in CI to catch template regressions.</li>
+<li><strong>Bangla documentation parity</strong>: the docs site has Bangla pages; keep them in sync with this manual.</li>
+</ol>
+<hr>
+<h2 id="16-links">16. Links</h2>
+<ul>
+<li>Repository: <a href="https://github.com/super-admin-org/super-admin">https://github.com/super-admin-org/super-admin</a></li>
+<li>Packagist: <a href="https://packagist.org/packages/super-admin-org/super-admin">https://packagist.org/packages/super-admin-org/super-admin</a></li>
+<li>Issues: <a href="https://github.com/super-admin-org/super-admin/issues">https://github.com/super-admin-org/super-admin/issues</a></li>
+<li>Reference pages: <a href="installation.md">installation</a>, <a href="configuration.md">configuration</a>, <a href="templates.md">templates</a>, <a href="model-grid.md">grid</a>, <a href="model-form-fields.md">form fields</a>, <a href="permissions.md">permissions</a>, <a href="widgets.md">widgets</a>, <a href="commands.md">commands</a>, <a href="extensions.md">extensions</a></li>
+<li>Video and promotion guide: <a href="video-tutorial-guide.md">video-tutorial-guide.md</a></li>
+</ul>
+
+</main>
+</div>
+</body>
+</html>

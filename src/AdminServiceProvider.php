@@ -204,6 +204,9 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(Admin::class);
+        $this->app->alias(Admin::class, 'admin');
+
         $this->loadAdminAuthConfig();
 
         $this->registerRouteMiddleware();

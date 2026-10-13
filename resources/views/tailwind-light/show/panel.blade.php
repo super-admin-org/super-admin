@@ -13,4 +13,10 @@
         @endforeach
 
     </div>
+
+    @if(!empty($footer))
+    <div class="px-6 py-4 border-t border-gray-200/30 text-sm text-gray-600">
+        {!! $footer !!}
+    </div>
+    @endif
 </div>

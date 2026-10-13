@@ -22,4 +22,10 @@
         </div>
         <!-- /.box-body -->
     </div>
+
+    @if(!empty($footer))
+    <div class="card-footer">
+        {!! $footer !!}
+    </div>
+    @endif
 </div>

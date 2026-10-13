@@ -1,5 +1,5 @@
 <div class="glass-modal-backdrop hidden" id="{{ $modal_id }}-backdrop" data-sa-dismiss="modal" data-sa-target="#{{ $modal_id }}-backdrop"></div>
-<div class="glass-modal {{ $modal_size }}" tabindex="-1" role="dialog" id="{{ $modal_id }}">
+<div class="glass-modal hidden {{ $modal_size }}" tabindex="-1" role="dialog" id="{{ $modal_id }}">
     <div class="glass-modal-dialog">
         <div class="glass-modal-content">
             <div class="flex items-center justify-between p-5 border-b border-gray-200/30">

@@ -1,4 +1,4 @@
-<span class="grid-selector" data-bs-toggle="modal" data-bs-target="#{{ $modal }}" id="{{ $display_field }}-{{$key}}" key="{{ $key }}" data-display_field="{{ $display_field }}" data-val="{{ $original }}">
+<span class="grid-selector" data-sa-toggle="modal" data-sa-target="#{{ $modal }}" id="{{ $display_field }}-{{$key}}" key="{{ $key }}" data-display_field="{{ $display_field }}" data-val="{{ $original }}">
    <a href="javascript:void(0)" class="text-gray-500 hover:text-primary-600 transition-colors">
        <i class="icon-check-square"></i>&nbsp;
        <span class="text">{!! $value !!}</span>
@@ -6,29 +6,30 @@
 </span>
 
 <style>
-    .belongsto.modal tr {
+    .belongsto.glass-modal tr {
         cursor: pointer;
     }
 
-    .belongsto.modal .box,
-    .belongsto.modal .glass-card {
+    .belongsto.glass-modal .box,
+    .belongsto.glass-modal .glass-card {
         border-top: none;
         margin-bottom: 0;
         box-shadow: none;
     }
-    .belongsto.modal .loading {
+    .belongsto.glass-modal .loading {
         margin: 50px;
     }
 </style>
 
 <template render="true">
-    <div class="modal fade belongsto" id="{{ $modal }}" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="glass-modal-content" style="border-radius: 1rem;">
+    <div class="glass-modal-backdrop hidden" id="{{ $modal }}-backdrop"></div>
+    <div class="glass-modal belongsto hidden" id="{{ $modal }}" tabindex="-1" role="dialog">
+        <div class="glass-modal-dialog glass-modal-lg" role="document">
+            <div class="glass-modal-content">
                 <div class="flex items-center justify-between px-5 py-4 border-b border-gray-200/30">
                     <h4 class="text-lg font-semibold text-gray-800">{{ admin_trans('admin.choose') }}</h4>
-                    <button type="button" class="glass-btn-icon" data-bs-dismiss="modal" aria-label="Close">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    <button type="button" class="text-gray-400 hover:text-gray-600" data-sa-dismiss="modal" aria-label="Close">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     </button>
                 </div>
                 <div class="modal-body p-5">
@@ -38,8 +39,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-gray-200/30">
-                    <button type="button" class="glass-btn-secondary" data-bs-dismiss="modal">{{ admin_trans('admin.cancel') }}</button>
+                <div class="modal-footer flex items-center justify-end gap-3 px-5 py-4 border-t border-gray-200/30">
+                    <button type="button" class="glass-btn-secondary" data-sa-dismiss="modal">{{ admin_trans('admin.cancel') }}</button>
                     <button type="button" class="glass-btn-primary submit">{{ admin_trans('admin.submit') }}</button>
                 </div>
             </div>

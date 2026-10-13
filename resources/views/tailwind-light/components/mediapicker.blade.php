@@ -15,7 +15,7 @@
                         <i class="icon-spinner icon-3x text-gray-400"></i>
                     </div>
                 </div>
-                <div class="hidden flex items-center justify-end gap-3 p-5 border-t border-gray-200/30">
+                <div class="modal-footer hidden items-center justify-end gap-3 p-5 border-t border-gray-200/30">
                     <button type="button" class="glass-btn-secondary" data-sa-dismiss="modal" data-sa-target="#{{ $modal }}-backdrop">{{ admin_trans('admin.cancel') }}</button>
                     <button type="button" class="glass-btn-primary submit">{{ admin_trans('admin.submit') }}</button>
                 </div>

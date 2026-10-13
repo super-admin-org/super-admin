@@ -35,6 +35,39 @@ trait CanCascadeFields
     }
 
     /**
+     * Show the dependent fields when the value is one of the given values.
+     *
+     * @param  array|mixed  $values
+     * @return $this
+     */
+    public function whenIn($values, \Closure $closure)
+    {
+        return $this->when('in', $values, $closure);
+    }
+
+    /**
+     * Show the dependent fields when the value differs from the given value.
+     *
+     * @param  mixed  $value
+     * @return $this
+     */
+    public function whenNot($value, \Closure $closure)
+    {
+        return $this->when('!=', $value, $closure);
+    }
+
+    /**
+     * Show the dependent fields when the value is none of the given values.
+     *
+     * @param  array|mixed  $values
+     * @return $this
+     */
+    public function whenNotIn($values, \Closure $closure)
+    {
+        return $this->when('notIn', $values, $closure);
+    }
+
+    /**
      * @param  mixed  $value
      */
     protected function formatValues(string $operator, &$value)

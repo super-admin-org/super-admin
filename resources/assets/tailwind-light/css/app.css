@@ -577,6 +577,9 @@
   .bg-warning  { @apply bg-amber-100/80 text-amber-700; }
   .bg-info     { @apply bg-sky-100/80 text-sky-700; }
   .bg-secondary{ @apply bg-gray-100/80 text-gray-700; }
+  .bg-default,
+  .bg-light    { @apply bg-gray-200/90 text-gray-700; }
+  .bg-dark     { @apply bg-gray-700 text-white; }
 
   /* --- Card (Widgets\Box outputs class="card") --- */
   .card {
@@ -849,9 +852,8 @@
     padding: 0.75rem 1rem;
   }
 
-  /* --- show-on-rows-selected (batch action) --- */
-  .show-on-rows-selected { display: none; }
-  .show-on-rows-selected.active { display: inline-flex; }
+  /* --- show-on-rows-selected (batch action): toggled via .d-none by the grid JS --- */
+  .show-on-rows-selected.d-none { display: none; }
 
   /* --- Inline edit popover --- */
   .ie { cursor: pointer; position: relative; display: inline-flex; align-items: center; gap: 0.25rem; }
@@ -1158,24 +1160,191 @@ body.sidebar-collapsed #sidebar nav span {
 #totop { display: none; }
 #totop.visible { display: flex; }
 
-/* --- Fixed form footer: account for sidebar width and last-field overlap --- */
-/* The footer.blade.php renders with `fixed bottom-0 left-0 right-0` when fixedFooter=true.
-   On desktop (lg+) we push left past the 260px sidebar. */
-@media (min-width: 1024px) {
-  form .fixed.bottom-0.left-0 {
-    left: 260px !important;
-  }
+/* --- Sticky footers (form footer / grid pagination) ---
+   Footers use `position: sticky; bottom: 0` so they stay visible while the card
+   scrolls. (`position: fixed` cannot be used inside .glass-card because its
+   backdrop-filter turns the card into the containing block.) */
+.glass-card > form > .sticky.bottom-0,
+.glass-card > .sticky.bottom-0 {
+  margin-top: 0;
 }
 
-/* Add bottom padding to glass-card forms so the fixed footer never hides the last field */
-.glass-card {
-  padding-bottom: 0;
+/* --- Legacy Bootstrap modal markup (emitted by PHP / shared scripts) --- */
+.modal:not(.glass-modal) {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow-y: auto;
+  padding: 3rem 1rem 1rem;
 }
-.glass-card > form > div:not(.fixed) ~ * {
-  padding-bottom: 0;
+.modal:not(.glass-modal).show {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
-#app .glass-card {
-  margin-bottom: 5rem;
+.modal:not(.glass-modal) .modal-dialog {
+  width: 100%;
+  max-width: 32rem;
+  margin: auto;
+}
+.modal:not(.glass-modal) .modal-dialog.modal-lg {
+  max-width: 48rem;
+}
+.modal:not(.glass-modal) .modal-content {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 1rem;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.4);
+}
+.modal-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+.modal-body {
+  padding: 1.25rem;
+}
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid rgba(229, 231, 235, 0.4);
+}
+.modal-footer.hidden {
+  display: none;
+}
+.btn-close {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 0;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236b7280'%3E%3Cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3E%3C/svg%3E") center/1em auto no-repeat;
+  opacity: 0.6;
+  cursor: pointer;
+}
+.btn-close:hover {
+  opacity: 1;
+}
+
+/* --- Bootstrap style dropdown menus (emitted by PHP, e.g. column filters) --- */
+.dropdown {
+  position: relative;
+}
+.dropdown-menu {
+  position: absolute;
+  z-index: 50;
+  min-width: 10rem;
+  margin-top: 0.25rem;
+  padding: 0.25rem 0;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  list-style: none;
+  text-align: left;
+  color: #374151;
+}
+.dropdown-menu:not(.show) {
+  display: none;
+}
+.dropdown-menu.show {
+  display: block;
+}
+.dropdown-menu.dropdown-menu-end,
+.dropdown-menu-right {
+  right: 0;
+  left: auto;
+}
+.dropdown-menu .dropdown-item,
+.dropdown-menu > li > a {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: #374151;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu > li > a:hover {
+  background: rgba(239, 246, 255, 0.8);
+}
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+/* --- Popover / tooltip rendered by the Tailwind UI layer --- */
+.sa-popover {
+  z-index: 60;
+  min-width: 12rem;
+  max-width: 22rem;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(229, 231, 235, 0.7);
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+  font-size: 0.875rem;
+  color: #374151;
+}
+.sa-popover-header {
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(229, 231, 235, 0.6);
+}
+.sa-popover-body {
+  padding: 0.75rem;
+}
+.sa-tooltip {
+  z-index: 70;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  color: #fff;
+  background: #1f2937;
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* --- Tabs: Bootstrap class names used by shared scripts --- */
+.nav-tabs,
+.nav {
+  list-style: none;
+}
+.nav-item {
+  display: inline-flex;
+}
+.tab-pane.hidden {
+  display: none;
+}
+
+/* --- Form validation state --- */
+.has-error > label {
+  color: #dc2626;
+}
+
+/* --- Input groups: prepend / append addons flush with the input --- */
+.flex > .inline-flex + .form-control,
+.flex > .inline-flex + .glass-input {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.flex > .form-control:has(+ .inline-flex),
+.flex > .glass-input:has(+ .inline-flex) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 /* --- Grid table alternating row colors --- */
