@@ -5,7 +5,6 @@ namespace SuperAdmin\Admin;
 use Illuminate\Config\Repository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
@@ -111,6 +110,10 @@ abstract class Extension
 
         if ($extension->disabled()) {
             return false;
+        }
+
+        if (! empty($views = $extension->views()) && is_dir($views)) {
+            Admin::template()->extensionViews($extension->name, $views);
         }
 
         if (! empty($css = $extension->css())) {
@@ -291,7 +294,7 @@ abstract class Extension
     {
         return [
             'title' => 'required',
-            'path' => ['required', Rule::unique(Config::get('admin.database.menu_table'), 'uri')],
+            'path' => 'required',
             'icon' => 'required',
             'children' => 'nullable|array',
         ];
@@ -332,7 +335,7 @@ abstract class Extension
     {
         return [
             'name' => 'required',
-            'slug' => ['required', Rule::unique(Config::get('admin.database.permissions_table'), 'slug')],
+            'slug' => 'required',
             'path' => 'required|array',
             'path.*' => 'string',
             'method' => 'nullable|array',
@@ -342,6 +345,9 @@ abstract class Extension
 
     /**
      * Create a item in super-admin left side menu.
+     *
+     * Importing twice does not duplicate the item: an item with the same title,
+     * uri and parent is reused.
      *
      * @param  string  $title
      * @param  string  $uri
@@ -355,17 +361,24 @@ abstract class Extension
     {
         $menuModel = config('admin.database.menu_model');
 
-        $lastOrder = $menuModel::max('order');
         /**
          * @var Model
          */
-        $menu = $menuModel::create([
-            'parent_id' => $parentId,
-            'order' => $lastOrder + 1,
-            'title' => $title,
-            'icon' => $icon,
-            'uri' => $uri,
-        ]);
+        $menu = $menuModel::query()
+            ->where('parent_id', $parentId)
+            ->where('title', $title)
+            ->where('uri', $uri)
+            ->first();
+
+        if (! $menu) {
+            $menu = $menuModel::create([
+                'parent_id' => $parentId,
+                'order' => $menuModel::max('order') + 1,
+                'title' => $title,
+                'icon' => $icon,
+                'uri' => $uri,
+            ]);
+        }
         if (! empty($children)) {
             $extension = static::getInstance();
             foreach ($children as $child) {
@@ -385,11 +398,17 @@ abstract class Extension
     /**
      * Create a permission for this extension.
      *
+     * Importing twice does not duplicate the permission: an existing slug is kept as it is.
+     *
      * @param  array  $methods
      */
     protected static function createPermission($name, $slug, $path, $methods = [])
     {
         $permissionModel = config('admin.database.permissions_model');
+
+        if ($permissionModel::query()->where('slug', $slug)->exists()) {
+            return;
+        }
 
         $permissionModel::create([
             'name' => $name,

@@ -139,29 +139,68 @@ const SuperAdminUI = {
   /* ------------------------------------------------------------------ */
 
   collapseShow(target, trigger) {
+    this.collapseSiblings(target);
     target.classList.remove('hidden');
     target.classList.add('show');
-    const icon = trigger ? trigger.querySelector('.collapse-icon') : null;
-    if (icon) icon.classList.add('rotate-90');
-    if (trigger) trigger.setAttribute('aria-expanded', 'true');
+    this.collapseTriggers(target, trigger).forEach((t) => {
+      const icon = t.querySelector('.collapse-icon');
+      if (icon) icon.classList.add('rotate-90');
+      t.classList.remove('collapsed');
+      t.setAttribute('aria-expanded', 'true');
+    });
     this.fire(target, 'shown.bs.collapse');
   },
 
   collapseHide(target, trigger) {
-    target.classList.add('hidden');
+    // Bootstrap markup (.collapse) is hidden by CSS once .show is gone; other
+    // elements are hidden with Tailwind's .hidden.
+    if (!target.classList.contains('collapse')) target.classList.add('hidden');
     target.classList.remove('show');
-    const icon = trigger ? trigger.querySelector('.collapse-icon') : null;
-    if (icon) icon.classList.remove('rotate-90');
-    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    this.collapseTriggers(target, trigger).forEach((t) => {
+      const icon = t.querySelector('.collapse-icon');
+      if (icon) icon.classList.remove('rotate-90');
+      t.classList.add('collapsed');
+      t.setAttribute('aria-expanded', 'false');
+    });
     this.fire(target, 'hidden.bs.collapse');
   },
 
+  isCollapsed(target) {
+    if (target.classList.contains('hidden')) return true;
+    return target.classList.contains('collapse') && !target.classList.contains('show');
+  },
+
   collapseToggle(target, trigger) {
-    if (target.classList.contains('hidden')) {
+    if (this.isCollapsed(target)) {
       this.collapseShow(target, trigger);
     } else {
       this.collapseHide(target, trigger);
     }
+  },
+
+  /** Every trigger pointing at the target (Bootstrap keeps them all in sync). */
+  collapseTriggers(target, trigger) {
+    const triggers = new Set(trigger ? [trigger] : []);
+    if (target.id) {
+      const id = CSS.escape(target.id);
+      document
+        .querySelectorAll(`[data-bs-target="#${id}"], [data-sa-target="#${id}"], [href="#${id}"][data-bs-toggle="collapse"]`)
+        .forEach((t) => triggers.add(t));
+    }
+    return Array.from(triggers);
+  },
+
+  /** Accordion: close the other open panels that share the target's data-bs-parent. */
+  collapseSiblings(target) {
+    const parentSelector = target.getAttribute('data-bs-parent') || target.getAttribute('data-sa-parent');
+    if (!parentSelector) return;
+    const parent = this.resolve(parentSelector);
+    if (!parent) return;
+    parent.querySelectorAll('.collapse.show, [data-bs-parent].show').forEach((other) => {
+      if (other !== target && other.getAttribute('data-bs-parent') === parentSelector) {
+        this.collapseHide(other, null);
+      }
+    });
   },
 
   /**
@@ -867,6 +906,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('pjax:complete', () => {
   SuperAdminUI.init();
+  SuperAdminUI.updateSidebarActive();
+});
+
+document.addEventListener('menu:refreshed', () => {
   SuperAdminUI.updateSidebarActive();
 });
 

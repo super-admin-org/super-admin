@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static void booted(\Closure $builder)
  * @method static void bootstrap()
  * @method static void routes()
+ * @method static \SuperAdmin\Admin\Template\TemplateManager template()
  *
  * @see \SuperAdmin\Admin\Admin
  */

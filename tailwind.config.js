@@ -70,6 +70,9 @@ export default {
       },
     },
   },
+  // Bootstrap's .collapse (hidden until .show) is part of the shared class vocabulary;
+  // Tailwind's visibility utility of the same name would hide expanded panels.
+  blocklist: ['collapse'],
   plugins: [
     require('@tailwindcss/forms'),
   ],

@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use SuperAdmin\Admin\Layout\Content;
+use SuperAdmin\Admin\Template\TemplateManager;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,8 @@ class AdminServiceProvider extends ServiceProvider
         Console\GenerateMenuCommand::class,
         Console\ConfigCommand::class,
         Console\DevLinksCommand::class,
+        Console\TemplateCommand::class,
+        Console\LintViewsCommand::class,
     ];
 
     /**
@@ -88,46 +91,26 @@ class AdminServiceProvider extends ServiceProvider
     }
 
     /**
-     * Load views from the active template directory.
+     * Point the `admin::` view namespace at the configured template.
      *
-     * The template is determined by the 'admin.template' config value.
-     * Falls back to the root views directory for backward compatibility.
-     *
-     * @return void
+     * The template chosen in the admin panel is applied later, per request,
+     * by Admin::bootstrap(), so booting never touches the database.
      */
-    protected function loadTemplateViews()
+    protected function loadTemplateViews(): void
     {
-        $template = config('admin.template', 'tailwind-light');
-        $templatePath = __DIR__.'/../resources/views/'.$template;
+        $templates = $this->app->make(TemplateManager::class);
 
-        if (is_dir($templatePath)) {
-            // Load template-specific views first (higher priority)
-            $this->loadViewsFrom($templatePath, 'admin');
-        }
-
-        // Always load root views as fallback (for any views not overridden by the template)
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
+        $templates->apply($templates->configured());
     }
 
     /**
-     * Get the list of available templates.
+     * Get the names of the available templates.
      *
-     * @return array
+     * @return array<int, string>
      */
-    public static function availableTemplates()
+    public static function availableTemplates(): array
     {
-        $viewsPath = __DIR__.'/../resources/views';
-        $templates = [];
-
-        foreach (glob($viewsPath.'/*', GLOB_ONLYDIR) as $dir) {
-            $name = basename($dir);
-            // Only include directories that have an index.blade.php (valid templates)
-            if (file_exists($dir.'/index.blade.php')) {
-                $templates[] = $name;
-            }
-        }
-
-        return $templates;
+        return app(TemplateManager::class)->names();
     }
 
     /**
@@ -206,6 +189,13 @@ class AdminServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Admin::class);
         $this->app->alias(Admin::class, 'admin');
+
+        $this->app->singleton(TemplateManager::class, function ($app) {
+            $templates = new TemplateManager($app);
+            $templates->discover(__DIR__.'/../resources/views');
+
+            return $templates;
+        });
 
         $this->loadAdminAuthConfig();
 

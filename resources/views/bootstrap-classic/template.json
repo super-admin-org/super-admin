@@ -1,0 +1,44 @@
+{
+    "label": "Bootstrap Classic",
+    "description": "Classic admin panel built on Bootstrap 5: white cards, light sidebar, Bootstrap JavaScript.",
+    "framework": "bootstrap5",
+    "aliases": ["super-admin-template-1"],
+    "extends": null,
+    "swatches": {
+        "sidebar": "#ffffff",
+        "header": "#ffffff",
+        "background": "#f4f6f9",
+        "primary": "#3a96ff"
+    },
+    "css": [
+        "vendor/super-admin/nprogress/nprogress.css",
+        "vendor/super-admin/sweetalert2/sweetalert2.min.css",
+        "vendor/super-admin/toastify-js/toastify.css",
+        "vendor/super-admin/flatpickr/flatpicker-custom.css",
+        "vendor/super-admin/choicesjs/styles/choices.min.css",
+        "vendor/super-admin/sortablejs/nestable.css",
+        "vendor/super-admin/super-admin/css/styles.css",
+        "vendor/super-admin/super-admin/css/sa-tokens.css"
+    ],
+    "js": [
+        "vendor/super-admin/bootstrap5/bootstrap.bundle.min.js",
+        "vendor/super-admin/nprogress/nprogress.js",
+        "vendor/super-admin/axios/axios.min.js",
+        "vendor/super-admin/sweetalert2/sweetalert2.min.js",
+        "vendor/super-admin/toastify-js/toastify.js",
+        "vendor/super-admin/flatpickr/flatpickr.min.js",
+        "vendor/super-admin/choicesjs/scripts/choices.min.js",
+        "vendor/super-admin/sortablejs/Sortable.min.js",
+        "vendor/super-admin/super-admin/js/polyfills.js",
+        "vendor/super-admin/super-admin/js/helpers.js",
+        "vendor/super-admin/super-admin/js/super-admin.js",
+        "vendor/super-admin/super-admin/js/super-admin-actions.js",
+        "vendor/super-admin/super-admin/js/super-admin-grid.js",
+        "vendor/super-admin/super-admin/js/super-admin-grid-inline-edit.js",
+        "vendor/super-admin/super-admin/js/super-admin-form.js",
+        "vendor/super-admin/super-admin/js/super-admin-toastr.js",
+        "vendor/super-admin/super-admin/js/super-admin-resource.js",
+        "vendor/super-admin/super-admin/js/super-admin-tree.js",
+        "vendor/super-admin/super-admin/js/super-admin-selectable.js"
+    ]
+}

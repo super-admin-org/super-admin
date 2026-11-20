@@ -13,6 +13,7 @@ use InvalidArgumentException;
 use SuperAdmin\Admin\Auth\Database\Menu;
 use SuperAdmin\Admin\Controllers\AuthController;
 use SuperAdmin\Admin\Layout\Content;
+use SuperAdmin\Admin\Template\TemplateManager;
 use SuperAdmin\Admin\Traits\HasAssets;
 use SuperAdmin\Admin\Widgets\Navbar;
 
@@ -309,6 +310,9 @@ class Admin
                 $router->resource('auth/permissions', 'PermissionController')->names('admin.auth.permissions');
                 $router->resource('auth/menu', 'MenuController', ['except' => ['create']])->names('admin.auth.menu');
                 $router->resource('auth/logs', 'LogController', ['only' => ['index', 'destroy']])->names('admin.auth.logs');
+                $router->get('auth/templates', 'TemplateController@index')->name('admin.auth.templates.index');
+                $router->put('auth/templates', 'TemplateController@update')->name('admin.auth.templates.update');
+                $router->delete('auth/templates', 'TemplateController@destroy')->name('admin.auth.templates.destroy');
 
                 $router->post('_handle_form_', 'HandleController@handleForm')->name('admin.handle-form');
                 $router->post('_handle_action_', 'HandleController@handleAction')->name('admin.handle-action');
@@ -357,6 +361,8 @@ class Admin
      */
     public function bootstrap()
     {
+        static::template()->apply();
+
         $this->fireBootingCallbacks();
 
         require config('admin.bootstrap', admin_path('bootstrap.php'));
@@ -395,6 +401,14 @@ class Admin
         foreach (static::$bootedCallbacks as $callable) {
             call_user_func($callable);
         }
+    }
+
+    /**
+     * The template manager: list, resolve and switch admin templates.
+     */
+    public static function template(): TemplateManager
+    {
+        return app(TemplateManager::class);
     }
 
     public static function asset($asset)

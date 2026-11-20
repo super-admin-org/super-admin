@@ -184,6 +184,35 @@ admin.menu = {
             }
         });
     },
+
+    // Re-render the sidebar menu from a fresh copy of the current page.
+    // Used after the menu itself was edited, because the sidebar sits outside the PJAX container.
+    refresh: function () {
+        let menu = document.getElementById('menu');
+        if (!menu) {
+            return;
+        }
+
+        axios
+            .get(document.location.href, { headers: { Accept: 'text/html' } })
+            .then(function (response) {
+                let doc = new DOMParser().parseFromString(response.data, 'text/html');
+                let fresh = doc.getElementById('menu');
+                if (fresh) {
+                    menu.innerHTML = fresh.innerHTML;
+                }
+
+                let list = document.querySelector('.sidebar-form .dropdown-menu');
+                let freshList = doc.querySelector('.sidebar-form .dropdown-menu');
+                if (list && freshList) {
+                    list.innerHTML = freshList.innerHTML;
+                }
+
+                admin.menu.setActivePage(document.location.href);
+                document.dispatchEvent(new CustomEvent('menu:refreshed'));
+            })
+            .catch(function () {});
+    },
 };
 
 /*-------------------------------------------------*/
@@ -292,6 +321,9 @@ admin.ajax = {
                 NProgress.done();
                 if (typeof result_function == 'undefined' && !admin.ajax.currenTarget) {
                     admin.pages.init();
+                    if (/\/auth\/menu(\/|\?|$)/.test(String(url)) || /\/auth\/menu(\/|\?|$)/.test(document.location.pathname)) {
+                        admin.menu.refresh();
+                    }
                     document.dispatchEvent(new CustomEvent('pjax:complete', { detail: { url: url } }));
                 }
             });

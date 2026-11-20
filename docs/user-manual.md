@@ -47,9 +47,8 @@ src/                      PHP source (~39,000 lines)
   Console/                19 artisan commands (install, make, controller, menu, user, extension, ...)
   Layout/                 Content, Row, Column (page composition)
   Traits/HasAssets        CSS/JS registration, template-aware base assets
-resources/views/          Classic (Bootstrap 5) views = fallback for every template
-resources/views/tailwind-light/        Tailwind Light template (138 Blade files)
-resources/views/super-admin-template-1/ Copy of the classic views, selectable by name
+resources/views/bootstrap-classic/  Bootstrap Classic template (base; fallback for views a template lacks)
+resources/views/tailwind-light/     Tailwind Light template (default); both have the same 145 views
 resources/assets/         Vendor libraries (axios, flatpickr, choices.js, sortable, sweetalert2, toastify, nprogress, Font Awesome, dual-listbox) and the compiled bundles
 resources/lang/           23 languages
 config/admin.php          Published configuration
@@ -147,7 +146,7 @@ All settings live in `config/admin.php`. After editing run `php artisan config:c
 | --- | --- | --- |
 | `name` | `Super Admin` | Name on the login page |
 | `logo`, `logo-mini` | `<b>Super</b> Admin`, `<b>SA</b>` | Sidebar brand (full / collapsed); may be an `<img>` tag |
-| `template` | `tailwind-light` | `tailwind-light` or `super-admin-template-1` (Classic) |
+| `template` | `tailwind-light` | `tailwind-light` or `bootstrap-classic` (old name `super-admin-template-1` still accepted). Admin > Templates overrides it |
 | `title` | `Admin` | HTML title prefix |
 | `route.prefix` | `admin` (`ADMIN_ROUTE_PREFIX`) | URL prefix; empty string serves the panel at the site root |
 | `route.namespace` | `App\Admin\Controllers` | Controller namespace for `app/Admin/routes.php` |
@@ -187,9 +186,9 @@ Set `'template'` in the config; nothing else changes.
 | Template | Config value | Stack | Looks |
 | --- | --- | --- | --- |
 | Tailwind Light (default) | `tailwind-light` | Tailwind CSS 3.4, Inter font, frosted-glass cards, dark sidebar, no Bootstrap JS | ![Tailwind Light dashboard](images/dashboard.png) |
-| Classic | `super-admin-template-1` | Bootstrap 5, white cards | ![Classic dashboard](images/classic-dashboard.png) |
+| Bootstrap Classic | `bootstrap-classic` | Bootstrap 5, white cards | ![Classic dashboard](images/classic-dashboard.png) |
 
-**Resolution order.** Views are loaded from `resources/views/vendor/admin/` in your application first, then from the template directory, then from the package's root views (the Classic markup). A template only needs the files it changes.
+**Resolution order.** Views are loaded from `resources/views/vendor/admin/<template>/` and `resources/views/vendor/admin/` in your application first, then from the template directory (and the templates it extends), then from `bootstrap-classic`. Switch templates in **Admin > Templates**, with `php artisan admin:template <name>`, or in `config/admin.php`; see `docs/templates.md`.
 
 **Tailwind Light layout.** Fixed dark sidebar with menu search and a collapse toggle (desktop), sticky header with the user menu, content cards. Grid paginators and form footers are sticky, so Submit and the page controls stay visible while scrolling. On phones the sidebar slides over the page.
 
@@ -772,7 +771,7 @@ Dropdowns, modals, tabs and collapses use `data-sa-toggle="dropdown|modal|tab|co
 
 ### 11.6 A new template
 
-Create `resources/views/<name>/index.blade.php` in the package (that file marks the directory as a template), override the views you need, set `'template' => '<name>'`. Everything else falls back to the Classic views.
+Copy `resources/views/tailwind-light/` to `resources/views/<name>/`, edit its `template.json` (label, swatches, base CSS/JS, optional `extends`) and restyle the views; it then appears in **Admin > Templates**. Keep the shared class vocabulary and the `--sa-*` variables styled so extension pages fit. Details in `docs/templates.md`.
 
 ### 11.7 Extensions
 

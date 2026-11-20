@@ -80,6 +80,8 @@ trait HasAssets
     /**
      * Base CSS for the tailwind-light template (no Bootstrap, no legacy styles).
      *
+     * @deprecated The list now lives in resources/views/tailwind-light/template.json.
+     *
      * @var array
      */
     public static $tailwindBaseCss = [
@@ -123,6 +125,8 @@ trait HasAssets
     /**
      * Base JS for the tailwind-light template (no Bootstrap JS).
      *
+     * @deprecated The list now lives in resources/views/tailwind-light/template.json.
+     *
      * @var array
      */
     public static $tailwindBaseJs = [
@@ -146,6 +150,20 @@ trait HasAssets
         'vendor/super-admin/super-admin/js/super-admin-tree.js',
         'vendor/super-admin/super-admin/js/super-admin-selectable.js',
     ];
+
+    /**
+     * Base CSS set with Admin::baseCss($css); replaces the active template's list.
+     *
+     * @var array<int, string>|null
+     */
+    protected static $customBaseCss = null;
+
+    /**
+     * Base JS set with Admin::baseJs($js); replaces the active template's list.
+     *
+     * @var array<int, string>|null
+     */
+    protected static $customBaseJs = null;
 
     /**
      * @var array
@@ -189,17 +207,10 @@ trait HasAssets
         static::ignoreMinify('css', $css, $minify);
 
         if (! is_null($css)) {
-            return static::$baseCss = $css;
+            return static::$customBaseCss = static::$baseCss = $css;
         }
 
-        if (config('admin.template', 'tailwind-light') === 'tailwind-light') {
-            return static::$tailwindBaseCss;
-        }
-
-        $skin = config('admin.skin', 'skin-blue-light');
-        // array_unshift(static::$baseCss, "vendor/super-admin/AdminLTE/dist/css/skins/{$skin}.min.css");
-
-        return static::$baseCss;
+        return static::$customBaseCss ?? (static::template()->css() ?: static::$baseCss);
     }
 
     /**
@@ -252,14 +263,10 @@ trait HasAssets
         static::ignoreMinify('js', $js, $minify);
 
         if (! is_null($js)) {
-            return static::$baseJs = $js;
+            return static::$customBaseJs = static::$baseJs = $js;
         }
 
-        if (config('admin.template', 'tailwind-light') === 'tailwind-light') {
-            return static::$tailwindBaseJs;
-        }
-
-        return static::$baseJs;
+        return static::$customBaseJs ?? (static::template()->js() ?: static::$baseJs);
     }
 
     /**

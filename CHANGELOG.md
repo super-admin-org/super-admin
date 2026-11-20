@@ -2,6 +2,27 @@
 
 See https://super-admin.org/docs/
 
+## Unreleased
+
+### Added
+
+- **Admin > Templates** page (`/admin/auth/templates`): lists the installed templates with a preview and switches the active one; the choice is stored in the new `admin_settings` table and overrides `config/admin.php`. `'template_switcher' => false` turns it off.
+- `php artisan admin:template [name] [--reset] [--menu]`: list or switch templates from the CLI; `--menu` adds the Templates menu item and the `/auth/templates` permission path to existing installs.
+- `php artisan admin:lint-views <paths>`: reports classes in extension views that only some templates style.
+- `Admin::template()` (`SuperAdmin\Admin\Template\TemplateManager`): template registry with `template.json` manifests, `register()` for templates shipped by other packages, and `extensionViews()` so extension views follow the active template (`<template>/extensions/<namespace>/` and `<views>/<template>/` overrides).
+- Shared class vocabulary (`SuperAdmin\Admin\Template\Vocabulary`) and `--sa-*` CSS variables that every template styles; tailwind-light gained a compatibility layer for it, so extensions written with Bootstrap 5 markup match the template.
+
+### Changed
+
+- `resources/views/` now only contains template folders. The classic views moved to `bootstrap-classic/` (formerly `super-admin-template-1`, which still works as an alias); the duplicate root copies were removed. Both templates provide all 145 views.
+- Base CSS/JS lists come from each template's `template.json` instead of a hard-coded `tailwind-light` check.
+- Importing an extension twice no longer duplicates its menu items or fails on an existing permission slug.
+
+### Fixed
+
+- Tailwind template: extension pages (log viewer, helpers, media manager, ...) lost their styling because Tailwind purged the Bootstrap compatibility classes they use; Bootstrap `.collapse` panels rendered expanded.
+- Tailwind template: form rows had an extra gap under every field; wide content (e.g. the scaffold field table) widened the whole page.
+
 ## v1.3.0 - 2026-10-12
 
 Template release: `tailwind-light` (default) and `super-admin-template-1` (classic Bootstrap 5).
@@ -19,6 +40,8 @@ Template release: `tailwind-light` (default) and `super-admin-template-1` (class
 - Permission denials and the grid's "page out of range" redirect sent the response and called `exit`, skipping the remaining middleware and terminating the process; they now raise an `HttpResponseException` (`Pjax::respond()` does the same).
 - `Form::isCreating()` / `isEditing()` crashed outside a routed request; form fields rendered outside a web request failed with "Undefined variable $errors".
 - `Grid::fixColumns()` and `fixHeader()` return the grid for chaining.
+- Built-in batch actions (batch delete, batch edit) registered the generic action handler next to their own script, so every batch delete logged *Action method BatchDelete::handle() does not exist* and left the list stale; actions without a `handle()` method no longer register the generic handler.
+- The sidebar menu now re-renders after a menu item is created, edited, moved or deleted on the Menu page (it used to need a full page reload).
 
 ### Added
 

@@ -32,7 +32,7 @@
     </div>
     <div class="tab-content">
         @foreach ($tabs as $i => $tab)
-            <div class="tab-pane p-4 {{ $active === $i ? '' : 'hidden' }}" id="{{ $tab['ref'] }}">
+            <div class="tab-pane p-4 {{ $active === $i ? 'active' : 'hidden' }}" id="{{ $tab['ref'] }}">
                 @php($content = \Illuminate\Support\Arr::get($tab, 'content'))
                 @if ($content instanceof \Illuminate\Contracts\Support\Renderable)
                     {!! $content->render() !!}
