@@ -1,20 +1,29 @@
 {
   "name": "super-admin-org/super-admin",
-  "description": "super-admin. Open-source Laravel Admin panel. No pro or paid package, free & open. Based on laravel-admin, with special thanks to z-song and open admin",
+  "description": "Free, open-source admin panel builder for Laravel 8-13: data grids, forms, roles and permissions, switchable templates, two-factor login and 12 extensions. No paid edition. Based on laravel-admin and open-admin, with thanks to z-song and the open-admin team.",
   "type": "library",
   "keywords": [
     "laravel",
     "admin",
+    "admin panel",
+    "dashboard",
+    "crud",
     "grid",
     "form",
+    "rbac",
+    "two-factor",
     "super-admin",
+    "laravel-admin",
     "open-admin",
-    "super",
     "free",
-    "open",
-    "admin panel"
+    "open"
   ],
-  "homepage": "https://github.com/super-admin-org/super-admin",
+  "homepage": "https://super-admin.org",
+  "support": {
+    "docs": "https://super-admin.org/laravel/",
+    "issues": "https://github.com/super-admin-org/super-admin/issues",
+    "source": "https://github.com/super-admin-org/super-admin"
+  },
   "license": "MIT",
   "authors": [
     {

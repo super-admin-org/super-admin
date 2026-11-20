@@ -16,6 +16,7 @@ php artisan vendor:publish --tag=super-admin-assets --force
 
 | Super Admin | Laravel | PHP | Pest |
 |-------------|---------|-----|------|
+| 2.x | 8.x / 9.x / 10.x / 11.x / 12.x / 13.x | >= 8.0 | 1.x / 2.x / 3.x / 4.x |
 | 1.2.x | 10.x / 11.x / 12.x / 13.x | >= 8.2 | 2.x / 3.x / 4.x |
 
 ### Dev Dependency Matrix
@@ -51,4 +52,4 @@ php artisan view:clear
 
 ## Upgrading Laravel
 
-When upgrading your Laravel version, check the [Laravel upgrade guide](https://laravel.com/docs/upgrade) for breaking changes. Super Admin supports Laravel 10 through 13 simultaneously.
+When upgrading your Laravel version, check the [Laravel upgrade guide](https://laravel.com/docs/upgrade) for breaking changes. Super Admin 2.x supports Laravel 8 through 13 simultaneously.

@@ -2,7 +2,7 @@
 
 Super Admin is an administrative interface builder for Laravel. It helps you build CRUD backends with just a few lines of code.
 
-**Supported:** Laravel 10 / 11 / 12 / 13 | PHP 8.2+
+**Supported:** Laravel 8 / 9 / 10 / 11 / 12 / 13 | PHP 8.0+ · Website: [super-admin.org](https://super-admin.org/laravel/)
 
 ## Table of Contents
 

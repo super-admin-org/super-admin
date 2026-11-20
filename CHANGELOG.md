@@ -1,8 +1,19 @@
 # Changelog
 
-See https://super-admin.org/docs/
+Documentation: https://super-admin.org/laravel/
 
-## Unreleased
+## v2.0.1 - 2026-11-20
+
+### Fixed
+
+- v2.0.0 still reported version 1.3.0 (`Admin::VERSION`, the footer and the published assets' `version.txt`); it now says 2.0.1.
+
+### Changed
+
+- Package information: homepage https://super-admin.org, documentation https://super-admin.org/laravel/ (`support.docs`), issues and source links, an up-to-date description and keywords.
+- The 12 extensions have new releases that accept super-admin 2.x (`^1.0|^2.0`); the ones released before v2.0.0 required `^1.0` and could not be installed with it.
+
+## v2.0.0 - 2026-11-20
 
 ### Added
 
@@ -38,7 +49,7 @@ See https://super-admin.org/docs/
 - Tailwind template: extension pages (log viewer, helpers, media manager, ...) lost their styling because Tailwind purged the Bootstrap compatibility classes they use; Bootstrap `.collapse` panels rendered expanded.
 - Tailwind template: form rows had an extra gap under every field; wide content (e.g. the scaffold field table) widened the whole page.
 
-## v1.3.0 - 2026-10-12
+## v1.3.0 - 2026-10-12 (never tagged; released as part of v2.0.0)
 
 Template release: `tailwind-light` (default) and `super-admin-template-1` (classic Bootstrap 5).
 

@@ -7,7 +7,7 @@
 <p align="center"><code>super-admin</code> is an administrative interface builder for Laravel which can help you build CRUD backends with just a few lines of code.</p>
 <p align="center">
 <a href="https://super-admin.org">Homepage</a> |
-<a href="docs/index.md">Documentation</a> |
+<a href="https://super-admin.org/laravel/">Documentation</a> |
 <a href="https://github.com/super-admin-org/super-admin">GitHub</a> |
 <a href="https://github.com/super-admin-org?tab=repositories">Extensions</a>
 </p>
@@ -28,7 +28,7 @@
 
 <p align="center">
     Both upstream projects are no longer maintained and remain incompatible with
-    Laravel 11+. This repository continues the work to support <strong>Laravel 10, 11, 12, and 13</strong>.
+    Laravel 11+. Super Admin 2.x supports <strong>Laravel 8 through 13</strong> on PHP 8.0+.
 </p>
 
 ---
@@ -51,12 +51,13 @@
 - **Model Show** - Detail pages with panels and relation display
 - **Model Tree** - Hierarchical/nested data with drag-and-drop ordering
 - **RBAC** - Built-in users, roles, and permissions management
+- **Two-Factor Login** - Authenticator-app codes and recovery codes; off, optional or required for everyone
 - **Operation Log** - Audit trail for all admin actions
 - **Menu Management** - Sidebar menu with drag-and-drop ordering
+- **Templates** - Tailwind Light (default) and Bootstrap Classic, switchable from Admin > Templates
 - **Widgets** - Box, Tab, Table, InfoBox, Collapse, Alert, Carousel, and more
-- **Extension System** - 12+ official plugins available
-- **19 Artisan Commands** - Scaffolding, user management, and code generation
-- **Responsive UI** - Built on Bootstrap 5
+- **Extension System** - 12 official extensions that follow the active template
+- **23 Artisan Commands** - Scaffolding, user management, code generation, and `admin:upgrade` to finish updates
 
 ## Installation
 
@@ -110,7 +111,15 @@ That's it! Full CRUD interface with grid, form, filters, and detail page.
 
 ## Documentation
 
-Comprehensive documentation is available in the **[`docs/`](docs/index.md)** directory with 28 pages covering every feature of the package.
+Full documentation, in English and Bangla, is at **[super-admin.org](https://super-admin.org/laravel/)**. The same pages are in the **[`docs/`](docs/index.md)** directory of this repository.
+
+After `composer update`, finish an update with:
+
+```bash
+php artisan admin:upgrade
+```
+
+It publishes the new assets, runs new migrations and clears compiled views. See [Upgrading](https://super-admin.org/laravel/upgrading/).
 
 ### Getting Started
 
@@ -158,7 +167,7 @@ Comprehensive documentation is available in the **[`docs/`](docs/index.md)** dir
 |------|-------------|
 | **[Permissions](docs/permissions.md)** | RBAC system: users, roles, permissions, route binding, middleware, operation log |
 | **[Widgets](docs/widgets.md)** | Box, InfoBox, Tab, Table, Collapse, Alert, Callout, Carousel, Form widget, page layout |
-| **[Console Commands](docs/commands.md)** | 19 Artisan commands: install, generate controller/form/action, create user, reset password, export seed |
+| **[Console Commands](docs/commands.md)** | 23 Artisan commands: install, upgrade, generate controller/form/action, create user, reset password, two-factor, templates, export seed |
 | **[CSS/JavaScript](docs/frontend.md)** | Custom assets, inline scripts, theming, built-in libraries |
 | **[Extensions](docs/extensions.md)** | Build and install extensions, official plugin list |
 
@@ -172,20 +181,22 @@ Comprehensive documentation is available in the **[`docs/`](docs/index.md)** dir
 
 ## Extensions
 
-| Extension | Description | Version |
-|-----------|-------------|---------|
-| [helpers](https://github.com/super-admin-org/helpers) | Several tools to help you in development | ~1.0 |
-| [media-manager](https://github.com/super-admin-org/media-manager) | Web interface to manage local files | ~1.0 |
-| [config](https://github.com/super-admin-org/config) | Config manager for super-admin | ~1.0 |
-| [grid-sortable](https://github.com/super-admin-org/grid-sortable) | Sortable grids | ~1.0 |
-| [CkEditor](https://github.com/super-admin-org/ckeditor) | CkEditor for forms | ~1.0 |
-| [api-tester](https://github.com/super-admin-org/api-tester) | Test API calls from the admin | ~1.0 |
-| [scheduling](https://github.com/super-admin-org/scheduling) | Show and test your cron jobs | ~1.0 |
-| [phpinfo](https://github.com/super-admin-org/phpinfo) | Show PHP info in the admin | ~1.0 |
-| [log-viewer](https://github.com/super-admin-org/log-viewer) | Log viewer for Laravel | ~1.0.12 |
-| [page-designer](https://github.com/super-admin-org/page-designer) | Page designer to position items freely | ~1.0.18 |
-| [reporter](https://github.com/super-admin-org/reporter) | Developer-friendly exception viewer | ~1.0.18 |
-| [redis-manager](https://github.com/super-admin-org/redis-manager) | Redis manager for super-admin | ~1.0.20 |
+All extensions work with Super Admin 1.x and 2.x. Install with `composer require super-admin-org/<name>`.
+
+| Extension | Description | Docs |
+|-----------|-------------|------|
+| [helpers](https://github.com/super-admin-org/super-admin-helpers) | Several tools to help you in development | [Guide](https://super-admin.org/laravel/extension-helpers/) |
+| [media-manager](https://github.com/super-admin-org/media-manager) | Web interface to manage local files | [Guide](https://super-admin.org/laravel/extension-media-manager/) |
+| [config](https://github.com/super-admin-org/config) | Config manager for super-admin | [Guide](https://super-admin.org/laravel/extension-config/) |
+| [grid-sortable](https://github.com/super-admin-org/grid-sortable) | Sortable grids | [Guide](https://super-admin.org/laravel/extension-grid-sortable/) |
+| [CkEditor](https://github.com/super-admin-org/ckeditor) | CkEditor for forms | [Guide](https://super-admin.org/laravel/extension-ckeditor/) |
+| [api-tester](https://github.com/super-admin-org/api-tester) | Test API calls from the admin | [Guide](https://super-admin.org/laravel/extension-api-tester/) |
+| [scheduling](https://github.com/super-admin-org/scheduling) | Show and test your cron jobs | [Guide](https://super-admin.org/laravel/extension-scheduling/) |
+| [phpinfo](https://github.com/super-admin-org/phpinfo) | Show PHP info in the admin | [Guide](https://super-admin.org/laravel/extension-phpinfo/) |
+| [log-viewer](https://github.com/super-admin-org/log-viewer) | Log viewer for Laravel | [Guide](https://super-admin.org/laravel/extension-log-viewer/) |
+| [page-designer](https://github.com/super-admin-org/page-designer) | Page designer to position items freely | [Guide](https://super-admin.org/laravel/extension-page-designer/) |
+| [reporter](https://github.com/super-admin-org/reporter) | Developer-friendly exception viewer | [Guide](https://super-admin.org/laravel/extension-reporter/) |
+| [redis-manager](https://github.com/super-admin-org/redis-manager) | Redis manager for super-admin | [Guide](https://super-admin.org/laravel/extension-redis-manager/) |
 
 ## Contributing
 
