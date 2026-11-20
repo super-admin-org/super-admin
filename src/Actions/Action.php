@@ -339,6 +339,10 @@ abstract class Action implements Renderable
      */
     protected function addScript()
     {
+        if (! method_exists($this, 'handle')) {
+            return;
+        }
+
         if (! is_null($this->interactor)) {
             $this->preScriptStr = $this->interactor->preScript();
 

@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Super Admin – User journeys</title>
+<style>
+  :root { --blue:#1f4e79; --blue2:#2e74b5; --line:#d9e2ec; --head:#e8f1fb; --red:#c62828; --text:#222; --muted:#5f6b7a; }
+  * { box-sizing:border-box; }
+  body { margin:0; font: 15px/1.55 Calibri, "Segoe UI", Arial, sans-serif; color:var(--text); background:#f4f6f9; }
+  .page { max-width: 880px; margin: 0 auto; background:#fff; padding: 48px 56px 64px; }
+  .kicker { letter-spacing:.18em; font-size:11px; color:var(--muted); text-transform:uppercase; margin:0 0 6px; }
+  h1 { font-size:34px; color:var(--blue); margin:0 0 6px; line-height:1.15; }
+  .subtitle { font-size:17px; color:#3b4654; margin:0 0 14px; }
+  .version { color:var(--muted); font-size:12.5px; }
+  h2 { font-size:21px; color:var(--blue); margin:34px 0 10px; padding-bottom:4px; border-bottom:1px solid var(--line); page-break-after: avoid; }
+  h3 { font-size:16px; color:var(--blue2); margin:22px 0 8px; page-break-after: avoid; }
+  p, ul, ol { margin:.55em 0; }
+  li { margin:.2em 0; }
+  a { color:var(--blue2); }
+  code { font: 12.5px/1.5 Consolas, "Courier New", monospace; background:#f1f3f6; padding:.05em .3em; border-radius:3px; }
+  pre { background:#f6f8fa; border:1px solid var(--line); border-radius:6px; padding:12px 14px; overflow:auto; font-size:12.5px; page-break-inside: avoid; }
+  pre code { background:none; padding:0; }
+  table { width:100%; border-collapse:collapse; margin:10px 0 16px; font-size:13.5px; page-break-inside:auto; }
+  th, td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; text-align:left; }
+  th { background:var(--head); font-weight:700; }
+  tr { page-break-inside: avoid; }
+  table.numbered td:first-child, table.numbered th:first-child { width:34px; text-align:center; color:var(--red); font-weight:700; }
+  figure { margin:14px 0 6px; page-break-inside: avoid; }
+  figure img { display:block; max-width:100%; height:auto; border:1px solid var(--line); border-radius:6px; }
+  figcaption { font-size:12.5px; color:var(--muted); margin:6px 0 0; }
+  blockquote.callout { margin:12px 0; padding:8px 14px; background:#eef4fb; border-left:5px solid #7a9cc6; }
+  blockquote.callout.remember { background:#f3f4f6; border-left-color:#8b96a5; }
+  blockquote.callout p { margin:0; }
+  hr { border:0; border-top:1px solid var(--line); margin:26px 0; }
+  .toc { background:#f6f8fb; border:1px solid var(--line); border-radius:6px; padding:12px 18px; margin:18px 0 10px; }
+  .toc h2 { border:0; margin:0 0 6px; font-size:15px; }
+  .toc ol { margin:0; padding-left:20px; columns:2; column-gap:28px; font-size:13.5px; }
+  .toc li { break-inside: avoid; }
+  input[type=checkbox] { margin-right:6px; }
+  @page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+  @media print {
+    body { background:#fff; }
+    .page { max-width:none; padding:0; }
+    .toc ol { columns:2; }
+    a { color:var(--text); text-decoration:none; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+<p class="kicker">SUPER-ADMIN-ORG · SUPER ADMIN</p><h1>User journeys: the admin panel</h1><p class="subtitle">Easy guide for administrators, content editors, developers and the project team</p>
+<p>This guide shows, with pictures, what you see when you sign in to a Super Admin panel, what every button on a page does, where each one takes you, and how a developer adds a page in a few lines of PHP. The red numbers on the pictures are explained in the table under each picture. Every role has its own section; read the sections for everyone first, then only yours.</p>
+<table>
+<thead>
+<tr>
+<th>If you are…</th>
+<th>Read</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Anyone who signs in to the panel (first day)</td>
+<td>Sections 1 – 4</td>
+</tr>
+<tr>
+<td>A content editor or staff member who works with lists and forms</td>
+<td>Sections 1 – 4, then 5 – 9</td>
+</tr>
+<tr>
+<td>An administrator who manages users, roles, permissions and the menu</td>
+<td>Sections 1 – 4, then 10</td>
+</tr>
+<tr>
+<td>A developer who builds the pages</td>
+<td>Sections 1 – 4, then 11</td>
+</tr>
+<tr>
+<td>In the project team (install, test accounts, updates, deployment)</td>
+<td>Section 12 and the README, CHANGELOG and docs/user-manual files</td>
+</tr>
+<tr>
+<td>Looking for an answer to a specific question</td>
+<td>Sections 13 and 14</td>
+</tr>
+</tbody></table>
+<p class="version">Version 1.0 · 14 October 2026 · Screens from the local demo copy of the panel (Super Admin 1.3.0, Tailwind Light template, demo &quot;Posts&quot; resource)</p>
+<div class="toc"><h2>Contents</h2><ol><li><a href="#1-the-admin-panel-in-five-steps">The admin panel in five steps</a></li><li><a href="#2-which-pages-do-i-get">Which pages do I get?</a></li><li><a href="#3-sign-in-and-find-the-dashboard">Sign in and find the dashboard</a></li><li><a href="#4-the-page-at-a-glance">The page at a glance</a></li><li><a href="#5-reading-a-list">Reading a list</a></li><li><a href="#6-finding-records-filters-search-columns-export">Finding records: filters, search, columns, export</a></li><li><a href="#7-changing-data-the-form">Changing data: the form</a></li><li><a href="#8-acting-on-rows-edit-in-place-delete-batch-actions">Acting on rows: edit in place, delete, batch actions</a></li><li><a href="#9-the-detail-page">The detail page</a></li><li><a href="#10-for-administrators">For administrators</a></li><li><a href="#11-for-developers">For developers</a></li><li><a href="#12-for-the-project-team">For the project team</a></li><li><a href="#13-common-questions">Common questions</a></li><li><a href="#14-tips-collected">Tips collected</a></li></ol></div><hr><h2 id="1-the-admin-panel-in-five-steps">1. The admin panel in five steps</h2>
+<figure><p><img src="images/journeys/five-steps.png" alt="Your admin panel in five steps"></p><figcaption>The five steps: sign in, the menu is built for your role, read the list, act on a row, look back in the log</figcaption></figure>
+<p>The panel is a set of pages, one per thing you manage (posts, products, users…). Every page is the same shape: a list you can sort, filter and export, a form to create or edit one record, and a detail page. What you may open is decided by your roles, so two people can sign in to the same panel and see different menus.</p>
+<blockquote class="callout tip"><p><strong>Tip:</strong> You do not have to learn new pages for new data. When a developer adds a resource (section 11) it gets the same list, form and detail page as every other one, with the same buttons in the same places.</p>
+</blockquote>
+<h2 id="2-which-pages-do-i-get">2. Which pages do I get?</h2>
+<figure><p><img src="images/journeys/which-pages.png" alt="Which pages do I get?"></p><figcaption>The menu and the pages you may open depend on your roles</figcaption></figure>
+<table>
+<thead>
+<tr>
+<th>Your role</th>
+<th>Menu you see</th>
+<th>What you may do</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>administrator</strong> (built in)</td>
+<td>Everything, including <strong>Admin → Users, Roles, Permission, Menu, Operation log</strong></td>
+<td>Everything; no permission check applies</td>
+</tr>
+<tr>
+<td>A role made by your administrator, for example <em>Editor</em></td>
+<td>The dashboard and the resources its permissions cover (for example <strong>Posts</strong>)</td>
+<td>What the permission paths and HTTP methods allow (section 10)</td>
+</tr>
+<tr>
+<td>A role with GET-only permissions</td>
+<td>The same pages</td>
+<td>Open lists and detail pages; <strong>New</strong>, <strong>Edit</strong>, <strong>Delete</strong> are refused</td>
+</tr>
+<tr>
+<td>No role, no permission</td>
+<td>The dashboard</td>
+<td>Every other page shows <em>Permission denied</em></td>
+</tr>
+</tbody></table>
+<p>With several roles you get the pages of all of them. An item in the menu can additionally be limited to roles, so a page you may open can still be left out of the menu to keep it short.</p>
+<blockquote class="callout remember"><p><strong>Remember:</strong> The panel keeps its own users. Signing in to the website does not sign you in to the panel, and the other way round.</p>
+</blockquote>
+<h2 id="3-sign-in-and-find-the-dashboard">3. Sign in and find the dashboard</h2>
+<p>Open <code>/admin</code> on your site (for example <code>https://example.com/admin</code>), type your username and password and click <strong>Login</strong>.</p>
+<figure><p><img src="images/journeys/login.png" alt="The login page"></p><figcaption>The login page</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Username</strong> – the name your administrator gave you (not an e-mail address).</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Password</strong> – your panel password.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Remember me</strong> – keeps you signed in on this browser until you log out.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Login</strong> – opens the dashboard. A wrong username or password shows a red message under the field.</td>
+</tr>
+</tbody></table>
+<p>The dashboard opens right after you sign in. To come back to it from any page, click the brand in the top-left corner of the sidebar or the house symbol at the start of the breadcrumb.</p>
+<blockquote class="callout tip"><p><strong>Tip:</strong> Five wrong passwords in a row lock the login for 15 minutes; the page says so. The time is set by the administrator (<code>auth.throttle_timeout</code>).</p>
+</blockquote>
+<blockquote class="callout remember"><p><strong>Remember:</strong> Change the password you were given on your first day: user menu (top right) → <strong>Setting</strong> → section 10.6.</p>
+</blockquote>
+<h2 id="4-the-page-at-a-glance">4. The page at a glance</h2>
+<p>On a desktop the dark sidebar on the left holds the brand, the menu search and the menu; the white bar at the top holds the sidebar toggle and your user menu; the page content sits in cards.</p>
+<figure><p><img src="images/journeys/page-glance.png" alt="The dashboard on a desktop"></p><figcaption>The dashboard on a desktop</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+<th>Where it takes you</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Brand</strong> – the panel name set by the administrator.</td>
+<td>Click it to open the dashboard.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Menu search</strong> – type a few letters of a page name (&quot;post&quot;, &quot;user&quot;) and pick a page from the list. Only pages you may open are listed.</td>
+<td>Click a result to open that page; Enter opens the first one.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Menu</strong> – your pages. A row with an arrow is a group: click it to fold or unfold. The page you are on is highlighted.</td>
+<td>Click a row to open the page.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Sidebar toggle</strong> – shrinks the sidebar to icons to give the content more room; click again to restore.</td>
+<td>No link.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>User menu</strong> – your name and avatar.</td>
+<td>Opens <strong>Setting</strong> and <strong>Logout</strong> (next picture).</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Page title and description</strong> – what the page is and whether you are on the list, create, edit or show view.</td>
+<td>Read only.</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Breadcrumb</strong> – where you are.</td>
+<td>Click a part to go up one level; the house opens the dashboard.</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Content</strong> – the cards of the page. On the dashboard: resources, environment, extensions and dependencies.</td>
+<td>Links inside the cards open in a new tab.</td>
+</tr>
+</tbody></table>
+<figure><p><img src="images/journeys/user-menu.png" alt="The user menu"></p><figcaption>The user menu</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+<th>Where it takes you</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Your name</strong> – click to open the menu.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Setting</strong> – your own name, avatar and password.</td>
+<td>Opens the setting page (section 10.6).</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Logout</strong> – ends the session.</td>
+<td>Back to the login page.</td>
+</tr>
+</tbody></table>
+<p>On a phone the sidebar is hidden; the menu button in the top bar slides it over the page, and the search box and menu work the same way.</p>
+<figure><p><img src="images/journeys/mobile.png" alt="The menu on a phone"></p><figcaption>The menu opened on a phone (the ☰ button in the top bar)</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Menu search</strong> – the same search as on a desktop.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Menu</strong> – tap a row to open the page; the sidebar closes by itself. Tap the dark area to close it without choosing.</td>
+</tr>
+</tbody></table>
+<blockquote class="callout tip"><p><strong>Tip:</strong> Pages load without a full refresh (the sidebar stays in place while the content changes). The browser&#39;s Back button still works, and every page has its own address you can bookmark.</p>
+</blockquote>
+<h2 id="5-reading-a-list">5. Reading a list</h2>
+<p>Every resource opens as a list. The picture shows the demo <strong>Posts</strong> list; your lists have other columns but the same frame.</p>
+<figure><p><img src="images/journeys/grid.png" alt="The Posts list"></p><figcaption>A list page: toolbar, column headers, rows with actions, and the sticky footer</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+<th>Where it takes you</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>New</strong> – create a record.</td>
+<td>Opens the create form (section 7).</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Filter</strong> – opens or closes the filter panel under the toolbar (section 6).</td>
+<td>—</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Quick search</strong> – type and press Enter to search the configured columns (here the title).</td>
+<td>The list reloads with the matching rows; the address gets <code>?__search__=…</code>.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Export</strong> – downloads a CSV file. The arrow next to it offers <em>All</em>, <em>Current page</em> and <em>Selected rows</em>.</td>
+<td>A file download.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Column selector</strong> – tick the columns you want to see; the choice is kept in your browser.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Column header</strong> – a header with arrows sorts the list; click again to reverse. Only columns the developer made sortable have arrows.</td>
+<td>The list reloads sorted; the address gets <code>?_sort[column]=…</code>.</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Row checkboxes</strong> – tick rows for a batch action (section 8). The checkbox in the header ticks all rows of the page.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Row actions</strong> – <strong>Edit</strong>, <strong>Show</strong> and <strong>Delete</strong> for that row. Developers can add their own, for example <em>Publish</em>.</td>
+<td>Edit opens the form, Show the detail page, Delete asks for confirmation first.</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Footer</strong> – &quot;Showing 1 to 14 of 14 entries&quot;, the page-size selector (10 to 100 rows) and the pager. The footer stays visible while you scroll.</td>
+<td>Page numbers reload the list; the address gets <code>?page=…</code>.</td>
+</tr>
+</tbody></table>
+<p>Good to know about lists:</p>
+<ul>
+<li>A coloured chip in a cell (here <em>news</em>) is a label the developer chose for that value; a coloured dot before a word is a status.</li>
+<li>A switch in a cell (here <em>Featured</em>) changes the record immediately when you click it, with a toast at the top right.</li>
+<li>A pencil next to a value means you can edit it in place (section 8).</li>
+<li>Dates are shown as stored; the developer can format them.</li>
+<li>An empty list shows a box icon and &quot;No records found&quot;.</li>
+</ul>
+<blockquote class="callout remember"><p><strong>Remember:</strong> The quick search, the filter, the sort and the page number are all part of the page address. Copy the address from the browser to share exactly the rows you are looking at, or bookmark it.</p>
+</blockquote>
+<h2 id="6-finding-records-filters-search-columns-export">6. Finding records: filters, search, columns, export</h2>
+<p>Click <strong>Filter</strong> to open the filter panel. The fields in it are chosen by the developer; text fields match part of the value, selects match exactly, date ranges take a start and an end.</p>
+<figure><p><img src="images/journeys/grid-filter.png" alt="The filter panel"></p><figcaption>The filter panel open on the Posts list</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+<th>Where it takes you</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Filter</strong> – shows and hides the panel. The arrow turns when the panel is open.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Filter fields</strong> – one row per field: text (ID, Title), select (Category), date range (Published at), and others. Fill in any of them.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Search</strong> – applies the filters.</td>
+<td>The list reloads with the matching rows; the filters are in the address.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Reset</strong> – clears every filter.</td>
+<td>The full list again.</td>
+</tr>
+</tbody></table>
+<figure><p><img src="images/journeys/grid-tools.png" alt="Export and the column selector"></p><figcaption>Export (left) and the column selector (right), with the selector open</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+<th>Where it takes you</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Export</strong> – the button downloads all rows as CSV. The small arrow next to it offers <em>All</em>, <em>Current page</em> and <em>Selected rows</em> (tick rows first).</td>
+<td>A file named after the resource, for example <code>posts.csv</code>.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Column selector</strong> – opens the list of columns.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Column list</strong> – untick a column to hide it, <strong>All</strong> ticks everything, <strong>Submit</strong> applies the choice. The choice is remembered in this browser.</td>
+<td>The list reloads with the chosen columns.</td>
+</tr>
+</tbody></table>
+<blockquote class="callout tip"><p><strong>Tip:</strong> The export respects the current filter and search, so &quot;filter first, then export&quot; is the way to get exactly the rows you need in a spreadsheet.</p>
+</blockquote>
+<blockquote class="callout tip"><p><strong>Tip:</strong> The list does not need a page refresh to update; if you believe it is stale, the <strong>Refresh</strong> keyboard shortcut is F5 as in any page, and the browser Back button returns to the previous filter.</p>
+</blockquote>
+<h2 id="7-changing-data-the-form">7. Changing data: the form</h2>
+<p><strong>New</strong> and <strong>Edit</strong> open the same form. Fields can be grouped in tabs; the footer keeps the buttons in reach while you scroll.</p>
+<figure><p><img src="images/journeys/form.png" alt="The create form"></p><figcaption>The create form of the demo Posts resource</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+<th>Where it takes you</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Tabs</strong> – groups of fields. A tab with a field in error gets a red marker after you submit.</td>
+<td>Click a tab to show its fields; nothing is saved by switching.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Field row</strong> – label on the left, control on the right. A red asterisk on the label means required.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Help text</strong> – a hint under the control.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Select</strong> – a drop-down with search; the × clears it. Multi-selects show chips for each chosen value.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Switch</strong> – on/off. Radios, checkboxes, number steppers, date pickers, colour pickers, sliders and file fields look like their native controls.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Reset</strong> – puts every field back to the value it had when the page opened.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>After-save options</strong> – what happens after a successful save: <em>Continue editing</em> (stay on the edit form), <em>Continue creating</em> (an empty form again), <em>View</em> (the detail page). With none ticked you return to the list.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Submit</strong> – saves. Required fields that are empty are flagged before anything is sent.</td>
+<td>The list (or the choice in 7), with a green <em>Save succeeded</em> toast.</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>List</strong> – back to the list without saving. (Edit forms also have <strong>View</strong> and <strong>Delete</strong> here.)</td>
+<td>The list.</td>
+</tr>
+</tbody></table>
+<p>When the server rejects a value (a duplicate slug, a date in the wrong format, a rule the developer wrote), the form comes back with the message under the field and a marker on its tab:</p>
+<figure><p><img src="images/journeys/form-validation.png" alt="A validation error"></p><figcaption>The form after submitting without a title</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Tab marker</strong> – the tab that holds the field in error. The form switches to it.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Message</strong> – the rule that failed, in plain words.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Field</strong> – the row is tinted so you find it quickly. Your other values are kept.</td>
+</tr>
+</tbody></table>
+<p>File and image fields show what is stored and let you replace or remove it:</p>
+<figure><p><img src="images/journeys/form-upload.png" alt="An image field"></p><figcaption>The Content tab of an existing post with its cover image</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Text area</strong> – long text; some projects replace it with a rich-text editor.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Current file</strong> – the stored image with its name; the bin removes it on the next save, the arrow downloads it.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Choose file</strong> – pick a new file; it replaces the current one when you submit. Allowed types and sizes are set by the developer.</td>
+</tr>
+</tbody></table>
+<blockquote class="callout tip"><p><strong>Tip:</strong> Nothing is saved until you press <strong>Submit</strong>. Leaving the page loses your changes; the panel does not warn you.</p>
+</blockquote>
+<blockquote class="callout remember"><p><strong>Remember:</strong> <em>Continue creating</em> is the fast way to enter many records in a row: the form comes back empty with the same tab open.</p>
+</blockquote>
+<h2 id="8-acting-on-rows-edit-in-place-delete-batch-actions">8. Acting on rows: edit in place, delete, batch actions</h2>
+<figure><p><img src="images/journeys/grid-inline.png" alt="Editing a value in place"></p><figcaption>Editing a title in the list without opening the form</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+<th>Where it takes you</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Editable cell</strong> – a pencil appears when you point at it. Click the value to open the editor.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Editor popover</strong> – the control for that column (text, select, date…) with the current value.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Submit</strong> – saves that one value; <strong>Cancel</strong> or a click elsewhere closes the editor.</td>
+<td>The cell updates and a toast confirms.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Switch column</strong> – click to toggle; it saves immediately.</td>
+<td>A toast confirms.</td>
+</tr>
+</tbody></table>
+<figure><p><img src="images/journeys/grid-batch.png" alt="Batch actions"></p><figcaption>Two rows ticked and the batch menu open</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+<th>Where it takes you</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Row checkboxes</strong> – tick the rows the action should apply to. The count shows on the batch button.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Batch button</strong> – appears as soon as a row is ticked.</td>
+<td>Opens the batch menu.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Batch menu</strong> – <strong>Batch delete</strong> (asks for confirmation) and <strong>Batch edit</strong> (opens the edit form for the ticked rows) are built in; developers can add more (section 11).</td>
+<td>The list reloads when the action is done.</td>
+</tr>
+</tbody></table>
+<p>Deleting a single row works the same way: <strong>Delete</strong> in the row&#39;s actions asks <em>Are you sure to delete this item?</em> and removes it after <strong>OK</strong>.</p>
+<blockquote class="callout remember"><p><strong>Remember:</strong> Deleting is final unless the developer enabled soft deletes for that resource. The operation log keeps a record of who deleted what (section 10.5).</p>
+</blockquote>
+<h2 id="9-the-detail-page">9. The detail page</h2>
+<p><strong>Show</strong> opens a read-only page with one row per field, the related records below, and the same actions as the edit form.</p>
+<figure><p><img src="images/journeys/show.png" alt="The detail page"></p><figcaption>The detail page of a post</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+<th>Where it takes you</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Tools</strong> – <strong>Delete</strong>, <strong>Edit</strong> and <strong>List</strong>.</td>
+<td>Edit opens the form; List goes back.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Field rows</strong> – label and value. Chips, images and links are shown as such.</td>
+<td>Links open in a new tab.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Image</strong> – stored images are shown as a thumbnail.</td>
+<td>—</td>
+</tr>
+</tbody></table>
+<h2 id="10-for-administrators">10. For administrators</h2>
+<p>This section is for the <strong>administrator</strong> role (and anyone with the <em>Auth management</em> permission). Your extra pages sit under <strong>Admin</strong> in the menu: Users, Roles, Permission, Menu and Operation log. They are ordinary list pages (section 5) with the forms described below.</p>
+<p><strong>Your first editor in four steps</strong></p>
+<ol>
+<li>Open <strong>Admin → Permission → New</strong> and create what the editor may do: slug <code>posts-manage</code>, name <em>Manage posts</em>, HTTP path <code>/</code> on the first line and <code>/posts*</code> on the second (the dashboard and everything under posts). Leave HTTP method empty for all methods, or pick GET only for a read-only role.</li>
+<li>Open <strong>Admin → Roles → New</strong>: slug <code>editor</code>, name <em>Editor</em>, move <em>Manage posts</em> to the selected list, <strong>Submit</strong>.</li>
+<li>Open <strong>Admin → Users → New</strong>: username, name, password twice, role <em>Editor</em>, <strong>Submit</strong>.</li>
+<li>Sign out, sign in as the new user: the menu shows only Dashboard and Posts, and any other address answers <em>Permission denied</em> (last picture of this section).</li>
+</ol>
+<h3>10.1 Users</h3>
+<figure><p><img src="images/journeys/users-form.png" alt="The user form"></p><figcaption>Admin → Users → New</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Username</strong> – what the person types to sign in. Must be unique.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Name</strong> – shown in the top bar and in the operation log.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Avatar</strong> – optional picture; without one the default avatar is used.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Password</strong> – at least the length set by the developer (6 characters by default).</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Password confirmation</strong> – the same again. On an edit form, leave both unchanged to keep the current password.</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Roles</strong> – one or more roles. Permissions come from the roles.</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Permissions</strong> – extra permissions given to this user directly, on top of the roles.</td>
+</tr>
+</tbody></table>
+<h3>10.2 Roles</h3>
+<figure><p><img src="images/journeys/roles-form.png" alt="The role form"></p><figcaption>Admin → Roles → New, with one permission moved to the selected list</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Slug</strong> – the technical name, lowercase, no spaces (<code>editor</code>). Code and menu items refer to it.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Name</strong> – what people see (<em>Editor</em>).</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Available</strong> – every permission that exists. The search box filters the list.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Move buttons</strong> – <code>&gt;</code> moves the highlighted permission to the right, <code>»</code> moves all; <code>&lt;</code> and <code>«</code> take them back.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Selected</strong> – the permissions of this role.</td>
+</tr>
+</tbody></table>
+<h3>10.3 Permissions</h3>
+<figure><p><img src="images/journeys/permissions-form.png" alt="The permission form"></p><figcaption>Admin → Permission → New</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Slug</strong> – technical name (<code>posts-manage</code>), unique.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Name</strong> – what people see.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>HTTP method</strong> – which actions: leave empty for all, choose GET for read only, or POST/PUT/DELETE for writing.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>HTTP path</strong> – one path per line, relative to the panel, <strong>starting with a slash</strong>: <code>/</code> is the dashboard, <code>/posts*</code> is the posts list, its create/edit/show pages and its actions, <code>/auth/*</code> is everything under Admin. A method can be written in front of a path, for example <code>GET:/reports*</code>.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Submit</strong> – saves the permission. Nothing changes for users until the permission is added to a role or a user.</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>You want a role that…</th>
+<th>HTTP method</th>
+<th>HTTP path</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>can open everything</td>
+<td>(empty)</td>
+<td><code>*</code></td>
+</tr>
+<tr>
+<td>manages posts and sees the dashboard</td>
+<td>(empty)</td>
+<td><code>/</code> and <code>/posts*</code></td>
+</tr>
+<tr>
+<td>can only read posts</td>
+<td>GET</td>
+<td><code>/</code> and <code>/posts*</code></td>
+</tr>
+<tr>
+<td>can read posts and export them</td>
+<td>GET</td>
+<td><code>/</code>, <code>/posts*</code> (export is a GET)</td>
+</tr>
+<tr>
+<td>manages users, roles, permissions and the menu</td>
+<td>(empty)</td>
+<td><code>/auth/*</code></td>
+</tr>
+</tbody></table>
+<blockquote class="callout remember"><p><strong>Remember:</strong> Paths without a leading slash (<code>posts*</code>) do not match. The built-in permissions (<em>All permission</em>, <em>Dashboard</em>, <em>Login</em>, <em>User setting</em>, <em>Auth management</em>) show the format.</p>
+</blockquote>
+<h3>10.4 Menu</h3>
+<figure><p><img src="images/journeys/menu.png" alt="The menu page"></p><figcaption>Admin → Menu: the tree on the left, the form for a new item on the right</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+<th>Where it takes you</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Expand / Collapse</strong> – open or close all groups in the tree.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Save</strong> – saves the order and nesting after you dragged items.</td>
+<td>A <em>Save succeeded</em> toast; the sidebar updates.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Refresh</strong> – reloads the tree without saving.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Item</strong> – drag the dotted handle to move it; drop it under another item to nest it. The link shows where it goes.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Edit / Delete</strong> – edit opens the item&#39;s form; delete asks for confirmation.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>New item</strong> – parent (ROOT for a top-level item), title, icon (a Font Awesome name such as <code>icon-file</code>), URI (relative to the panel, for example <code>posts</code>; a full <code>https://…</code> address opens in a new tab), roles that may see it, and an optional permission it is bound to.</td>
+<td>—</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Submit</strong> – adds the item at the end of its parent.</td>
+<td>The tree and the sidebar show it at once.</td>
+</tr>
+</tbody></table>
+<blockquote class="callout tip"><p><strong>Tip:</strong> A menu item only shows the page; the permission decides whether the page opens. Give the role both, or the user gets <em>Permission denied</em> after clicking.</p>
+</blockquote>
+<h3>10.5 Operation log</h3>
+<figure><p><img src="images/journeys/logs.png" alt="The operation log"></p><figcaption>Admin → Operation log</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Filter</strong> – by user, method, path or IP; the filter fields open under the toolbar.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>User</strong> – who made the request.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Path</strong> – the page or action, for example <code>admin/posts/3/edit</code>.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Input</strong> – what was sent, as JSON. Passwords and tokens are replaced by stars.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Delete</strong> – removes one entry; tick rows and use the batch menu to clear many.</td>
+</tr>
+</tbody></table>
+<p>Every request to the panel is logged, including page views, unless the developer excluded a path. The log can be switched off in the configuration.</p>
+<h3>10.6 Your own account</h3>
+<figure><p><img src="images/journeys/setting.png" alt="The setting page"></p><figcaption>User menu → Setting</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Name</strong> – shown in the top bar.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Avatar</strong> – upload a picture.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Password</strong> – a new password; leave empty to keep the current one.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Password confirmation</strong> – the same again.</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Submit</strong> – saves; an <em>Update succeeded</em> toast confirms.</td>
+</tr>
+</tbody></table>
+<h3>10.7 What a limited user sees</h3>
+<figure><p><img src="images/journeys/editor-sidebar.png" alt="An editor's view"></p><figcaption>The editor created above, after opening Admin → Users by typing the address</figcaption></figure>
+<table class="numbered"><thead><tr><th>#</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Menu</strong> – only Dashboard and Posts: the Admin group is hidden because the role has no permission for <code>/auth/*</code>.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Permission denied</strong> – the answer to any page outside the role&#39;s paths. Nothing was changed.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>User menu</strong> – Setting and Logout are always available.</td>
+</tr>
+</tbody></table>
+<h2 id="11-for-developers">11. For developers</h2>
+<p>This section is for the person who builds the pages. The whole panel comes from one package; you write a controller per resource and the list, form and detail pages in sections 5 – 9 appear. The reference is <code>docs/user-manual.md</code> (sections 7 – 11); this section shows the journeys.</p>
+<p><strong>Your first page in four steps</strong></p>
+<ol>
+<li>Create the model and table: <code>php artisan make:model Post -m</code>, write the migration, <code>php artisan migrate</code>.</li>
+<li>Generate the controller: <code>php artisan admin:controller \App\Models\Post --title=Posts</code>. It lands in <code>app/Admin/Controllers/PostController.php</code> with a <code>grid()</code>, a <code>form()</code> and a <code>detail()</code> method.</li>
+<li>Register the route in <code>app/Admin/routes.php</code>: <code>$router-&gt;resource(&#39;posts&#39;, PostController::class);</code></li>
+<li>Add the menu item: <strong>Admin → Menu → New</strong>, title <em>Posts</em>, icon <code>icon-file</code>, URI <code>posts</code>. Open it.</li>
+</ol>
+<p>The generated controller already gives every column and field a sensible default. Then tune it:</p>
+<pre><code class="language-php">protected function grid(): Grid
+{
+    $grid = new Grid(new Post);
+
+    $grid-&gt;column(&#39;id&#39;, &#39;ID&#39;)-&gt;sortable();
+    $grid-&gt;column(&#39;title&#39;)-&gt;editable();                                   // section 8, picture 1
+    $grid-&gt;column(&#39;category&#39;)-&gt;label([&#39;news&#39; =&gt; &#39;primary&#39;, &#39;tutorial&#39; =&gt; &#39;success&#39;]);
+    $grid-&gt;column(&#39;status&#39;)-&gt;using([0 =&gt; &#39;Draft&#39;, 1 =&gt; &#39;Published&#39;])-&gt;dot([0 =&gt; &#39;warning&#39;, 1 =&gt; &#39;success&#39;]);
+    $grid-&gt;column(&#39;is_featured&#39;, &#39;Featured&#39;)-&gt;switch();                   // section 8, picture 1, mark 4
+    $grid-&gt;column(&#39;published_at&#39;)-&gt;sortable();
+    $grid-&gt;column(&#39;created_at&#39;)-&gt;dateFormat(&#39;Y-m-d H:i&#39;);
+
+    $grid-&gt;quickSearch(&#39;title&#39;);                                          // section 5, mark 3
+    $grid-&gt;filter(function (Grid\Filter $filter) {                        // section 6
+        $filter-&gt;like(&#39;title&#39;);
+        $filter-&gt;equal(&#39;category&#39;)-&gt;select([&#39;news&#39; =&gt; &#39;News&#39;, &#39;tutorial&#39; =&gt; &#39;Tutorial&#39;]);
+        $filter-&gt;between(&#39;published_at&#39;)-&gt;datetime();
+    });
+
+    return $grid;
+}
+</code></pre>
+<pre><code class="language-php">protected function form(): Form
+{
+    $form = new Form(new Post);
+
+    $form-&gt;tab(&#39;Basic&#39;, function (Form $form) {                           // section 7, mark 1
+        $form-&gt;text(&#39;title&#39;)-&gt;rules(&#39;required|max:120&#39;);                  // mark 2 (asterisk) and the validation picture
+        $form-&gt;text(&#39;slug&#39;)-&gt;help(&#39;Leave empty to generate from the title.&#39;); // mark 3
+        $form-&gt;select(&#39;category&#39;)-&gt;options([&#39;news&#39; =&gt; &#39;News&#39;, &#39;tutorial&#39; =&gt; &#39;Tutorial&#39;]); // mark 4
+        $form-&gt;switch(&#39;is_featured&#39;, &#39;Featured&#39;);                         // mark 5
+        $form-&gt;datetime(&#39;published_at&#39;);
+    })-&gt;tab(&#39;Content&#39;, function (Form $form) {
+        $form-&gt;textarea(&#39;content&#39;)-&gt;rows(8);
+        $form-&gt;image(&#39;cover&#39;);                                            // the upload picture
+    });
+
+    return $form;
+}
+</code></pre>
+<p><strong>Journeys you will repeat</strong></p>
+<table>
+<thead>
+<tr>
+<th>You want to…</th>
+<th>Where</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Add a column</td>
+<td><code>grid()</code></td>
+<td><code>$grid-&gt;column(&#39;price&#39;)-&gt;sortable();</code></td>
+</tr>
+<tr>
+<td>Show a related name</td>
+<td><code>grid()</code></td>
+<td><code>$grid-&gt;column(&#39;author.name&#39;, &#39;Author&#39;);</code></td>
+</tr>
+<tr>
+<td>Add a filter</td>
+<td><code>grid()</code> → <code>filter()</code></td>
+<td><code>$filter-&gt;equal(&#39;author_id&#39;)-&gt;select(Author::pluck(&#39;name&#39;, &#39;id&#39;));</code></td>
+</tr>
+<tr>
+<td>Add a field</td>
+<td><code>form()</code></td>
+<td><code>$form-&gt;number(&#39;price&#39;)-&gt;min(0);</code></td>
+</tr>
+<tr>
+<td>Make a field required</td>
+<td><code>form()</code></td>
+<td><code>-&gt;rules(&#39;required&#39;)</code></td>
+</tr>
+<tr>
+<td>Upload a file</td>
+<td><code>form()</code></td>
+<td><code>$form-&gt;file(&#39;attachment&#39;)-&gt;move(&#39;attachments&#39;);</code></td>
+</tr>
+<tr>
+<td>Pick a related record</td>
+<td><code>form()</code></td>
+<td><code>$form-&gt;select(&#39;author_id&#39;)-&gt;options(Author::pluck(&#39;name&#39;, &#39;id&#39;));</code></td>
+</tr>
+<tr>
+<td>Many related records</td>
+<td><code>form()</code></td>
+<td><code>$form-&gt;multipleSelect(&#39;tags&#39;)-&gt;options(Tag::pluck(&#39;name&#39;, &#39;id&#39;));</code></td>
+</tr>
+<tr>
+<td>Nested rows (order lines)</td>
+<td><code>form()</code></td>
+<td><code>$form-&gt;hasMany(&#39;lines&#39;, fn (Form\NestedForm $f) =&gt; $f-&gt;text(&#39;sku&#39;));</code></td>
+</tr>
+<tr>
+<td>Show or hide fields by a value</td>
+<td><code>form()</code></td>
+<td><code>-&gt;when(1, fn (Form $f) =&gt; $f-&gt;text(&#39;company&#39;))</code>, <code>-&gt;whenIn([…])</code>, <code>-&gt;whenNot(…)</code></td>
+</tr>
+<tr>
+<td>Do something before saving</td>
+<td><code>form()</code></td>
+<td><code>$form-&gt;saving(function (Form $form) { … });</code></td>
+</tr>
+<tr>
+<td>Add a row action (&quot;Publish&quot;)</td>
+<td>a <code>RowAction</code> class, then <code>$grid-&gt;actions(fn ($a) =&gt; $a-&gt;add(new Publish));</code></td>
+<td>see below</td>
+</tr>
+<tr>
+<td>Add a batch action</td>
+<td>a <code>BatchAction</code> class, then <code>$grid-&gt;batchActions(fn ($b) =&gt; $b-&gt;add(new Archive));</code></td>
+<td>see below</td>
+</tr>
+<tr>
+<td>Hide a default tool</td>
+<td><code>grid()</code></td>
+<td><code>$grid-&gt;disableExport();</code>, <code>disableCreateButton()</code>, <code>disableRowSelector()</code>, <code>disableDefaults()</code></td>
+</tr>
+<tr>
+<td>Change the detail page</td>
+<td><code>detail($id)</code></td>
+<td><code>$show-&gt;field(&#39;cover&#39;)-&gt;image();</code>, <code>$show-&gt;comments(&#39;Comments&#39;, fn ($c) =&gt; $c-&gt;field(&#39;body&#39;));</code></td>
+</tr>
+<tr>
+<td>Add a dashboard card</td>
+<td><code>HomeController::index()</code></td>
+<td><code>$row-&gt;column(4, new InfoBox(&#39;Orders&#39;, &#39;shopping-cart&#39;, &#39;aqua&#39;, &#39;/admin/orders&#39;, &#39;1,284&#39;));</code></td>
+</tr>
+<tr>
+<td>Brand the panel</td>
+<td><code>config/admin.php</code></td>
+<td><code>name</code>, <code>logo</code>, <code>logo-mini</code>, <code>title</code>, <code>login_background_image</code></td>
+</tr>
+<tr>
+<td>Add a navbar link, CSS or JS</td>
+<td><code>app/Admin/bootstrap.php</code></td>
+<td><code>Admin::navbar(fn (Navbar $n) =&gt; $n-&gt;left(&#39;&lt;a href=&quot;/&quot;&gt;Site&lt;/a&gt;&#39;));</code>, <code>Admin::css(&#39;/css/x.css&#39;);</code></td>
+</tr>
+<tr>
+<td>Switch the look</td>
+<td><code>config/admin.php</code></td>
+<td><code>&#39;template&#39; =&gt; &#39;tailwind-light&#39;</code> or <code>&#39;super-admin-template-1&#39;</code>, then <code>php artisan view:clear</code></td>
+</tr>
+</tbody></table>
+<p>A row action and a batch action:</p>
+<pre><code class="language-php">use SuperAdmin\Admin\Actions\RowAction;
+use SuperAdmin\Admin\Actions\BatchAction;
+
+class Publish extends RowAction
+{
+    public $name = &#39;Publish&#39;;
+
+    public function handle()
+    {
+        $this-&gt;getModel()-&gt;update([&#39;status&#39; =&gt; 1]);
+
+        return $this-&gt;response()-&gt;success(&#39;Published&#39;)-&gt;refresh();
+    }
+
+    public function dialog()
+    {
+        $this-&gt;confirm(&#39;Publish this post?&#39;);
+    }
+}
+
+class Archive extends BatchAction
+{
+    public $name = &#39;Archive selected&#39;;
+
+    public function handle()
+    {
+        foreach ($this-&gt;getModels() as $post) {
+            $post-&gt;update([&#39;status&#39; =&gt; 2]);
+        }
+
+        return $this-&gt;response()-&gt;success(&#39;Archived&#39;)-&gt;refresh();
+    }
+}
+</code></pre>
+<p><strong>Testing what you built.</strong> The panel&#39;s own test style is BrowserKit with Pest: sign in with <code>$this-&gt;be(Administrator::first(), &#39;admin&#39;)</code>, then <code>$this-&gt;visit(&#39;admin/posts&#39;)-&gt;see(&#39;Posts&#39;)</code>, <code>-&gt;submitForm(&#39;Submit&#39;, [&#39;title&#39; =&gt; &#39;Hello&#39;])-&gt;seePageIs(&#39;admin/posts&#39;)</code>. The package&#39;s suite (819 tests) is a catalogue of examples: <code>vendor/super-admin-org/super-admin/tests/Feature</code>.</p>
+<blockquote class="callout tip"><p><strong>Tip:</strong> Keep the generated structure: one controller per resource, routes in <code>app/Admin/routes.php</code>, assets and navbar in <code>app/Admin/bootstrap.php</code>. Everything in this guide assumes it, and so does <code>php artisan admin:*</code>.</p>
+</blockquote>
+<blockquote class="callout remember"><p><strong>Remember:</strong> Permission paths are matched against the route, so a resource registered as <code>posts</code> is protected by <code>/posts*</code>. Name routes consistently and the permissions stay simple.</p>
+</blockquote>
+<h2 id="12-for-the-project-team">12. For the project team</h2>
+<p><strong>Install (10 minutes).</strong> <code>composer require super-admin-org/super-admin</code>, publish with <code>php artisan vendor:publish --provider=&quot;SuperAdmin\Admin\AdminServiceProvider&quot;</code>, add the <code>admin</code> disk to <code>config/filesystems.php</code> (the manual&#39;s installation section shows it), run <code>php artisan admin:install</code>, open <code>/admin</code>, sign in with <strong>admin / admin</strong>, change the password.</p>
+<p><strong>Test accounts.</strong> The installer creates one user, <code>admin</code> (role <em>administrator</em>). For acceptance tests create one user per role as in section 10 (the demo used <code>editor1</code> with the <em>Editor</em> role) and keep the list in your test plan. Never test with the administrator account only: it skips every permission check.</p>
+<p><strong>Update.</strong> <code>composer update super-admin-org/super-admin</code>, then <code>php artisan vendor:publish --tag=super-admin-assets --force</code> and <code>php artisan view:clear</code>. Skipping the second command is the usual cause of a broken-looking panel after an update.</p>
+<p><strong>Deployment checklist.</strong></p>
+<ul>
+<li><input disabled="" type="checkbox"> <code>APP_URL</code> matches the address users type (uploads are linked from it).</li>
+<li><input disabled="" type="checkbox"> <code>ADMIN_HTTPS=true</code> behind a TLS proxy.</li>
+<li><input disabled="" type="checkbox"> The <code>admin</code> disk points to a writable folder that the web server serves (<code>public/uploads</code>).</li>
+<li><input disabled="" type="checkbox"> <code>php artisan config:cache</code> and <code>view:cache</code> after the deploy; <code>view:clear</code> after a template switch.</li>
+<li><input disabled="" type="checkbox"> The default password is changed and <code>auth.throttle_logins</code> is on.</li>
+<li><input disabled="" type="checkbox"> Operation log enabled (or deliberately disabled in <code>config/admin.php</code>).</li>
+<li><input disabled="" type="checkbox"> Assets published (<code>public/vendor/super-admin</code> exists and is current).</li>
+</ul>
+<p><strong>Test report for this guide.</strong> Every journey in sections 3 – 10 was run in a browser against the demo copy (Laravel 13, PHP 8.3, SQLite, Tailwind Light template) with an automated script, and the package&#39;s suite (819 tests) passed. Two defects found while writing were fixed in the package:</p>
+<table>
+<thead>
+<tr>
+<th>Found in</th>
+<th>Symptom</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Section 8, batch delete</td>
+<td>Rows were deleted but the list did not refresh and an error was logged for every batch delete (<em>Action method BatchDelete::handle() does not exist</em>)</td>
+<td>Built-in batch actions no longer register the generic action handler next to their own script</td>
+</tr>
+<tr>
+<td>Section 10.4, menu</td>
+<td>A new or moved menu item appeared in the tree but not in the sidebar until a full page reload</td>
+<td>The sidebar re-renders after any change on the menu page</td>
+</tr>
+</tbody></table>
+<p>Both are in the CHANGELOG for 1.3.0.</p>
+<h2 id="13-common-questions">13. Common questions</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Answer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>I signed in but the menu is almost empty.</td>
+<td>Your roles have few permissions, or the menu items are limited to other roles. Ask the administrator (section 10).</td>
+</tr>
+<tr>
+<td>A page says <em>Permission denied</em>.</td>
+<td>Your role lacks a permission whose path covers that page. The administrator adds it (section 10.3); paths start with a slash.</td>
+</tr>
+<tr>
+<td>The list shows fewer rows than I expect.</td>
+<td>A filter, a quick search or a page size is active; look at the address bar and press <strong>Reset</strong> in the filter panel.</td>
+</tr>
+<tr>
+<td>Some columns disappeared.</td>
+<td>You hid them with the column selector; open it and press <strong>All</strong>.</td>
+</tr>
+<tr>
+<td>My change in the form was not saved.</td>
+<td>You left the page before <strong>Submit</strong>, or a field had an error (red marker on a tab).</td>
+</tr>
+<tr>
+<td>The export is empty or partial.</td>
+<td>The export follows the current filter; clear it first, and choose <em>All</em> in the Export menu.</td>
+</tr>
+<tr>
+<td>The new menu item does not open.</td>
+<td>Give the role a permission for the item&#39;s path, or bind the item to a permission that the role has.</td>
+</tr>
+<tr>
+<td>I cannot delete a record.</td>
+<td>Your role may not have DELETE in its permission&#39;s HTTP methods, or the record is protected by the developer&#39;s code (a toast says why).</td>
+</tr>
+<tr>
+<td>Uploaded images do not show.</td>
+<td>The <code>admin</code> disk or <code>APP_URL</code> is wrong (project team, section 12).</td>
+</tr>
+<tr>
+<td>The panel looks unstyled after an update.</td>
+<td>Assets not republished (section 12, <em>Update</em>).</td>
+</tr>
+<tr>
+<td>Can I use the panel on a phone?</td>
+<td>Yes; the sidebar slides in from the menu button, tables scroll sideways, forms stack.</td>
+</tr>
+<tr>
+<td>Where is the audit trail?</td>
+<td><strong>Admin → Operation log</strong> (section 10.5).</td>
+</tr>
+</tbody></table>
+<h2 id="14-tips-collected">14. Tips collected</h2>
+<blockquote class="callout tip"><p><strong>Tip:</strong> The menu search is the fastest way around: two or three letters and Enter.</p>
+</blockquote>
+<blockquote class="callout tip"><p><strong>Tip:</strong> Everything you did to a list (search, filter, sort, page) is in the address bar; bookmark it or send it to a colleague who has the same rights.</p>
+</blockquote>
+<blockquote class="callout tip"><p><strong>Tip:</strong> <em>Continue creating</em> saves a trip back to the list when you enter many records.</p>
+</blockquote>
+<blockquote class="callout tip"><p><strong>Tip:</strong> Export after filtering to get exactly the rows you need in a spreadsheet.</p>
+</blockquote>
+<blockquote class="callout remember"><p><strong>Remember:</strong> Only pages your roles allow are listed, and the administrator role bypasses every check; test with a real role before going live.</p>
+</blockquote>
+<blockquote class="callout remember"><p><strong>Remember:</strong> Permission paths start with a slash and may end with <code>*</code>; <code>GET:</code> in front limits them to reading.</p>
+</blockquote>
+<blockquote class="callout remember"><p><strong>Remember:</strong> Deletions are final unless the developer enabled soft deletes; the operation log keeps who and when, not the data.</p>
+</blockquote>
+<blockquote class="callout remember"><p><strong>Remember:</strong> After an update, republish the assets and clear the view cache; after a template switch, clear the view cache.</p>
+</blockquote>
+
+</div>
+</body>
+</html>

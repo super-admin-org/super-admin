@@ -3,7 +3,7 @@
 ## Requirements
 
 - PHP >= 8.2
-- Laravel 10.x / 11.x / 12.x / 13.x
+- Laravel 10.x / 11.x / 12.x / 13.x (8.x and 9.x also work on PHP 8.0+, but both are end-of-life; Composer only installs them after `composer config audit.block-insecure false`)
 - Fileinfo PHP Extension
 
 ## Install

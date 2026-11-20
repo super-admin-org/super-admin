@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 use SuperAdmin\Admin\Grid;
-use SuperAdmin\Admin\Middleware\Pjax;
 
 class Model
 {
@@ -426,7 +426,7 @@ class Model
                 $paginator->getPageName() => $paginator->lastPage(),
             ]);
 
-            Pjax::respond(redirect($lastPageUrl));
+            throw new HttpResponseException(redirect($lastPageUrl));
         }
     }
 

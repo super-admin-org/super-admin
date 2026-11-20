@@ -41,7 +41,13 @@ class Footer extends AbstractTool
      */
     public function render()
     {
-        $content = call_user_func($this->grid->footer(), $this->queryBuilder());
+        $footer = $this->grid->footer();
+
+        if ($footer instanceof \Closure) {
+            $content = call_user_func($footer, $this->queryBuilder());
+        } else {
+            $content = $footer;
+        }
 
         if (empty($content)) {
             return '';

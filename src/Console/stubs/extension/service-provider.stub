@@ -15,8 +15,10 @@ class :class_nameServiceProvider extends ServiceProvider
             return ;
         }
 
+        // Views in resources/views/<template>/ override resources/views/ for that template,
+        // and a template can restyle this extension in <template>/extensions/:base_package/.
         if ($views = $extension->views()) {
-            $this->loadViewsFrom($views, ':base_package');
+            \SuperAdmin\Admin\Facades\Admin::template()->extensionViews(':base_package', $views);
         }
 
         if ($this->app->runningInConsole() && $assets = $extension->assets()) {

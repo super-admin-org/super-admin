@@ -3,6 +3,7 @@
 namespace SuperAdmin\Admin\Middleware;
 
 use Closure;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
@@ -41,17 +42,15 @@ class Pjax
     }
 
     /**
-     * Send a response through this middleware.
+     * Return a response from deep inside a request.
+     *
+     * The response is raised as an exception so the framework sends it through
+     * the middleware stack (this middleware included) instead of sending it
+     * directly and terminating the process.
      */
     public static function respond(Response $response)
     {
-        $next = function () use ($response) {
-            return $response;
-        };
-
-        (new static)->handle(Request::capture(), $next)->send();
-
-        exit;
+        throw new HttpResponseException($response);
     }
 
     /**

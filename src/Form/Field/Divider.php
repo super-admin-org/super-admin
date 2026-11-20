@@ -16,14 +16,12 @@ class Divider extends Field
     public function render()
     {
         if (empty($this->title)) {
-            return '<hr>';
+            return '<hr class="form-divider">';
         }
 
         return <<<HTML
-<div style="height: 20px; border-bottom: 1px solid rgba(0,0,0,.05); text-align: center;margin-top: 20px;margin-bottom: 20px;">
-  <span style="font-size: 18px; background-color: #ffffff; padding: 0 10px;">
-    {$this->title}
-  </span>
+<div class="form-divider-titled">
+  <span class="form-divider-title">{$this->title}</span>
 </div>
 HTML;
     }

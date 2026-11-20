@@ -8,9 +8,13 @@ Super Admin is an administrative interface builder for Laravel. It helps you bui
 
 ### Getting Started
 
+- [User Journeys](user-journeys.md) - Picture-based guide with annotated screens for editors, administrators, developers and the project team (also as [HTML](user-journeys.html) and [PDF](user-journeys.pdf))
+- [User Manual and Developer Guide](user-manual.md) - Complete manual with screenshots, history, sample code, roadmap (also as [HTML](user-manual.html))
+- [Video Tutorial and Promotion Guide](video-tutorial-guide.md) - Recording a tutorial series and making the package known (also as [HTML](video-tutorial-guide.html))
 - [Installation](installation.md) - Install and configure Super Admin
 - [Quick Start](quick-start.md) - Build your first CRUD in minutes
 - [Configuration](configuration.md) - Config file reference
+- [Templates](templates.md) - Switch between UI templates (Tailwind / Bootstrap)
 - [Upgrading](upgrading.md) - Upgrading between versions
 
 ### Model Grid (Data Tables)

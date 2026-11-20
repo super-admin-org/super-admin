@@ -62,12 +62,12 @@ class Permission extends Model
         $method = $this->http_method;
 
         $matches = array_map(function ($path) use ($method) {
-            $path = trim(config('admin.route.prefix'), '/').$path;
-
             if (Str::contains($path, ':')) {
                 [$method, $path] = explode(':', $path);
                 $method = explode(',', $method);
             }
+
+            $path = trim(config('admin.route.prefix'), '/').$path;
 
             return compact('method', 'path');
         }, explode("\n", $this->http_path));

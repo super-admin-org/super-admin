@@ -38,20 +38,51 @@ These tests boot the full Laravel application and verify actual CRUD operations 
 | Documentation Page | Test File | What's Verified |
 |---|---|---|
 | [Installation](installation.md) | `tests/Feature/InstallTest.php` | Admin directory created |
+| [Installation](installation.md) | `tests/Feature/ConsoleCommandsTest.php` | Commands, tables, seed data |
 | [Quick Start](quick-start.md) | `tests/Feature/LaravelTest.php` | Laravel app boots |
+| [Commands](commands.md) | `tests/Feature/ConsoleCommandsTest.php` | All console commands registered |
+| [Configuration](configuration.md) | `tests/Feature/ConfigurationTest.php` | All config options |
+| [Configuration](configuration.md) | `tests/Feature/UserSettingTest.php` | Settings page loads |
 | [Model Grid](model-grid.md) | `tests/Feature/UserGridTest.php` | Grid renders with columns |
+| [Model Grid](model-grid.md) | `tests/Feature/GridDisplayTest.php` | Grid construction, options |
+| [Grid Column](model-grid-column.md) | `tests/Feature/GridColumnTest.php` | Column displayers, actions |
+| [Grid Column](model-grid-column.md) | `tests/Feature/GridColumnConfigTest.php` | Column width, color, attributes |
+| [Column Display](model-grid-column-display.md) | `tests/Feature/GridColumnDisplayMethodsTest.php` | All display methods |
+| [Grid Actions](model-grid-actions.md) | `tests/Feature/GridActionsTest.php` | Row/batch actions, displayers |
+| [Grid Filters](model-grid-filters.md) | `tests/Feature/GridFilterTest.php` | Filter types, conditions |
+| [Inline Editing](model-grid-inline-edit.md) | `tests/Feature/GridInlineEditTest.php` | Editable, switch, select |
+| [Grid Export](model-grid-export.md) | `tests/Feature/GridExportTest.php` | CsvExporter, export options |
+| [Grid Tools](model-grid-tools.md) | `tests/Feature/GridToolsTest.php` | Header, footer, quickSearch, selector |
 | [Model Form](model-form.md) | `tests/Feature/UserFormTest.php` | Create form loads |
-| [Model Form Upload](model-form-upload.md) | `tests/Feature/FileUploadTest.php` | File upload form loads |
-| [Model Form Upload](model-form-upload.md) | `tests/Feature/ImageUploadTest.php` | Image upload form loads |
+| [Form Fields](model-form-fields.md) | `tests/Feature/FormFieldsTest.php` | Basic field types |
+| [Form Fields](model-form-fields.md) | `tests/Feature/FormFieldTypesTest.php` | All 60+ field types |
+| [Form Validation](model-form-validation.md) | `tests/Feature/FormValidationTest.php` | Rules, creationRules, updateRules |
+| [Form Callbacks](model-form-callbacks.md) | `tests/Feature/FormCallbacksTest.php` | Saving, saved, deleting hooks |
+| [Form Layout](model-form-layout.md) | `tests/Feature/FormLayoutTest.php` | Tabs, columns, rows, fieldset |
+| [Form Upload](model-form-upload.md) | `tests/Feature/FormUploadFieldsTest.php` | Image, file, multipleImage |
+| [Form Upload](model-form-upload.md) | `tests/Feature/FileUploadTest.php` | File upload form loads |
+| [Form Upload](model-form-upload.md) | `tests/Feature/ImageUploadTest.php` | Image upload form loads |
+| [Model Show](model-show.md) | `tests/Feature/ShowBuilderTest.php` | Show construction, fields |
+| [Model Show](model-show.md) | `tests/Feature/ShowFieldsTest.php` | Field display methods, panel |
 | [Model Tree](model-tree.md) | `tests/Feature/ModelTreeTest.php` | Tree selectOptions works |
+| [Model Tree](model-tree.md) | `tests/Feature/TreeBuilderTest.php` | Tree construction, tools |
 | [Permissions](permissions.md) | `tests/Feature/PermissionsTest.php` | Permissions page loads |
 | [Permissions](permissions.md) | `tests/Feature/RolesTest.php` | Roles page loads |
 | [Permissions](permissions.md) | `tests/Feature/UsersTest.php` | Users page loads |
-| [Configuration](configuration.md) | `tests/Feature/UserSettingTest.php` | Settings page loads |
+| [RBAC](rbac-architecture.md) | `tests/Feature/RbacTest.php` | Full RBAC system tests |
+| [Extensions](extensions.md) | `tests/Feature/ExtensionsTest.php` | Extension registration |
+| [Frontend](frontend.md) | `tests/Feature/FrontendAssetsTest.php` | CSS, JS, script, style |
+| [Templates](templates.md) | `tests/Feature/FrontendAssetsTest.php` | Template config |
+| n/a | `tests/Feature/AdminClassTest.php` | Admin facade methods |
+| n/a | `tests/Feature/AdminCrudTest.php` | User/Role/Permission CRUD |
+| n/a | `tests/Feature/AuthSettingsTest.php` | Auth settings page |
 | n/a | `tests/Feature/AuthTest.php` | Login form, authentication |
+| n/a | `tests/Feature/ContentLayoutTest.php` | Content layout builder |
 | n/a | `tests/Feature/IndexTest.php` | Dashboard loads |
 | n/a | `tests/Feature/MenuTest.php` | Menu page loads |
+| n/a | `tests/Feature/MiddlewareTest.php` | Middleware classes |
 | n/a | `tests/Feature/OperationLogTest.php` | Operation log page loads |
+| n/a | `tests/Feature/ServiceProviderTest.php` | Service provider, routes |
 | n/a | `tests/BasicAuthTest.php` | Full login/logout flow |
 
 ## Adding a CI Badge

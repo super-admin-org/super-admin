@@ -78,6 +78,24 @@ trait HasAssets
     ];
 
     /**
+     * Base CSS for the tailwind-light template (no Bootstrap, no legacy styles).
+     *
+     * @deprecated The list now lives in resources/views/tailwind-light/template.json.
+     *
+     * @var array
+     */
+    public static $tailwindBaseCss = [
+        'vendor/super-admin/nprogress/nprogress.css',
+        'vendor/super-admin/sweetalert2/sweetalert2.min.css',
+        'vendor/super-admin/toastify-js/toastify.css',
+        'vendor/super-admin/flatpickr/flatpicker-custom.css',
+        'vendor/super-admin/choicesjs/styles/choices.min.css',
+        'vendor/super-admin/sortablejs/nestable.css',
+        'vendor/super-admin/dual-listbox/dual-listbox.css',
+        'vendor/super-admin/tailwind-light/dist/super-admin-icons.css',
+    ];
+
+    /**
      * @var array
      */
     public static $baseJs = [
@@ -103,6 +121,49 @@ trait HasAssets
         'vendor/super-admin/super-admin/js/super-admin-selectable.js',
 
     ];
+
+    /**
+     * Base JS for the tailwind-light template (no Bootstrap JS).
+     *
+     * @deprecated The list now lives in resources/views/tailwind-light/template.json.
+     *
+     * @var array
+     */
+    public static $tailwindBaseJs = [
+        'vendor/super-admin/nprogress/nprogress.js',
+        'vendor/super-admin/axios/axios.min.js',
+        'vendor/super-admin/sweetalert2/sweetalert2.min.js',
+        'vendor/super-admin/toastify-js/toastify.js',
+        'vendor/super-admin/flatpickr/flatpickr.min.js',
+        'vendor/super-admin/choicesjs/scripts/choices.min.js',
+        'vendor/super-admin/sortablejs/Sortable.min.js',
+
+        'vendor/super-admin/super-admin/js/polyfills.js',
+        'vendor/super-admin/super-admin/js/helpers.js',
+        'vendor/super-admin/super-admin/js/super-admin.js',
+        'vendor/super-admin/super-admin/js/super-admin-actions.js',
+        'vendor/super-admin/super-admin/js/super-admin-grid.js',
+        'vendor/super-admin/super-admin/js/super-admin-grid-inline-edit.js',
+        'vendor/super-admin/super-admin/js/super-admin-form.js',
+        'vendor/super-admin/super-admin/js/super-admin-toastr.js',
+        'vendor/super-admin/super-admin/js/super-admin-resource.js',
+        'vendor/super-admin/super-admin/js/super-admin-tree.js',
+        'vendor/super-admin/super-admin/js/super-admin-selectable.js',
+    ];
+
+    /**
+     * Base CSS set with Admin::baseCss($css); replaces the active template's list.
+     *
+     * @var array<int, string>|null
+     */
+    protected static $customBaseCss = null;
+
+    /**
+     * Base JS set with Admin::baseJs($js); replaces the active template's list.
+     *
+     * @var array<int, string>|null
+     */
+    protected static $customBaseJs = null;
 
     /**
      * @var array
@@ -146,13 +207,10 @@ trait HasAssets
         static::ignoreMinify('css', $css, $minify);
 
         if (! is_null($css)) {
-            return static::$baseCss = $css;
+            return static::$customBaseCss = static::$baseCss = $css;
         }
 
-        $skin = config('admin.skin', 'skin-blue-light');
-        // array_unshift(static::$baseCss, "vendor/super-admin/AdminLTE/dist/css/skins/{$skin}.min.css");
-
-        return static::$baseCss;
+        return static::$customBaseCss ?? (static::template()->css() ?: static::$baseCss);
     }
 
     /**
@@ -205,10 +263,10 @@ trait HasAssets
         static::ignoreMinify('js', $js, $minify);
 
         if (! is_null($js)) {
-            return static::$baseJs = $js;
+            return static::$customBaseJs = static::$baseJs = $js;
         }
 
-        return static::$baseJs;
+        return static::$customBaseJs ?? (static::template()->js() ?: static::$baseJs);
     }
 
     /**

@@ -1453,7 +1453,19 @@ class Field implements Renderable
             'attributes' => $this->formatAttributes(),
             'placeholder' => $this->getPlaceholder(),
             'attributes_obj' => $this->attributes,
+            'errors' => $this->getViewErrors(),
         ]);
+    }
+
+    /**
+     * The validation errors shared with views, or an empty bag when the field
+     * is rendered outside of a web request.
+     */
+    protected function getViewErrors(): \Illuminate\Support\ViewErrorBag
+    {
+        $errors = view()->shared('errors');
+
+        return $errors instanceof \Illuminate\Support\ViewErrorBag ? $errors : new \Illuminate\Support\ViewErrorBag;
     }
 
     /**

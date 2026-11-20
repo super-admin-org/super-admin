@@ -63,7 +63,7 @@ class AdminTablesSeeder extends Seeder
                 'name' => 'Auth management',
                 'slug' => 'auth.management',
                 'http_method' => '',
-                'http_path' => "/auth/roles\r\n/auth/permissions\r\n/auth/menu\r\n/auth/logs",
+                'http_path' => "/auth/roles\r\n/auth/permissions\r\n/auth/menu\r\n/auth/logs\r\n/auth/templates",
             ],
         ]);
 
@@ -120,6 +120,13 @@ class AdminTablesSeeder extends Seeder
                 'title' => 'Operation log',
                 'icon' => 'icon-history',
                 'uri' => 'auth/logs',
+            ],
+            [
+                'parent_id' => 2,
+                'order' => 8,
+                'title' => 'Templates',
+                'icon' => 'icon-palette',
+                'uri' => 'auth/templates',
             ],
         ]);
 

@@ -327,7 +327,8 @@ class FileUpload {
             let files = (new String(ref.input.dataset.files)).split(',');
             files.forEach(file =>{
                 let fileInfo = this.getFileInfoFromName(file);
-                ref.createCard(fileInfo, this.options.storageUrl+file);
+                let isAbsolute = /^(https?:)?\/\//i.test(file) || file.indexOf(this.options.storageUrl) === 0;
+                ref.createCard(fileInfo, isAbsolute ? file : this.options.storageUrl+file);
             })
         }
     }

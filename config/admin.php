@@ -5,6 +5,7 @@ use SuperAdmin\Admin\Auth\Database\Administrator;
 use SuperAdmin\Admin\Auth\Database\Menu;
 use SuperAdmin\Admin\Auth\Database\Permission;
 use SuperAdmin\Admin\Auth\Database\Role;
+use SuperAdmin\Admin\Auth\Database\Setting;
 use SuperAdmin\Admin\Grid\Displayers\Actions\Actions;
 
 return [
@@ -41,7 +42,36 @@ return [
     | '<img src="http://logo-url" alt="Admin logo">'.
     |
     */
-    'logo-mini' => '<b>OA</b>',
+    'logo-mini' => '<b>SA</b>',
+
+    /*
+    |--------------------------------------------------------------------------
+    | super-admin template
+    |--------------------------------------------------------------------------
+    |
+    | The UI template to use for the admin panel. Available templates:
+    |
+    |   - 'tailwind-light'      Modern glassmorphism UI with Tailwind CSS (default)
+    |   - 'bootstrap-classic'   Classic Bootstrap 5 UI (old name: 'super-admin-template-1')
+    |
+    | Every template lives in its own folder under the package's resources/views
+    | directory. A template chosen in the admin panel (Admin > Templates) is
+    | stored in the settings table and takes precedence over this value.
+    |
+    */
+    'template' => 'tailwind-light',
+
+    /*
+    |--------------------------------------------------------------------------
+    | super-admin template switcher
+    |--------------------------------------------------------------------------
+    |
+    | Allow administrators to change the template from the admin panel
+    | (Admin > Templates, route auth/templates). Set to false to always use
+    | the 'template' value above.
+    |
+    */
+    'template_switcher' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -209,6 +239,10 @@ return [
         'role_users_table' => 'admin_role_users',
         'role_permissions_table' => 'admin_role_permissions',
         'role_menu_table' => 'admin_role_menu',
+
+        // Settings changed from the admin panel (e.g. the active template).
+        'settings_table' => 'admin_settings',
+        'settings_model' => Setting::class,
     ],
 
     /*

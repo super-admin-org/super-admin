@@ -56,7 +56,39 @@ class Panel implements Renderable
             'tools' => new Tools($this),
             'style' => 'none',
             'title' => trans('admin.detail'),
+            'footer' => '',
         ];
+    }
+
+    /**
+     * Set the footer content rendered below the fields.
+     *
+     * @param  \Closure|Renderable|string  $footer
+     * @return $this
+     */
+    public function footer($footer)
+    {
+        $this->data['footer'] = $footer;
+
+        return $this;
+    }
+
+    /**
+     * Resolve the footer to a string.
+     */
+    protected function renderFooter(): string
+    {
+        $footer = $this->data['footer'];
+
+        if ($footer instanceof \Closure) {
+            $footer = $footer($this);
+        }
+
+        if ($footer instanceof Renderable) {
+            $footer = $footer->render();
+        }
+
+        return (string) $footer;
     }
 
     /**
@@ -149,6 +181,6 @@ class Panel implements Renderable
      */
     public function render()
     {
-        return view($this->view, $this->data)->render();
+        return view($this->view, array_merge($this->data, ['footer' => $this->renderFooter()]))->render();
     }
 }

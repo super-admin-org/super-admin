@@ -2,8 +2,8 @@
 
 namespace SuperAdmin\Admin\Auth;
 
+use Illuminate\Http\Exceptions\HttpResponseException;
 use SuperAdmin\Admin\Facades\Admin;
-use SuperAdmin\Admin\Middleware\Pjax;
 
 class Permission
 {
@@ -78,6 +78,10 @@ class Permission
 
     /**
      * Send error response page.
+     *
+     * The response is raised as an exception so the framework returns it
+     * through the normal middleware stack (including the PJAX filter)
+     * instead of sending it and terminating the process.
      */
     public static function error()
     {
@@ -87,7 +91,7 @@ class Permission
             abort(403, trans('admin.deny'));
         }
 
-        Pjax::respond($response);
+        throw new HttpResponseException($response);
     }
 
     /**

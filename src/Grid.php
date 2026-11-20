@@ -642,6 +642,25 @@ class Grid
     }
 
     /**
+     * Disable all default tools at once: actions, batch actions, create button,
+     * export, filter, row selector, pagination, tools and the column selector.
+     *
+     * @return $this
+     */
+    public function disableDefaults(bool $disable = true)
+    {
+        return $this->disableActions($disable)
+            ->disableBatchActions($disable)
+            ->disableCreateButton($disable)
+            ->disableExport($disable)
+            ->disableFilter($disable)
+            ->disableRowSelector($disable)
+            ->disablePagination($disable)
+            ->disableTools($disable)
+            ->disableColumnSelector($disable);
+    }
+
+    /**
      * Remove create button on grid.
      *
      * @return $this

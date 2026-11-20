@@ -78,6 +78,26 @@ if (! function_exists('admin_toastr')) {
     }
 }
 
+if (! function_exists('admin_flash_to_array')) {
+    /**
+     * Normalize a flashed message bag to an array.
+     *
+     * Session data may be JSON serialized (Laravel 13 default), in which case
+     * a flashed MessageBag comes back as a plain array instead of an object.
+     *
+     * @param  mixed  $flash
+     * @return array<string, mixed>
+     */
+    function admin_flash_to_array($flash): array
+    {
+        if ($flash instanceof \Illuminate\Contracts\Support\Arrayable) {
+            return $flash->toArray();
+        }
+
+        return (array) $flash;
+    }
+}
+
 if (! function_exists('admin_success')) {
     /**
      * Flash a success message bag to session.

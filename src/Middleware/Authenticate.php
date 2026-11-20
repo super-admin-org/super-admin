@@ -35,8 +35,10 @@ class Authenticate
      */
     protected function shouldPassThrough($request)
     {
-        // The following routes do not authenticate the login
+        // The following routes do not authenticate the login. The login page
+        // itself must always pass, otherwise guests are redirected in a loop.
         $excepts = config('admin.auth.excepts', []);
+        $excepts[] = config('admin.auth.redirect_to', 'auth/login');
 
         array_delete($excepts, [
             '_handle_action_',
