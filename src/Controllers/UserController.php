@@ -3,6 +3,8 @@
 namespace SuperAdmin\Admin\Controllers;
 
 use Illuminate\Support\Facades\Hash;
+use SuperAdmin\Admin\Auth\TwoFactor\ResetTwoFactor;
+use SuperAdmin\Admin\Facades\Admin;
 use SuperAdmin\Admin\Form;
 use SuperAdmin\Admin\Grid;
 use SuperAdmin\Admin\Show;
@@ -32,12 +34,27 @@ class UserController extends AdminController
         $grid->column('username', trans('admin.username'));
         $grid->column('name', trans('admin.name'));
         $grid->column('roles', trans('admin.roles'))->pluck('name')->label();
+
+        $twoFactor = Admin::twoFactor();
+
+        if ($twoFactor->canStore()) {
+            $grid->column('two_factor_confirmed_at', $twoFactor->text('column'))->display(function ($confirmedAt) use ($twoFactor) {
+                return $confirmedAt
+                    ? '<span class="badge bg-success">'.e($twoFactor->text('status_on')).'</span>'
+                    : '<span class="badge bg-secondary">'.e($twoFactor->text('status_off')).'</span>';
+            });
+        }
+
         $grid->column('created_at', trans('admin.created_at'));
         $grid->column('updated_at', trans('admin.updated_at'));
 
-        $grid->actions(function (Grid\Displayers\Actions\Actions $actions) {
+        $grid->actions(function (Grid\Displayers\Actions\Actions $actions) use ($twoFactor) {
             if ($actions->getKey() == 1) {
                 $actions->disableDelete();
+            }
+
+            if ($twoFactor->canStore() && $twoFactor->enabledFor($actions->row)) {
+                $actions->add(new ResetTwoFactor);
             }
         });
 

@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\MessageBag;
 
@@ -90,7 +92,7 @@ if (! function_exists('admin_flash_to_array')) {
      */
     function admin_flash_to_array($flash): array
     {
-        if ($flash instanceof \Illuminate\Contracts\Support\Arrayable) {
+        if ($flash instanceof Arrayable) {
             return $flash->toArray();
         }
 
@@ -178,6 +180,33 @@ if (! function_exists('admin_trans')) {
 
         if (! is_string($line)) {
             return $key;
+        }
+
+        return $line;
+    }
+}
+
+if (! function_exists('admin_text')) {
+    /**
+     * Text from `admin.<key>` in the app's language files, or the package's English
+     * text when the app's published language file predates that key.
+     *
+     * @param  array<string, string|int>  $replace
+     */
+    function admin_text(string $key, array $replace = []): string
+    {
+        if (Lang::has('admin.'.$key)) {
+            return (string) trans('admin.'.$key, $replace);
+        }
+
+        static $fallback;
+        $fallback ??= require __DIR__.'/../resources/lang/en/admin.php';
+
+        $line = Arr::get($fallback, $key);
+        $line = is_string($line) ? $line : 'admin.'.$key;
+
+        foreach ($replace as $name => $value) {
+            $line = str_replace(':'.$name, (string) $value, $line);
         }
 
         return $line;

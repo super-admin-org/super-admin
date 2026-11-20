@@ -973,6 +973,24 @@
 }
 .choices__button:hover { opacity: 0.9 !important; }
 
+/* Remove (×) button on selected tags: choices.min.css draws a white cross, invisible on the light tags. */
+.choices[data-type*="select-multiple"] .choices__button,
+.choices[data-type*="text"] .choices__button {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 21'%3E%3Cg fill='%231d4ed8' fill-rule='evenodd'%3E%3Cpath d='M2.592.044l18.364 18.364-2.548 2.548L.044 2.592z'/%3E%3Cpath d='M0 18.364L18.364 0l2.548 2.548L2.548 20.912z'/%3E%3C/g%3E%3C/svg%3E") !important;
+  background-size: 8px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  border-left: 1px solid #93c5fd !important;
+  opacity: 0.75 !important;
+}
+.choices[data-type*="select-multiple"] .choices__button:hover,
+.choices[data-type*="text"] .choices__button:hover,
+.choices[data-type*="select-multiple"] .choices__button:focus-visible,
+.choices[data-type*="text"] .choices__button:focus-visible {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 21 21'%3E%3Cg fill='%23dc2626' fill-rule='evenodd'%3E%3Cpath d='M2.592.044l18.364 18.364-2.548 2.548L.044 2.592z'/%3E%3Cpath d='M0 18.364L18.364 0l2.548 2.548L2.548 20.912z'/%3E%3C/g%3E%3C/svg%3E") !important;
+  opacity: 1 !important;
+}
+
 .choices__list--multiple .choices__item {
   background: linear-gradient(135deg, #dbeafe, #e0e7ff) !important;
   border: 1px solid #bfdbfe !important;

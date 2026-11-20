@@ -29,6 +29,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static void bootstrap()
  * @method static void routes()
  * @method static \SuperAdmin\Admin\Template\TemplateManager template()
+ * @method static \SuperAdmin\Admin\Auth\TwoFactor\TwoFactor twoFactor()
+ * @method static \SuperAdmin\Admin\Upgrade upgrade()
  *
  * @see \SuperAdmin\Admin\Admin
  */

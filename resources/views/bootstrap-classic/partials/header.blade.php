@@ -39,6 +39,9 @@
                             <small>Member since admin {{ Admin::user()->created_at }}</small>
                         </p>
                     </li>
+                    <li class="px-2 pt-2">
+                        <a href="{{ admin_url('auth/two-factor') }}" class="btn btn-light w-100"><i class="icon-shield-alt"></i> {{ Admin::twoFactor()->text('menu') }}</a>
+                    </li>
                     <li class="user-footer p-2 clearfix">
                         <div class="float-start">
                             <a href="{{ admin_url('auth/setting') }}" class="btn btn-secondary">{{ __('admin.setting') }}</a>

@@ -75,6 +75,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | super-admin upgrade notice
+    |--------------------------------------------------------------------------
+    |
+    | After an update, show administrators a notice while the published assets
+    | are older than the package or migrations have not run, until
+    | `php artisan admin:upgrade` is run. Set to false to hide it.
+    |
+    */
+    'upgrade_notice' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | super-admin bootstrap setting
     |--------------------------------------------------------------------------
     |
@@ -185,6 +197,34 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | super-admin two-factor authentication
+    |--------------------------------------------------------------------------
+    |
+    | After the password, ask for a 6-digit code from an authenticator app
+    | (Google Authenticator, Microsoft Authenticator, 1Password, Authy...).
+    | Each user turns it on from the user menu > Two-factor.
+    |
+    | mode:   'off'      never ask for a code
+    |         'optional' ask the users who turned it on
+    |         'required' ask everybody; users without it must set it up first
+    | panel:  allow administrators to change the mode from the admin panel
+    |         (user menu > Two-factor). Set to false to always use 'mode'.
+    | issuer: the name shown in the authenticator app (defaults to 'name').
+    | window: accepted 30-second steps before and after now (clock drift).
+    |
+    | Run `php artisan migrate` once to add the two-factor columns.
+    |
+    */
+    'two_factor' => [
+        'mode' => env('ADMIN_TWO_FACTOR', 'optional'),
+        'panel' => true,
+        'issuer' => env('ADMIN_TWO_FACTOR_ISSUER'),
+        'window' => 1,
+        'recovery_codes' => 8,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | super-admin upload setting
     |--------------------------------------------------------------------------
     |
@@ -243,6 +283,10 @@ return [
         // Settings changed from the admin panel (e.g. the active template).
         'settings_table' => 'admin_settings',
         'settings_model' => Setting::class,
+
+        // Run the package migrations with `php artisan migrate` without publishing them.
+        // Set to false if you publish the migrations and edit your copies.
+        'load_migrations' => true,
     ],
 
     /*

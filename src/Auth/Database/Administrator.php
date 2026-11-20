@@ -23,6 +23,13 @@ class Administrator extends Model implements AuthenticatableContract
     protected $fillable = ['username', 'password', 'name', 'avatar'];
 
     /**
+     * Never serialize the two-factor secret or the recovery code hashes (grid export, JSON).
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = ['two_factor_secret', 'two_factor_recovery_codes'];
+
+    /**
      * Create a new Eloquent model instance.
      */
     public function __construct(array $attributes = [])

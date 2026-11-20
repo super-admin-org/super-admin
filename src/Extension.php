@@ -108,6 +108,10 @@ abstract class Extension
 
         Admin::extend($extension->name, get_called_class());
 
+        if (! empty($migrations = $extension->migrations()) && is_dir($migrations)) {
+            static::loadMigrations($migrations);
+        }
+
         if ($extension->disabled()) {
             return false;
         }
@@ -175,6 +179,22 @@ abstract class Extension
     public function migrations()
     {
         return $this->migrations;
+    }
+
+    /**
+     * Let `php artisan migrate` run the extension's migrations (like ServiceProvider::loadMigrationsFrom()).
+     */
+    protected static function loadMigrations(string $path): void
+    {
+        $register = function ($migrator) use ($path) {
+            $migrator->path($path);
+        };
+
+        app()->afterResolving('migrator', $register);
+
+        if (app()->resolved('migrator')) {
+            $register(app('migrator'));
+        }
     }
 
     /**

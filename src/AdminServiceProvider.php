@@ -6,6 +6,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use SuperAdmin\Admin\Auth\TwoFactor\TwoFactor;
 use SuperAdmin\Admin\Layout\Content;
 use SuperAdmin\Admin\Template\TemplateManager;
 
@@ -36,6 +37,8 @@ class AdminServiceProvider extends ServiceProvider
         Console\DevLinksCommand::class,
         Console\TemplateCommand::class,
         Console\LintViewsCommand::class,
+        Console\TwoFactorCommand::class,
+        Console\UpgradeCommand::class,
     ];
 
     /**
@@ -86,6 +89,7 @@ class AdminServiceProvider extends ServiceProvider
         }
 
         $this->registerPublishing();
+        $this->registerMigrations();
         $this->compatibleBlade();
         $this->bladeDirectives();
     }
@@ -137,8 +141,22 @@ class AdminServiceProvider extends ServiceProvider
             $this->publishes([__DIR__.'/../config' => config_path()], 'super-admin-config');
             $this->publishes([__DIR__.'/../resources/lang' => resource_path('lang')], 'super-admin-lang');
             $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'super-admin-migrations');
-            $this->publishes([__DIR__.'/../resources/assets' => public_path('vendor/super-admin')], 'super-admin-assets');
+            // Also tagged "laravel-assets": Laravel apps republish that tag after every `composer update`.
+            $this->publishes([__DIR__.'/../resources/assets' => public_path('vendor/super-admin')], ['super-admin-assets', 'laravel-assets']);
             $this->publishes([__DIR__.'/../resources/assets/test' => public_path('vendor/super-admin-test')], 'super-admin-test');
+        }
+    }
+
+    /**
+     * Run the package migrations with `php artisan migrate`, without publishing them first.
+     *
+     * Copies published by older versions keep working: a migration with the same file
+     * name in database/migrations is used instead, and none runs twice.
+     */
+    protected function registerMigrations(): void
+    {
+        if (config('admin.database.load_migrations', true)) {
+            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         }
     }
 
@@ -196,6 +214,9 @@ class AdminServiceProvider extends ServiceProvider
 
             return $templates;
         });
+
+        $this->app->singleton(TwoFactor::class);
+        $this->app->singleton(Upgrade::class);
 
         $this->loadAdminAuthConfig();
 

@@ -24,6 +24,7 @@
     </div>
 
     {{-- Alerts --}}
+    @include('admin::partials.upgrade-notice')
     @include('admin::partials.alerts')
     @include('admin::partials.exception')
     @include('admin::partials.toastr')

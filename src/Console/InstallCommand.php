@@ -5,6 +5,7 @@ namespace SuperAdmin\Admin\Console;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use SuperAdmin\Admin\Auth\Database\AdminTablesSeeder;
+use SuperAdmin\Admin\Facades\Admin;
 
 class InstallCommand extends Command
 {
@@ -44,6 +45,10 @@ class InstallCommand extends Command
             '--force' => true,
         ]);
 
+        if (! Admin::upgrade()->composerHookInstalled()) {
+            $this->line(Admin::upgrade()->text('hook_tip'));
+            $this->line('    "post-update-cmd": ["@php artisan admin:upgrade --no-interaction"]');
+        }
     }
 
     /**

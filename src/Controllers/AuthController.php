@@ -4,6 +4,7 @@ namespace SuperAdmin\Admin\Controllers;
 
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
+use SuperAdmin\Admin\Auth\TwoFactor\TwoFactor;
 use SuperAdmin\Admin\Facades\Admin;
 use SuperAdmin\Admin\Form;
 use SuperAdmin\Admin\Layout\Content;
@@ -24,6 +26,11 @@ class AuthController extends Controller
      * @var string
      */
     protected $loginView = 'admin::login';
+
+    /**
+     * @var string
+     */
+    protected $twoFactorView = 'admin::two-factor-challenge';
 
     /**
      * Show the login page.
@@ -52,10 +59,31 @@ class AuthController extends Controller
         $this->loginValidator($request->all())->validate();
 
         $credentials = $request->only([$this->username(), 'password']);
-        $remember = $request->get('remember', false);
+        $remember = (bool) $request->get('remember', false);
+        $guard = $this->guard();
 
-        if ($this->guard()->attempt($credentials, $remember)) {
+        if (! method_exists($guard, 'getLastAttempted')) {
+            if ($guard->attempt($credentials, $remember)) {
+                RateLimiter::clear($rate_limit_key);
+
+                return $this->sendLoginResponse($request);
+            }
+        } elseif ($guard->validate($credentials)) {
             RateLimiter::clear($rate_limit_key);
+
+            $user = $guard->getLastAttempted();
+
+            if (Admin::twoFactor()->requiresChallenge($user)) {
+                $request->session()->put(TwoFactor::PENDING_LOGIN, [
+                    'id' => $user->getAuthIdentifier(),
+                    'remember' => $remember,
+                    'expires' => time() + TwoFactor::PENDING_LOGIN_LIFETIME,
+                ]);
+
+                return redirect(admin_url('auth/two-factor/challenge'));
+            }
+
+            $guard->login($user, $remember);
 
             return $this->sendLoginResponse($request);
         }
@@ -68,6 +96,110 @@ class AuthController extends Controller
         return back()->withInput()->withErrors([
             $this->username() => $this->getFailedLoginMessage(),
         ]);
+    }
+
+    /**
+     * Show the page asking for the two-factor code after a correct password.
+     *
+     * @return Factory|Redirect|View
+     */
+    public function getTwoFactorChallenge(Request $request)
+    {
+        if ($this->guard()->check()) {
+            return redirect($this->redirectPath());
+        }
+
+        if (! $user = $this->pendingTwoFactorUser($request)) {
+            return redirect(admin_url('auth/login'));
+        }
+
+        return view($this->twoFactorView, [
+            'account' => $user->getAttribute($this->username()) ?: $user->getAttribute('name'),
+        ]);
+    }
+
+    /**
+     * Check the two-factor code (or a recovery code) and finish the login.
+     *
+     * @return mixed
+     */
+    public function postTwoFactorChallenge(Request $request)
+    {
+        $twoFactor = Admin::twoFactor();
+        $user = $this->pendingTwoFactorUser($request);
+
+        if (! $user) {
+            return redirect(admin_url('auth/login'))
+                ->withErrors([$this->username() => $twoFactor->text('expired')]);
+        }
+
+        $rateLimitKey = 'two-factor-tries-'.Admin::guardName().'-'.$user->getAuthIdentifier();
+        $timeout = (int) config('admin.auth.throttle_timeout', 900);
+
+        if (RateLimiter::tooManyAttempts($rateLimitKey, (int) config('admin.auth.throttle_attempts', 5))) {
+            $request->session()->forget(TwoFactor::PENDING_LOGIN);
+
+            return redirect(admin_url('auth/login'))->withErrors([
+                $this->username() => $twoFactor->text('too_many_attempts', [
+                    'minutes' => max(1, (int) ceil(RateLimiter::availableIn($rateLimitKey) / 60)),
+                ]),
+            ]);
+        }
+
+        $code = trim((string) $request->input('code'));
+        $recoveryCode = trim((string) $request->input('recovery_code'));
+        $usedRecoveryCode = false;
+
+        if ($code !== '') {
+            $passed = $twoFactor->verify($user, $code);
+        } else {
+            $passed = $usedRecoveryCode = $recoveryCode !== '' && $twoFactor->useRecoveryCode($user, $recoveryCode);
+        }
+
+        if (! $passed) {
+            RateLimiter::hit($rateLimitKey, $timeout);
+
+            $field = $code === '' && $recoveryCode !== '' ? 'recovery_code' : 'code';
+
+            return back()->withErrors([
+                $field => $twoFactor->text($field === 'code' ? 'invalid_code' : 'invalid_recovery_code'),
+            ]);
+        }
+
+        RateLimiter::clear($rateLimitKey);
+
+        $remember = (bool) ($request->session()->get(TwoFactor::PENDING_LOGIN)['remember'] ?? false);
+        $request->session()->forget(TwoFactor::PENDING_LOGIN);
+
+        $this->guard()->login($user, $remember);
+
+        $response = $this->sendLoginResponse($request);
+
+        if ($usedRecoveryCode) {
+            admin_toastr($twoFactor->text('recovery_used', ['count' => $twoFactor->recoveryCodesLeft($user)]), 'warning');
+        }
+
+        return $response;
+    }
+
+    /**
+     * The user whose password was checked and who still has to type a code.
+     *
+     * @return Model|null
+     */
+    protected function pendingTwoFactorUser(Request $request)
+    {
+        $pending = $request->session()->get(TwoFactor::PENDING_LOGIN);
+
+        if (! is_array($pending) || ($pending['expires'] ?? 0) < time() || ! method_exists($this->guard(), 'getProvider')) {
+            $request->session()->forget(TwoFactor::PENDING_LOGIN);
+
+            return null;
+        }
+
+        $user = $this->guard()->getProvider()->retrieveById($pending['id'] ?? null);
+
+        return Admin::twoFactor()->enabledFor($user) ? $user : null;
     }
 
     /**

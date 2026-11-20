@@ -6,6 +6,19 @@ See https://super-admin.org/docs/
 
 ### Added
 
+- **Two-factor authentication** (TOTP, RFC 6238) for admin users, with no extra package: after the password, users type a 6-digit code from an authenticator app (Google Authenticator, Microsoft Authenticator, 1Password, Authy...) or a one-time recovery code.
+  - User menu > **Two-factor** (`/admin/auth/two-factor`): scan a QR code (an SVG drawn on the server, so the secret never goes to a third-party service), confirm with a code, save 8 recovery codes, create new ones, or turn it off with the current password.
+  - `admin.two_factor.mode` (`ADMIN_TWO_FACTOR` in `.env`): `off`, `optional` (default, each user decides) or `required` (users without it are sent to the setup page). Administrators can change the mode on the same page (stored in `admin_settings`); `'panel' => false` locks it to the config value.
+  - Admin > Users shows a **2FA** column and a **Reset two-factor** row action for users who lost their phone.
+  - `php artisan admin:two-factor [--mode=off|optional|required] [--reset] [--disable=<username>]`.
+  - Secrets are encrypted with `APP_KEY`, recovery codes are stored hashed, a code works once, and wrong codes are throttled with `admin.auth.throttle_attempts` / `throttle_timeout`.
+  - Upgrade: `php artisan vendor:publish --tag=super-admin-migrations`, then `php artisan migrate` (adds three nullable columns to `admin_users`). Until then the feature stays off.
+- **Updates finish themselves**:
+  - Assets are also tagged `laravel-assets`. Laravel apps already run `vendor:publish --tag=laravel-assets --force` after every `composer update`, so new CSS/JS arrive without a manual step.
+  - Migrations load from the package (`loadMigrationsFrom`), so `php artisan migrate` runs new ones without publishing. Copies published by older versions keep working and nothing runs twice. `admin.database.load_migrations => false` turns this off.
+  - `php artisan admin:upgrade` publishes the assets, runs the new super-admin and extension migrations (asks first in production unless `--force`), and clears compiled views. Add `"@php artisan admin:upgrade --no-interaction"` to `post-update-cmd` in the app's composer.json to run it after every update.
+  - Administrators see a notice in the panel while the published assets are older than the package or migrations have not run (`admin.upgrade_notice`).
+  - Extensions can declare `public $migrations = __DIR__.'/../database/migrations';`; `Extension::boot()` loads them and `admin:upgrade` includes them.
 - **Admin > Templates** page (`/admin/auth/templates`): lists the installed templates with a preview and switches the active one; the choice is stored in the new `admin_settings` table and overrides `config/admin.php`. `'template_switcher' => false` turns it off.
 - `php artisan admin:template [name] [--reset] [--menu]`: list or switch templates from the CLI; `--menu` adds the Templates menu item and the `/auth/templates` permission path to existing installs.
 - `php artisan admin:lint-views <paths>`: reports classes in extension views that only some templates style.
@@ -14,12 +27,14 @@ See https://super-admin.org/docs/
 
 ### Changed
 
+- The `create_admin_tables` migration skips tables that already exist, so it is safe when an app renamed its published copy.
 - `resources/views/` now only contains template folders. The classic views moved to `bootstrap-classic/` (formerly `super-admin-template-1`, which still works as an alias); the duplicate root copies were removed. Both templates provide all 145 views.
 - Base CSS/JS lists come from each template's `template.json` instead of a hard-coded `tailwind-light` check.
 - Importing an extension twice no longer duplicates its menu items or fails on an existing permission slug.
 
 ### Fixed
 
+- Tailwind template: the remove (×) button on selected tags of multiple selects (e.g. Roles, Permissions) was a white cross on a light tag and could not be seen; it is blue now and red on hover.
 - Tailwind template: extension pages (log viewer, helpers, media manager, ...) lost their styling because Tailwind purged the Bootstrap compatibility classes they use; Bootstrap `.collapse` panels rendered expanded.
 - Tailwind template: form rows had an extra gap under every field; wide content (e.g. the scaffold field table) widened the whole page.
 

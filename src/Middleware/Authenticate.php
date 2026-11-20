@@ -24,7 +24,35 @@ class Authenticate
             return redirect()->to($redirectTo);
         }
 
+        if ($this->mustSetUpTwoFactor($request)) {
+            admin_toastr(Admin::twoFactor()->text('required_notice'), 'warning');
+
+            return redirect()->to(admin_url('auth/two-factor'));
+        }
+
         return $next($request);
+    }
+
+    /**
+     * Whether a signed-in user must set up two-factor authentication (mode "required")
+     * before opening any page other than the setup page and logout.
+     *
+     * @param  Request  $request
+     */
+    protected function mustSetUpTwoFactor($request): bool
+    {
+        if (Admin::guard()->guest()) {
+            return false;
+        }
+
+        $allowed = collect(['auth/two-factor', 'auth/two-factor/*', 'auth/logout'])
+            ->map(fn ($path) => trim(admin_base_path($path), '/'));
+
+        if ($request->is(...$allowed->all())) {
+            return false;
+        }
+
+        return Admin::twoFactor()->mustSetUp(Admin::user());
     }
 
     /**
@@ -39,6 +67,7 @@ class Authenticate
         // itself must always pass, otherwise guests are redirected in a loop.
         $excepts = config('admin.auth.excepts', []);
         $excepts[] = config('admin.auth.redirect_to', 'auth/login');
+        $excepts[] = 'auth/two-factor/challenge';
 
         array_delete($excepts, [
             '_handle_action_',

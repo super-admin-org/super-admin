@@ -11,6 +11,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use InvalidArgumentException;
 use SuperAdmin\Admin\Auth\Database\Menu;
+use SuperAdmin\Admin\Auth\TwoFactor\TwoFactor;
 use SuperAdmin\Admin\Controllers\AuthController;
 use SuperAdmin\Admin\Layout\Content;
 use SuperAdmin\Admin\Template\TemplateManager;
@@ -313,6 +314,13 @@ class Admin
                 $router->get('auth/templates', 'TemplateController@index')->name('admin.auth.templates.index');
                 $router->put('auth/templates', 'TemplateController@update')->name('admin.auth.templates.update');
                 $router->delete('auth/templates', 'TemplateController@destroy')->name('admin.auth.templates.destroy');
+                $router->get('auth/two-factor', 'TwoFactorController@index')->name('admin.two-factor');
+                $router->post('auth/two-factor', 'TwoFactorController@store')->name('admin.two-factor.enable');
+                $router->put('auth/two-factor', 'TwoFactorController@update')->name('admin.two-factor.confirm');
+                $router->delete('auth/two-factor', 'TwoFactorController@destroy')->name('admin.two-factor.disable');
+                $router->post('auth/two-factor/recovery-codes', 'TwoFactorController@recoveryCodes')->name('admin.two-factor.recovery-codes');
+                $router->put('auth/two-factor/policy', 'TwoFactorController@updatePolicy')->name('admin.two-factor.policy');
+                $router->delete('auth/two-factor/policy', 'TwoFactorController@destroyPolicy')->name('admin.two-factor.policy.reset');
 
                 $router->post('_handle_form_', 'HandleController@handleForm')->name('admin.handle-form');
                 $router->post('_handle_action_', 'HandleController@handleAction')->name('admin.handle-action');
@@ -325,6 +333,8 @@ class Admin
             /* @var \Illuminate\Routing\Router $router */
             $router->get('auth/login', $authController.'@getLogin')->name('admin.login');
             $router->post('auth/login', $authController.'@postLogin');
+            $router->get('auth/two-factor/challenge', $authController.'@getTwoFactorChallenge')->name('admin.two-factor.challenge');
+            $router->post('auth/two-factor/challenge', $authController.'@postTwoFactorChallenge');
             $router->get('auth/logout', $authController.'@getLogout')->name('admin.logout');
             $router->get('auth/setting', $authController.'@getSetting')->name('admin.setting');
             $router->put('auth/setting', $authController.'@putSetting');
@@ -409,6 +419,22 @@ class Admin
     public static function template(): TemplateManager
     {
         return app(TemplateManager::class);
+    }
+
+    /**
+     * What an update still needs: outdated assets and pending migrations.
+     */
+    public static function upgrade(): Upgrade
+    {
+        return app(Upgrade::class);
+    }
+
+    /**
+     * Two-factor authentication: mode, setup and code checks.
+     */
+    public static function twoFactor(): TwoFactor
+    {
+        return app(TwoFactor::class);
     }
 
     public static function asset($asset)
