@@ -203,6 +203,8 @@ return [
         'hook' => 'To do it after every composer update, add it to "post-update-cmd" in composer.json.',
         'assets_published' => 'Assets published (version :version).',
         'views_cleared' => 'Compiled views cleared.',
+        'routes_cached' => 'Route cache rebuilt.',
+        'routes_cache_failed' => 'The route cache could not be rebuilt, so it was cleared. :error Run "php artisan route:cache" once the error is fixed.',
         'no_migrations' => 'No new migrations.',
         'migrations_pending' => ':count new migrations:',
         'confirm_production' => 'Run these migrations on the production database?',

@@ -2,6 +2,24 @@
 
 Documentation: https://super-admin.org/laravel/
 
+## v2.0.3 - 2026-11-20
+
+### Fixed
+
+- After an update, **Two-factor**, **Templates** and other new pages answered 404 NOT FOUND when the application caches its routes (`php artisan route:cache` or `php artisan optimize`): the cache still held the routes of the old version. `php artisan admin:upgrade` now rebuilds the route cache when one exists. If the cache cannot be rebuilt, it clears it and prints the error.
+- v2.0.2 still reported version 2.0.1 (`Admin::VERSION`, the footer and `version.txt`); this release reports 2.0.3.
+
+### Changed
+
+- Upgrade guide: a note on cached routes, and a warning that `vendor:publish --provider="SuperAdmin\Admin\AdminServiceProvider" --force` overwrites `config/admin.php` (it is only for moving from Open-Admin or Laravel-Admin).
+
+## v2.0.2 - 2026-11-20
+
+### Changed
+
+- Upgrade guide, "Upgrading from 1.x to 2.x": `composer require super-admin-org/super-admin:~2.0 --no-update` replaces `:^2.0`, because PowerShell and cmd remove the `^` and Composer then pins the exact version `2.0`. The steps must run in order.
+- This release still reported version 2.0.1.
+
 ## v2.0.1 - 2026-11-20
 
 ### Fixed

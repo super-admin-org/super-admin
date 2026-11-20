@@ -17,7 +17,7 @@ php artisan vendor:publish --provider="SuperAdmin\Admin\AdminServiceProvider"
 # Force republish assets (for updates)
 php artisan vendor:publish --tag=super-admin-assets --force
 
-# Finish an update: publish assets, run new migrations, clear compiled views
+# Finish an update: publish assets, run new migrations, clear compiled views, rebuild the route cache
 php artisan admin:upgrade
 ```
 

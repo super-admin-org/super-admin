@@ -4,6 +4,7 @@ namespace SuperAdmin\Admin\Console;
 
 use Illuminate\Console\Command;
 use SuperAdmin\Admin\Facades\Admin;
+use Throwable;
 
 class UpgradeCommand extends Command
 {
@@ -22,7 +23,7 @@ class UpgradeCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Finish an update of super-admin and its extensions: publish assets, run new migrations, clear compiled views';
+    protected $description = 'Finish an update of super-admin and its extensions: publish assets, run new migrations, clear compiled views, rebuild the route cache';
 
     public function handle(): int
     {
@@ -41,6 +42,8 @@ class UpgradeCommand extends Command
         $this->callSilent('view:clear');
         $this->info($upgrade->text('views_cleared'));
 
+        $this->refreshRouteCache();
+
         if (! $upgrade->composerHookInstalled()) {
             $this->line('');
             $this->line($upgrade->text('hook_tip'));
@@ -48,6 +51,36 @@ class UpgradeCommand extends Command
         }
 
         return $status;
+    }
+
+    /**
+     * Rebuild the route cache when the application uses one (`route:cache` or `optimize`),
+     * so the routes of the new version (for example auth/two-factor) do not answer 404.
+     */
+    protected function refreshRouteCache(): void
+    {
+        if (! $this->laravel->routesAreCached()) {
+            return;
+        }
+
+        $upgrade = Admin::upgrade();
+
+        try {
+            $rebuilt = $this->callSilent('route:cache') === 0;
+            $error = '';
+        } catch (Throwable $exception) {
+            $rebuilt = false;
+            $error = $exception->getMessage();
+        }
+
+        if ($rebuilt) {
+            $this->info($upgrade->text('routes_cached'));
+
+            return;
+        }
+
+        $this->callSilent('route:clear');
+        $this->warn($upgrade->text('routes_cache_failed', ['error' => $error]));
     }
 
     protected function migrate(): int

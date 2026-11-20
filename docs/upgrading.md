@@ -10,7 +10,7 @@ composer update "super-admin-org/*"
 
 This stays inside the versions your `composer.json` allows, for example 2.0 to a newer 2.x. To move from 1.x to 2.x, follow [Upgrading from 1.x to 2.x](#upgrading-from-1x-to-2x).
 
-Then finish the update with one command. It publishes the new assets, runs the new Super Admin and extension migrations, and clears the compiled views:
+Then finish the update with one command. It publishes the new assets, runs the new Super Admin and extension migrations, clears the compiled views and, if the application caches its routes, rebuilds the route cache:
 
 ```bash
 php artisan admin:upgrade
@@ -26,6 +26,7 @@ php artisan admin:upgrade
 
 - **Assets.** Super Admin and its extensions tag their assets `laravel-assets`. Laravel apps already run `php artisan vendor:publish --tag=laravel-assets --force` after every `composer update` (the `post-update-cmd` script in `composer.json`), so new CSS and JavaScript arrive without a manual step.
 - **Migrations.** The package migrations are loaded from the package, so `php artisan migrate` runs new ones without publishing them first. Copies that older versions published to `database/migrations` keep working, and no migration runs twice. To publish and edit the migrations yourself, set `'load_migrations' => false` under `database` in `config/admin.php`.
+- **Route cache.** If the application caches its routes (`php artisan route:cache` or `php artisan optimize`), `admin:upgrade` rebuilds the cache, so new pages do not answer 404. If the cache cannot be rebuilt, it clears it and prints the error.
 - **Reminder.** While the published assets are older than the package, or migrations have not run, administrators see a "Super Admin was updated" notice at the top of every page. Hide it with `'upgrade_notice' => false` in `config/admin.php`.
 
 ### Run it after every update
@@ -68,7 +69,7 @@ Run this only after Step 1. Before it, Composer prints *Nothing to modify in loc
 composer update "super-admin-org/*" --with-all-dependencies
 ```
 
-When it works, the output contains `Upgrading super-admin-org/super-admin (v1.2.1 => v2.0.1)`.
+When it works, the output contains a line like `Upgrading super-admin-org/super-admin (v1.2.1 => v2.0.3)`.
 
 The extensions must move in the same step: their older releases only accept Super Admin 1.x. These are the first releases that accept 2.x:
 
@@ -105,6 +106,8 @@ php artisan admin:upgrade
 ```
 
 It publishes the 2.x assets, runs the new migrations (the `admin_settings` table and the two-factor columns on `admin_users`) and clears the compiled views. On a production server add `--force`, or it only lists the migrations.
+
+> **Cached routes.** If your deployment runs `php artisan route:cache` or `php artisan optimize`, the cache still holds the 1.x routes, and the new pages (**Two-factor**, **Templates**) answer 404 NOT FOUND. `admin:upgrade` rebuilds the route cache from v2.0.3 on. With v2.0.0 to v2.0.2, run `php artisan route:cache` yourself after Step 3.
 
 ### Step 4. Choose the look
 
@@ -163,6 +166,8 @@ Super Admin is a fork of Open-Admin (itself a fork of Laravel-Admin). To migrate
    - or `Encore\Admin` to `SuperAdmin\Admin`
 3. Republish assets and config
 4. Clear all caches
+
+> **Not for updating Super Admin.** These commands copy the package's config, language files and migrations into your application and overwrite `config/admin.php`. Use them only when moving from Open-Admin or Laravel-Admin. To update Super Admin, follow [Updating the Package](#updating-the-package). If you ran them by mistake, `git diff config/admin.php` shows what changed and `git checkout -- config/admin.php` restores your version.
 
 ```bash
 php artisan vendor:publish --provider="SuperAdmin\Admin\AdminServiceProvider" --force
