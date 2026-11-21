@@ -69,6 +69,9 @@ class MinifyCommand extends Command
 
         $this->comment('Manifest successfully generated:');
         $this->line('  '.Admin::$manifest);
+
+        $this->line('');
+        $this->comment(sprintf('The bundle is used only while the "%s" template is active. Run admin:minify again after switching templates.', AdminFacade::template()->active()));
     }
 
     protected function loadExcepts()
@@ -151,6 +154,10 @@ class MinifyCommand extends Command
         $minifier->minify(public_path(Admin::$min['js']));
     }
 
+    /**
+     * Write the manifest. It names the active template, because the bundle is
+     * only served while that template is active (HasAssets::usesMinifiedAssets()).
+     */
     protected function generateManifest()
     {
         $min = collect(Admin::$min)->mapWithKeys(function ($path, $type) {
@@ -160,7 +167,7 @@ class MinifyCommand extends Command
         array_unshift($this->assets['css'], $min['css']);
         array_unshift($this->assets['js'], $min['js']);
 
-        $json = json_encode($this->assets, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        $json = json_encode(['template' => AdminFacade::template()->active()] + $this->assets, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 
         file_put_contents(public_path(Admin::$manifest), $json);
     }

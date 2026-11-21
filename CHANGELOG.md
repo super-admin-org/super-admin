@@ -2,6 +2,17 @@
 
 Documentation: https://super-admin.org/laravel/
 
+## Unreleased
+
+### Fixed
+
+- A minified bundle (`php artisan admin:minify`) was served to every template, so a bundle left over from 1.x loaded the Bootstrap Classic styles and old JavaScript into Tailwind Light (blank strip next to the sidebar) and replaced the app's own `Admin::css()` / `Admin::js()` files. The manifest now records the template it was built for and is only used while that template is active; manifests from 1.x are ignored.
+- Flash messages set as plain strings (`back()->with('success', 'Saved')`) showed an empty alert in both templates; the new `admin_flash_message()` helper reads strings, message bags, their JSON-serialized arrays and plain `title` / `message` arrays. A plain-string `errors` flash no longer fails with "Call to a member function hasBag() on string". The alert heading is only shown when there is a title.
+- Tailwind template: empty grids showed the untranslated key `admin.no_records`; the line is in the English language file and the view falls back to "No records found" when an app's published file predates it.
+- Tailwind template: the sidebar marked Dashboard as the active page on every page that has no menu item of its own. The panel's home link now only matches itself.
+- When the `admin_settings` table did not exist yet, reading the active template or the two-factor mode ran a failing query. On PostgreSQL this aborted the surrounding transaction, so every later query in a database test (or in a transaction) failed with SQLSTATE 25P02. The table is now checked first.
+- Scripts, styles and HTML queued with `Admin::script()`, `Admin::style()` and `Admin::html()` stayed in memory after the request, so long-running servers (Octane, Pest browser tests) printed one page's scripts on the next and threw "Cannot read properties of null". They are cleared after every request (`Admin::flushPageAssets()`).
+
 ## v2.0.3 - 2026-11-20
 
 ### Fixed

@@ -2,6 +2,7 @@
 
 namespace SuperAdmin\Admin;
 
+use Illuminate\Foundation\Http\Events\RequestHandled;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
@@ -92,6 +93,18 @@ class AdminServiceProvider extends ServiceProvider
         $this->registerMigrations();
         $this->compatibleBlade();
         $this->bladeDirectives();
+        $this->flushPageAssetsAfterRequests();
+    }
+
+    /**
+     * Forget the page's queued scripts once its response is built, so a
+     * long-running server (Octane, a test server) starts the next request clean.
+     */
+    protected function flushPageAssetsAfterRequests(): void
+    {
+        $this->app['events']->listen(RequestHandled::class, function (): void {
+            Admin::flushPageAssets();
+        });
     }
 
     /**

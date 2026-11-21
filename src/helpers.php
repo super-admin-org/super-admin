@@ -100,6 +100,32 @@ if (! function_exists('admin_flash_to_array')) {
     }
 }
 
+if (! function_exists('admin_flash_message')) {
+    /**
+     * Title and message of a flashed alert (error, success, info, warning).
+     *
+     * Accepts the message bag admin_success() and friends flash, its JSON
+     * serialized array, an array with plain `title` / `message` strings, and a
+     * plain string such as `back()->with('success', 'Saved')`.
+     *
+     * @param  mixed  $flash
+     * @return array{title: string, message: string}
+     */
+    function admin_flash_message($flash): array
+    {
+        if (is_string($flash) || is_numeric($flash)) {
+            return ['title' => '', 'message' => (string) $flash];
+        }
+
+        $flash = admin_flash_to_array($flash);
+
+        return [
+            'title' => (string) (Arr::first(Arr::wrap($flash['title'] ?? '')) ?? ''),
+            'message' => (string) (Arr::first(Arr::wrap($flash['message'] ?? '')) ?? ''),
+        ];
+    }
+}
+
 if (! function_exists('admin_success')) {
     /**
      * Flash a success message bag to session.

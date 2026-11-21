@@ -81,6 +81,8 @@ Both templates provide the same 145 views. `php artisan admin:template` reports 
 
 `template.json` lists the CSS and JS loaded on every page (`css`, `js`). `Admin::baseCss($list)` / `Admin::baseJs($list)` in `app/Admin/bootstrap.php` still replace them.
 
+A bundle built with `php artisan admin:minify` holds the assets of the template that was active at the time, and is only served while that template is active. Run `admin:minify` again after switching templates, or `php artisan admin:minify --clear` to remove it.
+
 ## Extensions and templates
 
 Extensions do not need a copy of their views per template. They follow three rules:

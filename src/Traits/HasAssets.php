@@ -285,6 +285,20 @@ trait HasAssets
     }
 
     /**
+     * Forget the scripts, styles and HTML queued for the page just rendered.
+     *
+     * Called after every request (AdminServiceProvider), so long-running
+     * servers such as Octane do not print one page's scripts on the next.
+     */
+    public static function flushPageAssets(): void
+    {
+        static::$script = [];
+        static::$deferredScript = [];
+        static::$style = [];
+        static::$html = [];
+    }
+
+    /**
      * @param  string  $script
      * @param  bool  $deferred
      * @return array|Factory|View
@@ -353,15 +367,33 @@ trait HasAssets
     protected static function getManifestData($key)
     {
         if (! empty(static::$manifestData)) {
-            return static::$manifestData[$key];
+            return static::$manifestData[$key] ?? null;
         }
 
-        static::$manifestData = json_decode(
+        static::$manifestData = (array) json_decode(
             file_get_contents(public_path(static::$manifest)),
             true
         );
 
-        return static::$manifestData[$key];
+        return static::$manifestData[$key] ?? null;
+    }
+
+    /**
+     * Whether to serve the bundle `admin:minify` built.
+     *
+     * A bundle holds the CSS and JS of the template that was active when it was
+     * built, so it is only used for that template. Manifests without a
+     * template (built before 2.x) are ignored: they hold 1.x assets.
+     */
+    protected static function usesMinifiedAssets(): bool
+    {
+        if (! config('admin.minify_assets') || ! file_exists(public_path(static::$manifest))) {
+            return false;
+        }
+
+        $template = static::getManifestData('template');
+
+        return $template !== null && $template === static::template()->active();
     }
 
     /**
@@ -369,7 +401,7 @@ trait HasAssets
      */
     protected static function getMinifiedCss()
     {
-        if (! config('admin.minify_assets') || ! file_exists(public_path(static::$manifest))) {
+        if (! static::usesMinifiedAssets()) {
             return false;
         }
 
@@ -381,7 +413,7 @@ trait HasAssets
      */
     protected static function getMinifiedJs()
     {
-        if (! config('admin.minify_assets') || ! file_exists(public_path(static::$manifest))) {
+        if (! static::usesMinifiedAssets()) {
             return false;
         }
 

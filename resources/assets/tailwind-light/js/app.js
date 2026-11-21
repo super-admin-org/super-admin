@@ -266,21 +266,30 @@ const SuperAdminUI = {
       if (icon) icon.classList.remove('rotate-90');
     });
 
-    let bestMatch = null;
-    let bestLen = 0;
+    const links = [];
     document.querySelectorAll('#sidebar a.glass-menu-item').forEach((link) => {
       const href = link.getAttribute('href');
       if (!href) return;
       try {
-        const linkPath = new URL(href, window.location.origin).pathname.replace(/\/$/, '');
-        const cur = currentPath.replace(/\/$/, '');
-        if (cur === linkPath || cur.startsWith(linkPath + '/')) {
-          if (linkPath.length > bestLen) {
-            bestLen = linkPath.length;
-            bestMatch = link;
-          }
-        }
+        const url = new URL(href, window.location.origin);
+        if (url.origin !== window.location.origin) return;
+        links.push({ link, path: url.pathname.replace(/\/$/, '') });
       } catch (_) {}
+    });
+
+    // The panel's home link (e.g. /admin) sits above every other menu link, so it
+    // only matches itself; otherwise it would light up on every page without its own item.
+    const isRoot = (path) => links.length > 1 && links.every((o) => o.path === path || o.path.startsWith(path + '/'));
+    const cur = currentPath.replace(/\/$/, '');
+
+    let bestMatch = null;
+    let bestLen = -1;
+    links.forEach(({ link, path }) => {
+      const matches = cur === path || (cur.startsWith(path + '/') && !isRoot(path));
+      if (matches && path.length > bestLen) {
+        bestLen = path.length;
+        bestMatch = link;
+      }
     });
 
     if (bestMatch) {

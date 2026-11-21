@@ -110,6 +110,7 @@ return [
     'prev' => 'Prev',
     'next' => 'Next',
     'quick_create' => 'Quick create',
+    'no_records' => 'No records found',
     'templates' => [
         'title' => 'Templates',
         'description' => 'Choose how the admin panel looks',

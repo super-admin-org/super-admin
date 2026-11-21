@@ -63,7 +63,7 @@ class TwoFactor
      */
     public function storedMode(): ?string
     {
-        if (! $this->panelEnabled()) {
+        if (! $this->panelEnabled() || ! $this->canStoreMode()) {
             return null;
         }
 

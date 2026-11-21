@@ -61,6 +61,12 @@ class TemplateManager
 
     protected ?string $configuredAtApply = null;
 
+    /**
+     * Whether the settings table was found. Only a found table is remembered,
+     * so running the migration takes effect without a restart.
+     */
+    protected bool $settingsTableExists = false;
+
     public function __construct(protected Application $app) {}
 
     /**
@@ -165,7 +171,7 @@ class TemplateManager
      */
     public function stored(): ?string
     {
-        if (! $this->switcherEnabled()) {
+        if (! $this->switcherEnabled() || ! $this->canStore()) {
             return null;
         }
 
@@ -230,11 +236,15 @@ class TemplateManager
      */
     public function canStore(): bool
     {
+        if ($this->settingsTableExists) {
+            return true;
+        }
+
         try {
             $model = $this->settingModel();
             $instance = new $model;
 
-            return $instance->getConnection()->getSchemaBuilder()->hasTable($instance->getTable());
+            return $this->settingsTableExists = $instance->getConnection()->getSchemaBuilder()->hasTable($instance->getTable());
         } catch (Throwable) {
             return false;
         }
