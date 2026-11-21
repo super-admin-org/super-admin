@@ -1,6 +1,6 @@
 <p align="center">
 <a href="https://super-admin.org/">
-<img src="https://super-admin.org/gfx/logo.png" alt="super-admin" style="height:200px;background:transparent;">
+<img src="https://super-admin.org/img/logo.svg" alt="super-admin" style="height:200px;background:transparent;">
 </a>
 </p>
 
