@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Support\ViewErrorBag;
 use Illuminate\View\View;
 use SuperAdmin\Admin\Admin;
 use SuperAdmin\Admin\Form;
@@ -1461,11 +1462,11 @@ class Field implements Renderable
      * The validation errors shared with views, or an empty bag when the field
      * is rendered outside of a web request.
      */
-    protected function getViewErrors(): \Illuminate\Support\ViewErrorBag
+    protected function getViewErrors(): ViewErrorBag
     {
         $errors = view()->shared('errors');
 
-        return $errors instanceof \Illuminate\Support\ViewErrorBag ? $errors : new \Illuminate\Support\ViewErrorBag;
+        return $errors instanceof ViewErrorBag ? $errors : new ViewErrorBag;
     }
 
     /**

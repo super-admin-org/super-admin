@@ -30,7 +30,6 @@ trait HasFooter
     /**
      * Set grid footer.
      *
-     * @param  Closure|string|null  $content
      * @return $this|Closure|string|null
      */
     public function footer(Closure|string|null $content = null)

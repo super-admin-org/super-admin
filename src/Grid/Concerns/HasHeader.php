@@ -15,7 +15,6 @@ trait HasHeader
     /**
      * Set grid header.
      *
-     * @param  Closure|string|null  $content
      * @return $this|Closure|string|null
      */
     public function header(Closure|string|null $content = null)
